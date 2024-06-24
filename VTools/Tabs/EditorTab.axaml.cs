@@ -31,7 +31,8 @@ public partial class EditorTab : Tab<EditorViewModel>
         {
             var path = files[0].TryGetLocalPath()!;
             ViewModel.Media.Path = path;
-            MediaPathTextBox.CaretIndex = path.Length; 
+            MediaPathTextBox.CaretIndex = path.Length;
+            ViewModel.GetMediaDurationAsync();
         }
     }
 

@@ -8,6 +8,7 @@ namespace VTools
     public static class FFMPEG
     {
         public static readonly string ExecutableName = "ffmpeg.exe";
+        public static readonly string FFprobeExecutableName = "ffprobe.exe";
 
         public enum EditResult
         {
@@ -48,6 +49,45 @@ namespace VTools
             return EditResult.Success;
         }
 
+        public async static Task<MediaTime?> GetMediaDurationAsync(MediaForEdit media)
+        {
+            if (!File.Exists(FFprobeExecutableName) || string.IsNullOrWhiteSpace(media.Path))
+            {
+                return null;
+            }
+
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = FFprobeExecutableName,
+                    Arguments = DurationStringArguments(media),
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                }
+            };
+
+            var duration = string.Empty;
+
+            process.Start();
+            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) => { duration += e.Data ?? ""; };
+            process.BeginOutputReadLine();
+            await process.WaitForExitAsync();
+
+            var durationSplit = duration.Split(':');
+            if (durationSplit.Length != 3)
+            {
+                return null;
+            }
+
+            return new MediaTime()
+            {
+                Hours = uint.Parse(durationSplit[0]),
+                Minutes = uint.Parse(durationSplit[1]),
+                Seconds = (uint)float.Parse(durationSplit[2])
+            };
+        }
+
         private static string StringArguments(MediaForEdit media)
         {
             var input = $"-i {media.Path}";
@@ -56,6 +96,15 @@ namespace VTools
             var output = $@"""{media.EditedFileName}{media.Format}""";
             var flags = "-y";
             return string.Join(' ', input, from, to, flags, output);
+        }
+
+        private static string DurationStringArguments(MediaForEdit media)
+        {
+            var logLevel = "-v error";
+            var info = "-show_entries format=duration";
+            var format = "-of default=noprint_wrappers=1:nokey=1 -sexagesimal";
+            var input = $@"""{media.Path}""";
+            return string.Join(' ', logLevel, info, format, input);
         }
     }
 }

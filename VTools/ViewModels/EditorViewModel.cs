@@ -28,6 +28,13 @@ public partial class EditorViewModel : ViewModelBase
         return result;
     }
 
+    public async void GetMediaDurationAsync()
+    {
+        Media.Duration = await FFMPEG.GetMediaDurationAsync(Media) ?? new MediaTime();
+        Media.CutStart = new MediaTime();
+        Media.CutEnd = Media.Duration;
+    }
+
     private readonly object editLock = new();
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)

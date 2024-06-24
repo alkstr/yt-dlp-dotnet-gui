@@ -68,6 +68,7 @@
                 <CheckBox
                     Grid.Row="0"
                     Grid.Column="1"
+                    Command="{Binding GetMediaDurationAsync}"
                     IsChecked="{Binding Media.WillBeCut}" />
 
                 <TextBlock
@@ -88,19 +89,19 @@
                         IsEnabled="{Binding Media.WillBeCut}"
                         Maximum="99"
                         Minimum="0"
-                        Value="{Binding Media.CutStart.Hours}" />
+                        Value="{Binding Media.CutStart.Hours, Mode=TwoWay}" />
                     <NumericUpDown
                         FormatString="00"
                         IsEnabled="{Binding Media.WillBeCut}"
                         Maximum="59"
                         Minimum="0"
-                        Value="{Binding Media.CutStart.Minutes}" />
+                        Value="{Binding Media.CutStart.Minutes, Mode=TwoWay}" />
                     <NumericUpDown
                         FormatString="00"
                         IsEnabled="{Binding Media.WillBeCut}"
                         Maximum="59"
                         Minimum="0"
-                        Value="{Binding Media.CutStart.Seconds}" />
+                        Value="{Binding Media.CutStart.Seconds, Mode=TwoWay}" />
                 </StackPanel>
 
                 <TextBlock
@@ -119,19 +120,19 @@
                         IsEnabled="{Binding Media.WillBeCut}"
                         Maximum="99"
                         Minimum="0"
-                        Value="{Binding Media.CutEnd.Hours}" />
+                        Value="{Binding Media.CutEnd.Hours, Mode=TwoWay}" />
                     <NumericUpDown
                         FormatString="00"
                         IsEnabled="{Binding Media.WillBeCut}"
                         Maximum="59"
                         Minimum="0"
-                        Value="{Binding Media.CutEnd.Minutes}" />
+                        Value="{Binding Media.CutEnd.Minutes, Mode=TwoWay}" />
                     <NumericUpDown
                         FormatString="00"
                         IsEnabled="{Binding Media.WillBeCut}"
                         Maximum="59"
                         Minimum="0"
-                        Value="{Binding Media.CutEnd.Seconds}" />
+                        Value="{Binding Media.CutEnd.Seconds, Mode=TwoWay}" />
                 </StackPanel>
             </Grid>
         </Expander>

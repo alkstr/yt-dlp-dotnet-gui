@@ -7,10 +7,14 @@ namespace VTools.Models
     {
         public static string[] Formats { get; } = [".mp4", ".webm", ".gif"];
 
-        public MediaTime CutStart { get; set; } = new();
-        public MediaTime CutEnd { get; set; } = new();
         public string Format { get; set; } = Formats.First();
 
+        [ObservableProperty]
+        private MediaTime duration = new();
+        [ObservableProperty]
+        private MediaTime cutStart = new();
+        [ObservableProperty]
+        private MediaTime cutEnd = new();
         [ObservableProperty]
         private string editedFileName = "";
         [ObservableProperty]
