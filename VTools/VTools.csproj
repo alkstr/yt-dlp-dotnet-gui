@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<Configurations>Debug;Release;Release x64</Configurations>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Tabs\DownloaderTab.axaml.cs">
+			<DependentUpon>DownloaderTab.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Tabs\EditorTab.axaml.cs">
+			<DependentUpon>EditorTab.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Tabs\SettingsTab.axaml.cs">
+			<DependentUpon>SettingsTab.axaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+</Project>
