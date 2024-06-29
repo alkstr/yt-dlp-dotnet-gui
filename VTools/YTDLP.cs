@@ -16,13 +16,13 @@ namespace VTools
             ExecutableNotFoundError,
             Success,
         }
-        public async static Task<DownloadResult> DownloadAsync(Media video, DataReceivedEventHandler handler)
+        public async static Task<DownloadResult> DownloadAsync(WebMedia media, DataReceivedEventHandler handler)
         {
             if (!File.Exists(ExecutableName))
             {
                 return DownloadResult.ExecutableNotFoundError;
             }
-            if (string.IsNullOrWhiteSpace(video.URL))
+            if (string.IsNullOrWhiteSpace(media.URL))
             {
                 return DownloadResult.InvalidInput;
             }
@@ -32,7 +32,7 @@ namespace VTools
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = "yt-dlp.exe",
-                    Arguments = video.URL,
+                    Arguments = StringArgumentsForDownload(media),
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
@@ -46,6 +46,13 @@ namespace VTools
             process.ErrorDataReceived += handler;
             await process.WaitForExitAsync();
             return DownloadResult.Success;
+        }
+
+        private static string StringArgumentsForDownload(WebMedia media)
+        {
+            var format = $"-f {media.Format.Trim('.')}";
+            var url = $"{media.URL}";
+            return string.Join(' ', format, url);
         }
     }
 }

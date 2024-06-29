@@ -12,9 +12,13 @@
     <Design.DataContext>
         <vm:DownloaderViewModel />
     </Design.DataContext>
-    <Grid Margin="16,16,16,24" RowDefinitions="32, 16, *">
-        <Grid Grid.Row="0" ColumnDefinitions="*, 16, auto">
+    <Grid Margin="16,16,16,24" RowDefinitions="auto, 16, *">
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*, 16, auto"
+            RowDefinitions="auto, 16, auto">
             <TextBox
+                Grid.Row="0"
                 Grid.Column="0"
                 Text="{Binding Media.URL, Mode=TwoWay}"
                 TextWrapping="NoWrap"
@@ -22,13 +26,24 @@
 
             <Button
                 Name="DownloadButton"
+                Grid.Row="0"
                 Grid.Column="2"
+                Width="96"
+                HorizontalContentAlignment="Center"
                 Click="DownloadAsync"
                 Content="Download">
                 <FlyoutBase.AttachedFlyout>
                     <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
                 </FlyoutBase.AttachedFlyout>
             </Button>
+
+            <ComboBox
+                Grid.Row="2"
+                Grid.Column="2"
+                Width="96"
+                HorizontalContentAlignment="Center"
+                ItemsSource="{Binding Media.Formats}"
+                SelectedItem="{Binding Media.Format}" />
         </Grid>
 
         <ListBox

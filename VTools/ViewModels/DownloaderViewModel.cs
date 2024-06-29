@@ -9,7 +9,7 @@ namespace VTools.ViewModels;
 
 public partial class DownloaderViewModel : ViewModelBase
 {
-    public Media Media { get; } = new();
+    public WebMedia Media { get; } = new();
     public ObservableCollection<string> Logs { get; } = [];
 
     public async Task<YTDLP.DownloadResult> DownloadAsync()
