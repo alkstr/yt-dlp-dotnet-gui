@@ -20,6 +20,8 @@
             <Button
                 Grid.Row="0"
                 Grid.Column="0"
+                Width="128"
+                HorizontalContentAlignment="Center"
                 Click="ChooseFileAsync"
                 Content="Choose a file" />
             <TextBox
@@ -32,7 +34,8 @@
             <Button
                 Grid.Row="0"
                 Grid.Column="4"
-                HorizontalAlignment="Stretch"
+                Width="96"
+                HorizontalContentAlignment="Center"
                 Click="EditAsync">
                 <TextBlock HorizontalAlignment="Center">Edit</TextBlock>
                 <FlyoutBase.AttachedFlyout>
@@ -49,6 +52,7 @@
             <ComboBox
                 Grid.Row="2"
                 Grid.Column="4"
+                Width="96"
                 ItemsSource="{Binding Media.Formats}"
                 SelectedItem="{Binding Media.Format}" />
 
