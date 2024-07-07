@@ -53,6 +53,7 @@
                 Grid.Row="2"
                 Grid.Column="4"
                 Width="96"
+                HorizontalContentAlignment="Center"
                 ItemsSource="{Binding Media.Formats}"
                 SelectedItem="{Binding Media.Format}" />
 
