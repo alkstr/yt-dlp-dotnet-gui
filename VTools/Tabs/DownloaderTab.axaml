@@ -22,7 +22,7 @@
                 Grid.Column="0"
                 Text="{Binding Media.URL, Mode=TwoWay}"
                 TextWrapping="NoWrap"
-                Watermark="https://www.youtube.com/watch?v=hxSg2Ioz3LM" />
+                Watermark="Enter the URL of a media file" />
 
             <Button
                 Name="DownloadButton"
