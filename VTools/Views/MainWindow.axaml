@@ -8,10 +8,10 @@
     xmlns:vm="using:VTools.ViewModels"
     Title="VTools"
     Width="600"
-    Height="600"
+    Height="720"
     MinWidth="600"
-    MinHeight="600"
-    d:DesignHeight="600"
+    MinHeight="720"
+    d:DesignHeight="720"
     d:DesignWidth="600"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">

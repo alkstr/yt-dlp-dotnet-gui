@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VTools.ViewModels"
-    d:DesignHeight="600"
+    d:DesignHeight="720"
     d:DesignWidth="600"
     x:DataType="vm:DownloaderViewModel"
     mc:Ignorable="d">
