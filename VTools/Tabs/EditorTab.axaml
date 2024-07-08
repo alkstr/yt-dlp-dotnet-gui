@@ -142,16 +142,21 @@
             </Grid>
         </Expander>
 
-        <ListBox
-            Name="LogsListBox"
+        <Expander
             Grid.Row="4"
-            ItemsSource="{Binding Logs}"
-            ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Header="Logs">
+            <ListBox
+                Name="LogsListBox"
+                ItemsSource="{Binding Logs}"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
     </Grid>
 </UserControl>
