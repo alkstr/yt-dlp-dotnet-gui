@@ -1,7 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using VTools.Models;
 
@@ -27,7 +30,34 @@ public partial class DownloaderViewModel : ViewModelBase
         return result;
     }
 
+    public async Task ChangeMetadataAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Media.URL))
+        {
+            return;
+        }
+        
+        await cancellationTokenSource.CancelAsync();
+        cancellationTokenSource = new CancellationTokenSource();
+
+        try
+        {
+            var metadata = await YTDLP.MetadataAsync(Media, cancellationTokenSource.Token);
+            Media.Title = metadata.Title;
+            Media.Channel = metadata.Channel;
+            if (metadata.Thumbnail != null && metadata.Thumbnail.Length > 0)
+            {
+                Media.Thumbnail = new Bitmap(new MemoryStream(metadata.Thumbnail));
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
+    }
+
     private readonly object DownloadLock = new();
+    private CancellationTokenSource cancellationTokenSource = new();
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)
     {

@@ -48,6 +48,16 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
         }
     }
 
+    private async void OnURLChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (ViewModel is null || sender is null)
+        {
+            throw new NullReferenceException();
+        }
+
+        await ViewModel.ChangeMetadataAsync();
+    }
+
     private void OnLogsChanged(object? sender, NotifyCollectionChangedEventArgs e) =>
         Dispatcher.UIThread.InvokeAsync(() => LogsListBox.ScrollIntoView(LogsListBox.ItemCount - 1));
 }
