@@ -44,7 +44,9 @@ namespace VTools
                     FileName = "yt-dlp.exe",
                     Arguments = StringArgumentsForDownload(media),
                     RedirectStandardOutput = true,
+                    StandardOutputEncoding = Encoding.UTF8,
                     RedirectStandardError = true,
+                    StandardErrorEncoding = Encoding.UTF8,
                     CreateNoWindow = true,
                 }
             };
@@ -111,9 +113,10 @@ namespace VTools
 
         private static string StringArgumentsForDownload(WebMedia media)
         {
-            var format = $"-f {media.Format.Trim('.')}";
             var url = $"{media.URL}";
-            return string.Join(' ', format, url);
+            var format = $"-f {media.Format.Trim('.')}";
+            var encoding = "--encoding utf-8";
+            return string.Join(' ', url, format, encoding);
         }
     }
 }
