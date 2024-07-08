@@ -147,16 +147,37 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Header="Logs">
-            <ListBox
-                Name="LogsListBox"
-                ItemsSource="{Binding Logs}"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid RowDefinitions="*, 16, auto">
+                <ListBox
+                    Name="LogsListBox"
+                    Grid.Row="0"
+                    ItemsSource="{Binding Logs}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel
+                    Grid.Row="2"
+                    FlowDirection="RightToLeft"
+                    Orientation="Horizontal"
+                    Spacing="16">
+                    <Button
+                        Width="96"
+                        HorizontalContentAlignment="Center"
+                        Click="ClearLogs"
+                        Content="Clear" />
+
+                    <Button
+                        Width="96"
+                        HorizontalContentAlignment="Center"
+                        Click="CopyLogs"
+                        Content="Copy" />
+                </StackPanel>
+            </Grid>
         </Expander>
     </Grid>
 </UserControl>

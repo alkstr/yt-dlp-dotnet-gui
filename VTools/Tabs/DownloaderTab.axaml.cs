@@ -58,6 +58,11 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
         await ViewModel.ChangeMetadataAsync();
     }
 
+    private void CopyLogs(object sender, RoutedEventArgs args) =>
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', ViewModel.Logs));
+
+    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logs.Clear();
+
     private void OnLogsChanged(object? sender, NotifyCollectionChangedEventArgs e) =>
         Dispatcher.UIThread.InvokeAsync(() => LogsListBox.ScrollIntoView(LogsListBox.ItemCount - 1));
 }
