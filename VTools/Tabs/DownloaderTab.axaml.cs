@@ -34,12 +34,23 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
 
     private async void OnURLChanged(object? sender, TextChangedEventArgs e)
     {
-        if (ViewModel is null || sender is null)
+        var result = await ViewModel.ChangeMetadataAsync();
+        switch (result)
         {
-            throw new NullReferenceException();
+            case DownloaderViewModel.ChangeMetadataResult.EmptyURLError:
+                return;
+            case DownloaderViewModel.ChangeMetadataResult.ExecutableNotFoundError:
+                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"{YTDLP.ExecutableName} is not found");
+                return;
+            case DownloaderViewModel.ChangeMetadataResult.InvalidOutputError:
+                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"yt-dlp returned the invalid metadata");
+                return;
+            case DownloaderViewModel.ChangeMetadataResult.ThumbnailFetchError:
+                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"Couldn't fetch the thumbnail");
+                return;
+            case DownloaderViewModel.ChangeMetadataResult.Finished:
+                return;
         }
-
-        await ViewModel.ChangeMetadataAsync();
     }
 
     private void CopyLogs(object sender, RoutedEventArgs args) =>
