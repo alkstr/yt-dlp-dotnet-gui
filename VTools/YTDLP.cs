@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -12,53 +11,32 @@ namespace VTools
     {
         public static readonly string ExecutableName = "yt-dlp.exe";
 
-        public enum DownloadResult
+        public class DownloadInfo
         {
-            InvalidInput,
-            AnotherInProgressError,
-            ExecutableNotFoundError,
-            Success,
+            public required string URL;
+            public required string Format;
         }
 
-        public class Metadata {
+        public class Metadata
+        {
             public required byte[]? Thumbnail;
             public required string Title;
             public required string Channel;
         }
 
-        public async static Task<DownloadResult> DownloadAsync(WebMedia media, DataReceivedEventHandler handler)
+        public static Process GetDownloadProcess(DownloadInfo info) => new()
         {
-            if (!File.Exists(ExecutableName))
+            StartInfo = new ProcessStartInfo()
             {
-                return DownloadResult.ExecutableNotFoundError;
+                FileName = ExecutableName,
+                Arguments = $"{info.URL} -f {info.Format} --encoding utf-8",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8,
+                CreateNoWindow = true,
             }
-            if (string.IsNullOrWhiteSpace(media.URL))
-            {
-                return DownloadResult.InvalidInput;
-            }
-
-            var process = new Process()
-            {
-                StartInfo = new ProcessStartInfo()
-                {
-                    FileName = "yt-dlp.exe",
-                    Arguments = StringArgumentsForDownload(media),
-                    RedirectStandardOutput = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    RedirectStandardError = true,
-                    StandardErrorEncoding = Encoding.UTF8,
-                    CreateNoWindow = true,
-                }
-            };
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.OutputDataReceived += handler;
-            process.BeginErrorReadLine();
-            process.ErrorDataReceived += handler;
-            await process.WaitForExitAsync();
-            return DownloadResult.Success;
-        }
+        };
 
         public async static Task<Metadata> MetadataAsync(WebMedia media, CancellationToken cancellationToken)
         {
@@ -90,13 +68,13 @@ namespace VTools
                 metadata.Title = lines[1];
                 metadata.Channel = lines[2];
             }
-                
-           
+
+
             if (string.IsNullOrWhiteSpace(thumbnailURL))
             {
                 return metadata;
             }
-            
+
             using var httpClient = new HttpClient();
             try
             {
@@ -109,14 +87,6 @@ namespace VTools
             {
                 return metadata;
             }
-        }
-
-        private static string StringArgumentsForDownload(WebMedia media)
-        {
-            var url = $"{media.URL}";
-            var format = $"-f {media.Format.Trim('.')}";
-            var encoding = "--encoding utf-8";
-            return string.Join(' ', url, format, encoding);
         }
     }
 }
