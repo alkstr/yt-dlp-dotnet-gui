@@ -16,35 +16,19 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
         ViewModel.Logs.CollectionChanged += OnLogsChanged;
     }
 
-    private async void DownloadAsync(object? sender, RoutedEventArgs args)
+    private async void DownloadAsync(object sender, RoutedEventArgs args)
     {
-        if (ViewModel is null || sender is null)
-        {
-            throw new NullReferenceException();
-        }
-
         var result = await ViewModel.DownloadAsync();
         switch (result)
         {
-            case YTDLP.DownloadResult.Success:
-            {
-                return;
-            }
-            case YTDLP.DownloadResult.InvalidInput:
-            {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Invalid input");
-                return;
-            }
-            case YTDLP.DownloadResult.AnotherInProgressError:
-            {
+            case DownloaderViewModel.DownloadResult.AlreadyDownloading:
                 ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Another download in progress");
                 return;
-            }
-            case YTDLP.DownloadResult.ExecutableNotFoundError:
-            {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "yt-dlp.exe is not found");
+            case DownloaderViewModel.DownloadResult.ExecutableNotFound:
+                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, $"{YTDLP.ExecutableName} is not found");
                 return;
-            }
+            case DownloaderViewModel.DownloadResult.Finished:
+                return;
         }
     }
 
