@@ -15,19 +15,37 @@ public partial class DownloaderViewModel : ViewModelBase
     public WebMedia Media { get; } = new();
     public ObservableCollection<string> Logs { get; } = [];
 
-    public async Task<YTDLP.DownloadResult> DownloadAsync()
+    public enum DownloadResult
+    {
+        Finished,
+        AlreadyDownloading,
+        ExecutableNotFound,
+    }
+
+    public async Task<DownloadResult> DownloadAsync()
     {
         if (Monitor.IsEntered(DownloadLock))
         {
-            return YTDLP.DownloadResult.AnotherInProgressError;
+            return DownloadResult.AlreadyDownloading;
+        }
+        if (!File.Exists(YTDLP.ExecutableName))
+        {
+            return DownloadResult.ExecutableNotFound;
         }
 
         Monitor.Enter(DownloadLock);
         Logs.Clear();
-        var result = await YTDLP.DownloadAsync(Media, OnLogReceived);
 
+        var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo { URL = Media.URL, Format = Media.Format });
+        process.Start();
+        process.OutputDataReceived += OnLogReceived;
+        process.ErrorDataReceived += OnLogReceived;
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+        await process.WaitForExitAsync();
         Monitor.Exit(DownloadLock);
-        return result;
+
+        return DownloadResult.Finished;
     }
 
     public async Task ChangeMetadataAsync()
@@ -36,7 +54,7 @@ public partial class DownloaderViewModel : ViewModelBase
         {
             return;
         }
-        
+
         await cancellationTokenSource.CancelAsync();
         cancellationTokenSource = new CancellationTokenSource();
 
