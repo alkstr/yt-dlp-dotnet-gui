@@ -15,9 +15,14 @@
     <Grid Margin="16,16,16,24" RowDefinitions="auto, 16, *">
         <StackPanel Grid.Row="0" Spacing="16">
             <Image
+                Name="ThumbnailImage"
                 Height="240"
                 RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="{Binding Media.Thumbnail}" />
+                Source="{Binding Media.Thumbnail}">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout ShowMode="Transient" />
+                </FlyoutBase.AttachedFlyout>
+            </Image>
 
             <SelectableTextBlock Height="48">
                 <Run
