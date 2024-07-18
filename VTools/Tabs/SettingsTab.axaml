@@ -10,6 +10,12 @@
     mc:Ignorable="d">
     <ScrollViewer Margin="16,16,16,24">
         <StackPanel Spacing="16">
+            <Button
+                Width="192"
+                HorizontalContentAlignment="Center"
+                Click="OpenAppDirectory">
+                Open app directory
+            </Button>
             <Button Click="OpenYTDLPLink">Download yt-dlp</Button>
             <Button Click="OpenFFMPEGLink">Download ffmpeg</Button>
         </StackPanel>

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -25,6 +26,15 @@ public partial class SettingsTab : UserControl
         Process.Start(new ProcessStartInfo()
         {
             FileName = "https://github.com/BtbN/FFmpeg-Builds/releases",
+            UseShellExecute = true
+        });
+    }
+
+    public void OpenAppDirectory(object sender, RoutedEventArgs args)
+    {
+        Process.Start(new ProcessStartInfo()
+        {
+            FileName = Directory.GetCurrentDirectory(),
             UseShellExecute = true
         });
     }
