@@ -90,7 +90,7 @@ namespace VTools
 
         private static string StringArguments(MediaForEdit media)
         {
-            var input = $"-i {media.Path}";
+            var input = $@"-i ""{media.Path}""";
             var from = media.WillBeCut ? $"-ss {media.CutStart}" : string.Empty;
             var to = media.WillBeCut ? $"-to {media.CutEnd}" : string.Empty;
             var output = $@"""{media.EditedFileName}{media.Format}""";
