@@ -71,17 +71,11 @@
             VerticalAlignment="Stretch"
             Header="Logs">
             <Grid RowDefinitions="*, 16, auto">
-                <ListBox
-                    Name="LogsListBox"
+                <TextBox
+                    Name="LogsTextBox"
                     Grid.Row="0"
-                    ItemsSource="{Binding Logs}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    IsReadOnly="True"
+                    Text="{Binding Logger.String}" />
 
                 <StackPanel
                     Grid.Row="2"

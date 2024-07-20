@@ -1,16 +1,16 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using VTools.Models;
+using VTools.Utilities;
 
 namespace VTools.ViewModels;
 
 public partial class EditorViewModel : ViewModelBase
 {
     public MediaForEdit Media { get; } = new();
-    public ObservableCollection<string> Logs { get; } = [];
+    public Logger Logger { get; } = new();
 
     public async Task<FFMPEG.EditResult> EditAsync()
     {
@@ -21,7 +21,7 @@ public partial class EditorViewModel : ViewModelBase
 
         Monitor.Enter(editLock);
 
-        Logs.Clear();
+        Logger.Clear();
         var result = await FFMPEG.EditAsync(Media, OnLogReceived);
 
         Monitor.Exit(editLock);
@@ -39,9 +39,7 @@ public partial class EditorViewModel : ViewModelBase
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)
     {
-        if (!string.IsNullOrWhiteSpace(e.Data))
-        {
-            Dispatcher.UIThread.InvokeAsync(() => Logs.Add(e.Data));
-        }
+        if (string.IsNullOrWhiteSpace(e.Data)) { return; }
+        Dispatcher.UIThread.InvokeAsync(() => Logger.AppendLine(e.Data));
     }
 }

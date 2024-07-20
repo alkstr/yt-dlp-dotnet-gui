@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
@@ -13,7 +12,7 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
     public DownloaderTab() : base(new DownloaderViewModel())
     {
         InitializeComponent();
-        ViewModel.Logs.CollectionChanged += OnLogsChanged;
+        ViewModel.Logger.PropertyChanged += OnLogsChanged;
     }
 
     private async void DownloadAsync(object sender, RoutedEventArgs args)
@@ -54,10 +53,10 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
     }
 
     private void CopyLogs(object sender, RoutedEventArgs args) =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', ViewModel.Logs));
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.String);
 
-    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logs.Clear();
+    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
 
-    private void OnLogsChanged(object? sender, NotifyCollectionChangedEventArgs e) =>
-        Dispatcher.UIThread.InvokeAsync(() => LogsListBox.ScrollIntoView(LogsListBox.ItemCount - 1));
+    private void OnLogsChanged(object? sender, PropertyChangedEventArgs e) =>
+        Dispatcher.UIThread.InvokeAsync(() => LogsTextBox.CaretIndex = LogsTextBox.Text?.Length ?? 0);
 }

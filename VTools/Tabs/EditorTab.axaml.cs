@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -15,7 +15,7 @@ public partial class EditorTab : Tab<EditorViewModel>
     public EditorTab() : base(new EditorViewModel())
     {
         InitializeComponent();
-        ViewModel.Logs.CollectionChanged += OnLogsChanged;
+        ViewModel.Logger.PropertyChanged += OnLogsChanged;
     }
 
     private async void ChooseFileAsync(object sender, RoutedEventArgs args)
@@ -68,11 +68,11 @@ public partial class EditorTab : Tab<EditorViewModel>
         }
     }
 
-    private void CopyLogs(object sender, RoutedEventArgs args) => 
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', ViewModel.Logs));
+    private void CopyLogs(object sender, RoutedEventArgs args) =>
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.String);
 
-    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logs.Clear();
+    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
 
-    private void OnLogsChanged(object? sender, NotifyCollectionChangedEventArgs e) =>
-        Dispatcher.UIThread.InvokeAsync(() => LogsListBox.ScrollIntoView(LogsListBox.ItemCount - 1));
+    private void OnLogsChanged(object? sender, PropertyChangedEventArgs e) =>
+        Dispatcher.UIThread.InvokeAsync(() => LogsTextBox.CaretIndex = LogsTextBox.Text?.Length ?? 0);
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -8,13 +7,14 @@ using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using VTools.Models;
+using VTools.Utilities;
 
 namespace VTools.ViewModels;
 
 public partial class DownloaderViewModel : ViewModelBase
 {
     public WebMedia Media { get; } = new();
-    public ObservableCollection<string> Logs { get; } = [];
+    public Logger Logger { get; } = new();
 
     public enum DownloadResult
     {
@@ -44,7 +44,7 @@ public partial class DownloaderViewModel : ViewModelBase
         }
 
         Monitor.Enter(DownloadLock);
-        Logs.Clear();
+        Logger.Clear();
 
         var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo { URL = Media.URL, Format = Media.Format });
         process.Start();
@@ -132,9 +132,7 @@ public partial class DownloaderViewModel : ViewModelBase
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)
     {
-        if (!string.IsNullOrWhiteSpace(e.Data))
-        {
-            Dispatcher.UIThread.InvokeAsync(() => Logs.Add(e.Data));
-        }
+        if (string.IsNullOrWhiteSpace(e.Data)) { return; }
+        Dispatcher.UIThread.InvokeAsync(() => Logger.AppendLine(e.Data));
     }
 }
