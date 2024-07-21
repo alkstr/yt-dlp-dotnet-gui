@@ -2,6 +2,7 @@
     x:Class="VTools.Tabs.DownloaderTab"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assets="clr-namespace:VTools.Assets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VTools.ViewModels"
@@ -40,7 +41,7 @@
                     Text="{Binding Media.URL, Mode=TwoWay}"
                     TextChanged="OnURLChanged"
                     TextWrapping="NoWrap"
-                    Watermark="Enter the URL of a media file" />
+                    Watermark="{x:Static assets:Resources.MediaURL_TextBox_Watermark}" />
 
                 <Button
                     Name="DownloadButton"
@@ -49,7 +50,7 @@
                     Width="96"
                     HorizontalContentAlignment="Center"
                     Click="DownloadAsync"
-                    Content="Download">
+                    Content="{x:Static assets:Resources.Download_Button_Content}">
                     <FlyoutBase.AttachedFlyout>
                         <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
                     </FlyoutBase.AttachedFlyout>
@@ -69,7 +70,7 @@
             Grid.Row="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Header="Logs">
+            Header="{x:Static assets:Resources.Logs_Expander_Header}">
             <Grid RowDefinitions="*, 16, auto">
                 <TextBox
                     Name="LogsTextBox"
@@ -86,13 +87,13 @@
                         Width="96"
                         HorizontalContentAlignment="Center"
                         Click="ClearLogs"
-                        Content="Clear" />
+                        Content="{x:Static assets:Resources.ClearLogs_Button_Content}" />
 
                     <Button
                         Width="96"
                         HorizontalContentAlignment="Center"
                         Click="CopyLogs"
-                        Content="Copy" />
+                        Content="{x:Static assets:Resources.CopyLogs_Button_Content}" />
                 </StackPanel>
             </Grid>
         </Expander>

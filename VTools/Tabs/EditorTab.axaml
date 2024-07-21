@@ -2,6 +2,7 @@
     x:Class="VTools.Tabs.EditorTab"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assets="clr-namespace:VTools.Assets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VTools.ViewModels"
@@ -23,21 +24,21 @@
                 Width="128"
                 HorizontalContentAlignment="Center"
                 Click="ChooseFileAsync"
-                Content="Choose a file" />
+                Content="{x:Static assets:Resources.ChooseFile_Button_Content}" />
             <TextBox
                 Name="MediaPathTextBox"
                 Grid.Row="0"
                 Grid.Column="2"
                 IsEnabled="False"
                 Text="{Binding Media.Path}"
-                Watermark="No file chosen" />
+                Watermark="{x:Static assets:Resources.MediaPath_TextBox_Watermark}" />
             <Button
                 Grid.Row="0"
                 Grid.Column="4"
                 Width="96"
                 HorizontalContentAlignment="Center"
                 Click="EditAsync">
-                <TextBlock HorizontalAlignment="Center">Edit</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{x:Static assets:Resources.Edit_Button_Content}" />
                 <FlyoutBase.AttachedFlyout>
                     <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
                 </FlyoutBase.AttachedFlyout>
@@ -47,7 +48,7 @@
                 Grid.Row="2"
                 Grid.Column="2"
                 Text="{Binding Media.EditedFileName}"
-                Watermark="Enter new file name" />
+                Watermark="{x:Static assets:Resources.OutputFileName_TextBox_Watermark}" />
 
             <ComboBox
                 Grid.Row="2"
@@ -62,14 +63,14 @@
         <Expander
             Grid.Row="2"
             HorizontalAlignment="Stretch"
-            Header="Cut">
+            Header="{x:Static assets:Resources.Cut_Expander_Header}">
             <Grid ColumnDefinitions="128, *" RowDefinitions="*, *, *">
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
-                    VerticalAlignment="Center">
-                    Cut video
-                </TextBlock>
+                    VerticalAlignment="Center"
+                    Text="{x:Static assets:Resources.CutVideo_TextBlock}" />
+
                 <CheckBox
                     Grid.Row="0"
                     Grid.Column="1"
@@ -79,9 +80,8 @@
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
-                    VerticalAlignment="Center">
-                    Start
-                </TextBlock>
+                    VerticalAlignment="Center"
+                    Text="{x:Static assets:Resources.Start_TextBlock}" />
 
                 <StackPanel
                     Grid.Row="1"
@@ -113,7 +113,7 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="End" />
+                    Text="{x:Static assets:Resources.End_TextBlock}" />
                 <StackPanel
                     Grid.Row="2"
                     Grid.Column="1"
@@ -146,7 +146,7 @@
             Grid.Row="4"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Header="Logs">
+            Header="{x:Static assets:Resources.Logs_Expander_Header}">
             <Grid RowDefinitions="*, 16, auto">
                 <TextBox
                     Name="LogsTextBox"
@@ -163,13 +163,13 @@
                         Width="96"
                         HorizontalContentAlignment="Center"
                         Click="ClearLogs"
-                        Content="Clear" />
+                        Content="{x:Static assets:Resources.ClearLogs_Button_Content}" />
 
                     <Button
                         Width="96"
                         HorizontalContentAlignment="Center"
                         Click="CopyLogs"
-                        Content="Copy" />
+                        Content="{x:Static assets:Resources.CopyLogs_Button_Content}" />
                 </StackPanel>
             </Grid>
         </Expander>

@@ -2,6 +2,7 @@
     x:Class="VTools.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assets="clr-namespace:VTools.Assets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tabs="clr-namespace:VTools.Tabs"
@@ -16,13 +17,13 @@
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
     <TabControl>
-        <TabItem Header="Downloader">
+        <TabItem Header="{x:Static assets:Resources.Downloader_Tab_Header}">
             <tabs:DownloaderTab />
         </TabItem>
-        <TabItem Header="Editor">
+        <TabItem Header="{x:Static assets:Resources.Editor_Tab_Header}">
             <tabs:EditorTab />
         </TabItem>
-        <TabItem Header="Settings">
+        <TabItem Header="{x:Static assets:Resources.Settings_Tab_Header}">
             <tabs:SettingsTab />
         </TabItem>
     </TabControl>
