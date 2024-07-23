@@ -8,14 +8,21 @@
     xmlns:tabs="clr-namespace:VTools.Tabs"
     xmlns:vm="using:VTools.ViewModels"
     Title="VTools"
-    Width="600"
-    Height="720"
-    MinWidth="600"
-    MinHeight="720"
-    d:DesignHeight="720"
-    d:DesignWidth="600"
+    Width="{StaticResource WindowWidth}"
+    Height="{StaticResource WindowHeight}"
+    MinWidth="{StaticResource WindowWidth}"
+    MinHeight="{StaticResource WindowHeight}"
+    d:DesignHeight="{DynamicResource WindowHeight}"
+    d:DesignWidth="{DynamicResource WindowWidth}"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Assets/WindowResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <TabControl>
         <TabItem Header="{x:Static assets:Resources.Downloader_Tab_Header}">
             <tabs:DownloaderTab />

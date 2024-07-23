@@ -5,9 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VTools.ViewModels"
-    d:DesignHeight="600"
-    d:DesignWidth="600"
+    d:DesignHeight="{DynamicResource WindowHeight}"
+    d:DesignWidth="{DynamicResource WindowWidth}"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Assets/WindowResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <ScrollViewer Margin="16,16,16,24">
         <StackPanel Spacing="16">
             <Button

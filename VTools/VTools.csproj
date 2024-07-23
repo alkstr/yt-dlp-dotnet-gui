@@ -18,6 +18,7 @@
 	<ItemGroup>
 	  <AvaloniaResource Remove="Assets\Resources.resx" />
 	  <AvaloniaResource Remove="Assets\Resources.ru-RU.resx" />
+	  <AvaloniaResource Remove="Assets\WindowResources.axaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -31,6 +32,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AvaloniaXaml Update="Assets\WindowResources.axaml">
+	    <SubType>Designer</SubType>
+	  </AvaloniaXaml>
 	  <AvaloniaResource Update="Assets\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
