@@ -11,7 +11,7 @@
     x:DataType="vm:EditorViewModel"
     mc:Ignorable="d">
     <Design.DataContext>
-        <vm:EditorViewModel />
+        <vm:DesignEditorViewModel />
     </Design.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>

@@ -11,7 +11,7 @@
     x:DataType="vm:DownloaderViewModel"
     mc:Ignorable="d">
     <Design.DataContext>
-        <vm:DownloaderViewModel />
+        <vm:DesignDownloaderViewModel />
     </Design.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
