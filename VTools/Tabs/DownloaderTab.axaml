@@ -20,8 +20,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Margin="16,16,16,24" RowDefinitions="auto, 16, *">
-        <StackPanel Grid.Row="0" Spacing="16">
+    <ScrollViewer Margin="0,0,0,12" Padding="28,0">
+        <StackPanel Spacing="16">
             <Image
                 Name="ThumbnailImage"
                 Height="240"
@@ -32,7 +32,7 @@
                 </FlyoutBase.AttachedFlyout>
             </Image>
 
-            <SelectableTextBlock Height="48">
+            <SelectableTextBlock TextWrapping="Wrap">
                 <Run
                     FontSize="18"
                     FontWeight="Bold"
@@ -41,9 +41,8 @@
                 <Run Text="{Binding Media.Channel}" />
             </SelectableTextBlock>
 
-            <Grid ColumnDefinitions="*, 16, auto" RowDefinitions="auto, 16, auto">
+            <Grid ColumnDefinitions="*, 16, auto">
                 <TextBox
-                    Grid.Row="0"
                     Grid.Column="0"
                     Text="{Binding Media.URL, Mode=TwoWay}"
                     TextChanged="OnURLChanged"
@@ -52,9 +51,8 @@
 
                 <Button
                     Name="DownloadButton"
-                    Grid.Row="0"
                     Grid.Column="2"
-                    Width="96"
+                    Width="128"
                     HorizontalContentAlignment="Center"
                     Click="DownloadAsync"
                     Content="{x:Static assets:Resources.Download_Button_Content}">
@@ -62,47 +60,48 @@
                         <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
                     </FlyoutBase.AttachedFlyout>
                 </Button>
+            </Grid>
+
+            <Grid ColumnDefinitions="auto, 16, auto">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static assets:Resources.Format_TextBlock}" />
 
                 <ComboBox
-                    Grid.Row="2"
-                    Grid.Column="3"
+                    Grid.Column="2"
                     Width="96"
                     HorizontalContentAlignment="Center"
                     ItemsSource="{Binding Media.Formats}"
                     SelectedItem="{Binding Media.Format}" />
             </Grid>
-        </StackPanel>
 
-        <Expander
-            Grid.Row="2"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Header="{x:Static assets:Resources.Logs_Expander_Header}">
-            <Grid RowDefinitions="*, 16, auto">
-                <TextBox
-                    Name="LogsTextBox"
-                    Grid.Row="0"
-                    IsReadOnly="True"
-                    Text="{Binding Logger.String}" />
+            <Expander HorizontalAlignment="Stretch" Header="{x:Static assets:Resources.Logs_Expander_Header}">
+                <StackPanel Spacing="16">
+                    <TextBox
+                        Name="LogsTextBox"
+                        IsReadOnly="True"
+                        MinLines="8"
+                        Text="{Binding Logger.String}" />
 
-                <StackPanel
-                    Grid.Row="2"
-                    FlowDirection="RightToLeft"
-                    Orientation="Horizontal"
-                    Spacing="16">
-                    <Button
-                        Width="96"
-                        HorizontalContentAlignment="Center"
-                        Click="ClearLogs"
-                        Content="{x:Static assets:Resources.ClearLogs_Button_Content}" />
+                    <StackPanel
+                        FlowDirection="RightToLeft"
+                        Orientation="Horizontal"
+                        Spacing="16">
+                        <Button
+                            Width="160"
+                            HorizontalContentAlignment="Center"
+                            Click="ClearLogs"
+                            Content="{x:Static assets:Resources.ClearLogs_Button_Content}" />
 
-                    <Button
-                        Width="96"
-                        HorizontalContentAlignment="Center"
-                        Click="CopyLogs"
-                        Content="{x:Static assets:Resources.CopyLogs_Button_Content}" />
+                        <Button
+                            Width="160"
+                            HorizontalContentAlignment="Center"
+                            Click="CopyLogs"
+                            Content="{x:Static assets:Resources.CopyLogs_Button_Content}" />
+                    </StackPanel>
                 </StackPanel>
-            </Grid>
-        </Expander>
-    </Grid>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

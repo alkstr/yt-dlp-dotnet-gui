@@ -186,4 +186,7 @@
   <data name="UI_TextBlock" xml:space="preserve">
     <value>User interface</value>
   </data>
+  <data name="Format_TextBlock" xml:space="preserve">
+    <value>Format</value>
+  </data>
 </root>

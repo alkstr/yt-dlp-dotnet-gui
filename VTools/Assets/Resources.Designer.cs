@@ -187,6 +187,15 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Format.
+        /// </summary>
+        public static string Format_TextBlock {
+            get {
+                return ResourceManager.GetString("Format_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logs.
         /// </summary>
         public static string Logs_Expander_Header {

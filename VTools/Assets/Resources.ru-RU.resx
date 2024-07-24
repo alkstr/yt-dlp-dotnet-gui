@@ -186,4 +186,7 @@
   <data name="UI_TextBlock" xml:space="preserve">
     <value>Пользовательский интерфейс</value>
   </data>
+  <data name="Format_TextBlock" xml:space="preserve">
+    <value>Формат</value>
+  </data>
 </root>
