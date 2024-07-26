@@ -19,16 +19,22 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer Margin="16,16,16,24">
+    <ScrollViewer Margin="0,12,0,12" Padding="28,0">
         <StackPanel Spacing="16">
+            <TextBlock HorizontalAlignment="Center" Text="General settings" />
+            <Grid ColumnDefinitions="auto,16,auto" RowDefinitions="auto">
+            </Grid>
+
+            <TextBlock HorizontalAlignment="Center" Text="External tools" />
+            <HyperlinkButton Click="OpenYTDLPLink">Download yt-dlp</HyperlinkButton>
+            <HyperlinkButton Click="OpenFFMPEGLink">Download FFmpeg</HyperlinkButton>
+
+            <TextBlock HorizontalAlignment="Center" Text="Advanced" />
             <Button
                 Width="192"
                 HorizontalContentAlignment="Center"
-                Click="OpenAppDirectory">
-                Open app directory
-            </Button>
-            <Button Click="OpenYTDLPLink">Download yt-dlp</Button>
-            <Button Click="OpenFFMPEGLink">Download ffmpeg</Button>
+                Click="OpenAppDirectory"
+                Content="Open app directory" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>
