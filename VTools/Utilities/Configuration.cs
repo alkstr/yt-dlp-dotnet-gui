@@ -6,34 +6,40 @@ using System.Linq;
 
 namespace VTools.Utilities
 {
-    public class Configuration
+    public static class Configuration
     {
         public static CultureInfo[] AvailableCultures { get; } = [new("en-US"), new("ru-RU")];
 
-        public CultureInfo Culture;
+        public static CultureInfo Culture { get; set; }
 
-        public static Configuration Load()
+        public static void LoadFromFileOrDefault()
         {
             Dictionary<string, string> config;
             try
             {
-                config = File.ReadAllLines(configFileName)
+                config = File.ReadAllLines(fileName)
                     .Select(s => s.Split('='))
                     .Select(arr => (arr[0], arr[1]))
                     .ToDictionary();
+
+                Culture = new CultureInfo(config[nameof(Culture)]);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 config = defaultConfig;
-            }
 
-            return new Configuration(config);
+                Culture = new CultureInfo(config[nameof(Culture)]);
+
+                SaveToFile();
+        }
         }
 
-        public void Save()
+        public static void SaveToFile()
         {
-            var config = new Dictionary<string, string>() { { nameof(Culture), Culture.Name } };
+            var config = new Dictionary<string, string>() {
+                { nameof(Culture),           Culture.Name },
+            };
 
             try
             {
@@ -45,17 +51,18 @@ namespace VTools.Utilities
             }
         }
 
-        public void Apply()
+        public static void Apply()
         {
             Assets.Resources.Culture = Culture;
         }
 
-        private static readonly Dictionary<string, string> defaultConfig = new() { { "Culture", "en-US" } };
-        private static readonly string configFileName = "config";
+        private static readonly Dictionary<string, string> defaultConfig = new() {
+            { nameof(Culture),            "en-US" },
+        };
+        private static readonly string fileName = "config";
 
-        private Configuration(Dictionary<string, string> config)
-        {
-            Culture = new CultureInfo(config[nameof(Culture)]);
-        }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        static Configuration() => LoadFromFileOrDefault();
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
 }

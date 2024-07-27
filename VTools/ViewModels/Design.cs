@@ -4,9 +4,9 @@ namespace VTools.ViewModels
 {
     public class DesignMainViewModel : MainViewModel
     {
-        public DesignMainViewModel() : base(Configuration.Load())
+        public DesignMainViewModel()
         {
-            Config.Culture = Configuration.AvailableCultures[1];
+            Configuration.Culture = Configuration.AvailableCultures[1];
             Assets.Resources.Culture = Configuration.AvailableCultures[1];
         }
     }

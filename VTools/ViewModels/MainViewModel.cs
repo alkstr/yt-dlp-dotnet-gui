@@ -3,18 +3,20 @@ using VTools.Utilities;
 
 namespace VTools.ViewModels;
 
-public partial class MainViewModel(Configuration config) : ViewModelBase
+public partial class MainViewModel : ViewModelBase
 {
-    public CultureInfo CurrentCulture
+    public static CultureInfo[] AvailableCultures { get; } = Configuration.AvailableCultures;
+
+    public static CultureInfo CurrentCulture
     {
-        get => config.Culture;
+        get => Configuration.Culture;
         set
         {
-            config.Culture = value;
-            config.Apply();
-            config.Save();
+            Configuration.Culture = value;
+            Configuration.Apply();
+            Configuration.SaveToFile();
         }
     }
 
-    private readonly Configuration config = config;
+    
 }
