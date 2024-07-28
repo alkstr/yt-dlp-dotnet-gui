@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -16,7 +17,13 @@ public partial class EditorTab : Tab<EditorViewModel>
     {
         InitializeComponent();
         ViewModel.Logger.PropertyChanged += OnLogsChanged;
+        logsTimer.Elapsed += (object? sender, ElapsedEventArgs e) =>
+            Dispatcher.UIThread.InvokeAsync(() =>
+                LogsTextBox.Text = ViewModel.Logger.ToString());
+        logsTimer.Start();
     }
+
+    private readonly Timer logsTimer = new(5000);
 
     private async void ChooseFileAsync(object sender, RoutedEventArgs args)
     {
@@ -69,7 +76,7 @@ public partial class EditorTab : Tab<EditorViewModel>
     }
 
     private void CopyLogs(object sender, RoutedEventArgs args) =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.String);
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.ToString());
 
     private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
 

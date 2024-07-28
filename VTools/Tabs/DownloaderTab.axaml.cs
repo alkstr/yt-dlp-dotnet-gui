@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
@@ -13,7 +14,13 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
     {
         InitializeComponent();
         ViewModel.Logger.PropertyChanged += OnLogsChanged;
+        logsTimer.Elapsed += (object? sender, ElapsedEventArgs e) =>
+            Dispatcher.UIThread.InvokeAsync(() =>
+                LogsTextBox.Text = ViewModel.Logger.ToString());
+        logsTimer.Start();
     }
+
+    private readonly Timer logsTimer = new(5000);
 
     private async void DownloadAsync(object sender, RoutedEventArgs args)
     {
@@ -53,7 +60,7 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
     }
 
     private void CopyLogs(object sender, RoutedEventArgs args) =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.String);
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.ToString());
 
     private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
 

@@ -81,9 +81,8 @@
                     <TextBox
                         Name="LogsTextBox"
                         IsReadOnly="True"
-                        MinLines="8"
-                        Text="{Binding Logger.String}" />
-
+                        MaxLines="8"
+                        MinLines="8" />
                     <StackPanel
                         FlowDirection="RightToLeft"
                         Orientation="Horizontal"

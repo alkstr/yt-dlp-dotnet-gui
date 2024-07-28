@@ -5,19 +5,15 @@ namespace VTools.Utilities
 {
     public class Logger : ObservableObject
     {
-        public string String => stringBuilder.ToString();
-
-        public void AppendLine(string str)
+        public override string ToString()
         {
-            stringBuilder.AppendLine(str);
-            OnPropertyChanged(nameof(String));
+            OnPropertyChanged(nameof(ToString));
+            return stringBuilder.ToString();
         }
 
-        public void Clear()
-        {
-            stringBuilder.Clear();
-            OnPropertyChanged(nameof(String));
-        }
+        public void AppendLine(string line) => stringBuilder.AppendLine(line);
+
+        public void Clear() => stringBuilder.Clear();
 
         private readonly StringBuilder stringBuilder = new();
     }
