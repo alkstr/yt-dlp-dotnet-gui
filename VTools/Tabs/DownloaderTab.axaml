@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assets="clr-namespace:VTools.Assets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VTools.ViewModels"
     d:DesignHeight="{DynamicResource WindowHeight}"
@@ -41,7 +42,7 @@
                 <Run Text="{Binding Media.Channel}" />
             </SelectableTextBlock>
 
-            <Grid ColumnDefinitions="*, 16, auto">
+            <Grid ColumnDefinitions="*,16,auto">
                 <TextBox
                     Grid.Column="0"
                     Text="{Binding Media.URL, Mode=TwoWay}"
@@ -52,31 +53,42 @@
                 <Button
                     Name="DownloadButton"
                     Grid.Column="2"
-                    Width="128"
-                    HorizontalContentAlignment="Center"
-                    Click="DownloadAsync"
-                    Content="{x:Static assets:Resources.Download_Button_Content}">
+                    Width="48"
+                    Click="DownloadAsync">
                     <FlyoutBase.AttachedFlyout>
-                        <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
+                        <Flyout />
                     </FlyoutBase.AttachedFlyout>
+                    <icons:SymbolIcon Symbol="ArrowDownload" />
                 </Button>
             </Grid>
 
-            <Grid ColumnDefinitions="auto, 16, auto">
+            <Grid ColumnDefinitions="auto,8,auto,16,auto">
+                <icons:SymbolIcon Grid.Column="0" Symbol="DocumentChevronDouble" />
                 <TextBlock
-                    Grid.Column="0"
+                    Grid.Column="2"
                     VerticalAlignment="Center"
                     Text="{x:Static assets:Resources.Format_TextBlock}" />
-
                 <ComboBox
-                    Grid.Column="2"
-                    Width="96"
+                    Grid.Column="4"
+                    Width="88"
                     HorizontalContentAlignment="Center"
                     ItemsSource="{Binding Media.Formats}"
-                    SelectedItem="{Binding Media.Format}" />
+                    SelectedItem="{Binding Media.Format}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </Grid>
 
-            <Expander HorizontalAlignment="Stretch" Header="{x:Static assets:Resources.Logs_Expander_Header}">
+            <Expander HorizontalAlignment="Stretch">
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <icons:SymbolIcon Symbol="BookPulse" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static assets:Resources.Logs_Expander_Header}" />
+                    </StackPanel>
+                </Expander.Header>
                 <StackPanel Spacing="16">
                     <TextBox
                         Name="LogsTextBox"
@@ -87,17 +99,12 @@
                         FlowDirection="RightToLeft"
                         Orientation="Horizontal"
                         Spacing="16">
-                        <Button
-                            Width="160"
-                            HorizontalContentAlignment="Center"
-                            Click="ClearLogs"
-                            Content="{x:Static assets:Resources.ClearLogs_Button_Content}" />
-
-                        <Button
-                            Width="160"
-                            HorizontalContentAlignment="Center"
-                            Click="CopyLogs"
-                            Content="{x:Static assets:Resources.CopyLogs_Button_Content}" />
+                        <Button Width="48" Click="ClearLogs">
+                            <icons:SymbolIcon Symbol="Delete" />
+                        </Button>
+                        <Button Width="48" Click="CopyLogs">
+                            <icons:SymbolIcon Symbol="Copy" />
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Expander>

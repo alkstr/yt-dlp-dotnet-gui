@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assets="clr-namespace:VTools.Assets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tabs="clr-namespace:VTools.Tabs"
     xmlns:vm="using:VTools.ViewModels"
@@ -23,14 +24,52 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Design.DataContext>
+        <vm:DesignMainViewModel />
+    </Design.DataContext>
+    <Window.Styles>
+        <Style Selector="TabControl /template/ WrapPanel">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Window.Styles>
     <TabControl>
-        <TabItem Header="{x:Static assets:Resources.Downloader_Tab_Header}">
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <icons:SymbolIcon
+                        Width="32"
+                        Height="32"
+                        FontSize="32"
+                        Symbol="ArrowDownload" />
+                    <TextBlock Text="{x:Static assets:Resources.Downloader_Tab_Header}" />
+                </StackPanel>
+            </TabItem.Header>
             <tabs:DownloaderTab />
         </TabItem>
-        <TabItem Header="{x:Static assets:Resources.Editor_Tab_Header}">
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <icons:SymbolIcon
+                        Width="32"
+                        Height="32"
+                        FontSize="32"
+                        Symbol="VideoClipWand" />
+                    <TextBlock Text="{x:Static assets:Resources.Editor_Tab_Header}" />
+                </StackPanel>
+            </TabItem.Header>
             <tabs:EditorTab />
         </TabItem>
-        <TabItem Header="{x:Static assets:Resources.Settings_Tab_Header}">
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <icons:SymbolIcon
+                        Width="32"
+                        Height="32"
+                        FontSize="32"
+                        Symbol="Settings" />
+                    <TextBlock Text="{x:Static assets:Resources.Settings_Tab_Header}" />
+                </StackPanel>
+            </TabItem.Header>
             <tabs:SettingsTab />
         </TabItem>
     </TabControl>

@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icons="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VTools.ViewModels"
     d:DesignHeight="{DynamicResource WindowHeight}"
@@ -21,20 +22,63 @@
     </UserControl.Resources>
     <ScrollViewer Margin="0,12,0,12" Padding="28,0">
         <StackPanel Spacing="16">
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <icons:SymbolIcon Symbol="ContentSettings" />
             <TextBlock HorizontalAlignment="Center" Text="General settings" />
-            <Grid ColumnDefinitions="auto,16,auto" RowDefinitions="auto">
+            </StackPanel>
+            <Grid ColumnDefinitions="auto,8,auto,16,auto" RowDefinitions="auto,16,auto">
             </Grid>
 
-            <TextBlock HorizontalAlignment="Center" Text="External tools" />
-            <HyperlinkButton Click="OpenYTDLPLink">Download yt-dlp</HyperlinkButton>
-            <HyperlinkButton Click="OpenFFMPEGLink">Download FFmpeg</HyperlinkButton>
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <icons:SymbolIcon Symbol="Toolbox" />
+                <TextBlock Text="External tools" />
+            </StackPanel>
+            <Grid ColumnDefinitions="auto,auto" RowDefinitions="auto,16,auto">
+                <icons:SymbolIcon
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Symbol="VideoClip" />
+                <HyperlinkButton
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Click="OpenYTDLPLink">
+                    Download yt-dlp
+                </HyperlinkButton>
+                <icons:SymbolIcon
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Symbol="Video" />
+                <HyperlinkButton
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Click="OpenFFMPEGLink">
+                    Download FFmpeg
+                </HyperlinkButton>
+            </Grid>
 
-            <TextBlock HorizontalAlignment="Center" Text="Advanced" />
-            <Button
-                Width="192"
-                HorizontalContentAlignment="Center"
-                Click="OpenAppDirectory"
-                Content="Open app directory" />
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <icons:SymbolIcon Symbol="Settings" />
+                <TextBlock Text="Advanced" />
+            </StackPanel>
+            <Grid ColumnDefinitions="auto,8,auto,auto">
+                <icons:SymbolIcon Grid.Column="0" Symbol="AppGeneric" />
+                <TextBlock
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="Application folder" />
+                <HyperlinkButton Grid.Column="4" Click="OpenAppDirectory">
+                    <icons:SymbolIcon Symbol="OpenFolder" />
+                </HyperlinkButton>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
