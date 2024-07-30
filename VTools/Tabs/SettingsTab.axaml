@@ -30,6 +30,18 @@
             <TextBlock HorizontalAlignment="Center" Text="General settings" />
             </StackPanel>
             <Grid ColumnDefinitions="auto,8,auto,16,auto" RowDefinitions="auto,16,auto">
+                <icons:SymbolIcon
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Symbol="LocalLanguage" />
+                <TextBlock
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="UI language" />
+                <ComboBox
+                    Grid.Column="4"
+                    ItemsSource="{Binding AvailableCultures}"
+                    SelectedItem="{Binding CurrentCulture}" />
             </Grid>
 
             <StackPanel
