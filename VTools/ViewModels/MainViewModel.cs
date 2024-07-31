@@ -18,5 +18,14 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    
+    public static string DownloadDirectory
+    {
+        get => Configuration.DownloadDirectory;
+        set
+        {
+            Configuration.DownloadDirectory = value;
+            Configuration.Apply();
+            Configuration.SaveToFile();
+        }
+    }
 }

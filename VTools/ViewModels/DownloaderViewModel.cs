@@ -46,7 +46,7 @@ public partial class DownloaderViewModel : ViewModelBase
         Monitor.Enter(DownloadLock);
         Logger.Clear();
 
-        var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo { URL = Media.URL, Format = Media.Format });
+        var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo { URL = Media.URL, Format = Media.Format, Directory = Configuration.DownloadDirectory });
         process.Start();
         process.OutputDataReceived += OnLogReceived;
         process.ErrorDataReceived += OnLogReceived;

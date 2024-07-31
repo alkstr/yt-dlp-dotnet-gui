@@ -13,6 +13,7 @@ namespace VTools
         {
             public required string URL;
             public required string Format;
+            public required string Directory;
         }
 
         public class MetadataInfo
@@ -26,7 +27,12 @@ namespace VTools
             StartInfo = new ProcessStartInfo()
             {
                 FileName = ExecutableName,
-                Arguments = $"{info.URL} -f {info.Format} --encoding utf-8",
+                Arguments = "" +
+                @$"-P ""{info.Directory}"" " +
+                @$"-f {info.Format} " +
+                @$"-o ""%(title)s [%(id)s].%(ext)s"" " +
+                @$"--encoding utf-8 " +
+                @$"{info.URL}",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 StandardOutputEncoding = Encoding.UTF8,

@@ -11,6 +11,7 @@ namespace VTools.Utilities
         public static CultureInfo[] AvailableCultures { get; } = [new("en-US"), new("ru-RU")];
 
         public static CultureInfo Culture { get; set; }
+        public static string DownloadDirectory { get; set; }
 
         public static void LoadFromFileOrDefault()
         {
@@ -23,6 +24,7 @@ namespace VTools.Utilities
                     .ToDictionary();
 
                 Culture = new CultureInfo(config[nameof(Culture)]);
+                DownloadDirectory = config[nameof(DownloadDirectory)];
             }
             catch (Exception e)
             {
@@ -30,15 +32,17 @@ namespace VTools.Utilities
                 config = defaultConfig;
 
                 Culture = new CultureInfo(config[nameof(Culture)]);
+                DownloadDirectory = config[nameof(DownloadDirectory)];
 
                 SaveToFile();
-        }
+            }
         }
 
         public static void SaveToFile()
         {
             var config = new Dictionary<string, string>() {
                 { nameof(Culture),           Culture.Name },
+                { nameof(DownloadDirectory), DownloadDirectory }
             };
 
             try
@@ -58,6 +62,7 @@ namespace VTools.Utilities
 
         private static readonly Dictionary<string, string> defaultConfig = new() {
             { nameof(Culture),            "en-US" },
+            { nameof(DownloadDirectory), $"{Directory.GetCurrentDirectory()}/downloads" },
         };
         private static readonly string fileName = "config";
 

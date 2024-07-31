@@ -27,7 +27,7 @@
                 Orientation="Horizontal"
                 Spacing="8">
                 <icons:SymbolIcon Symbol="ContentSettings" />
-            <TextBlock HorizontalAlignment="Center" Text="General settings" />
+                <TextBlock HorizontalAlignment="Center" Text="General settings" />
             </StackPanel>
             <Grid ColumnDefinitions="auto,8,auto,16,auto" RowDefinitions="auto,16,auto">
                 <icons:SymbolIcon
@@ -42,6 +42,26 @@
                     Grid.Column="4"
                     ItemsSource="{Binding AvailableCultures}"
                     SelectedItem="{Binding CurrentCulture}" />
+
+                <icons:SymbolIcon
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Symbol="Folder" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="Download directory" />
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Orientation="Horizontal"
+                    Spacing="16">
+                    <TextBox Width="288" Text="{Binding DownloadDirectory, Mode=TwoWay}" />
+                    <Button Width="48" Click="ChangeDownloadDirectoryAsync">
+                        <icons:SymbolIcon Symbol="FolderOpen" />
+                    </Button>
+                </StackPanel>
             </Grid>
 
             <StackPanel
