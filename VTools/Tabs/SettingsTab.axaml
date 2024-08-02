@@ -8,10 +8,10 @@
     xmlns:vm="clr-namespace:VTools.ViewModels"
     d:DesignHeight="{DynamicResource WindowHeight}"
     d:DesignWidth="{DynamicResource WindowWidth}"
-    x:DataType="vm:MainViewModel"
+    x:DataType="vm:SettingsViewModel"
     mc:Ignorable="d">
     <Design.DataContext>
-        <vm:DesignMainViewModel />
+        <vm:DesignSettingsViewModel />
     </Design.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>

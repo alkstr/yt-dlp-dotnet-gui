@@ -3,13 +3,13 @@ using System.IO;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using VTools.Utilities;
+using VTools.ViewModels;
 
 namespace VTools.Tabs;
 
-public partial class SettingsTab : UserControl
+public partial class SettingsTab : Tab<SettingsViewModel>
 {
-    public SettingsTab()
+    public SettingsTab() : base(new SettingsViewModel())
     {
         InitializeComponent();
     }
@@ -24,9 +24,7 @@ public partial class SettingsTab : UserControl
 
         if (folders != null && folders.Count > 0 && !string.IsNullOrWhiteSpace(folders[0].Path.ToString()))
         {
-            Configuration.DownloadDirectory = folders[0].TryGetLocalPath()!;
-            Configuration.SaveToFile();
-            Configuration.Apply();
+            ViewModel.DownloadDirectory = folders[0].TryGetLocalPath()!;
         }
     }
 
