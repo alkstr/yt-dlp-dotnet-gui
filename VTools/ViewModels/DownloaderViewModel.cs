@@ -78,13 +78,19 @@ public partial class DownloaderViewModel : ViewModelBase
         Media.Thumbnail = null;
 
         var metadataFields = new[] { "thumbnail", "title", "channel" };
-        var process = YTDLP.GetMetadataProcess(new YTDLP.MetadataInfo { URL = Media.URL, Fields = metadataFields });
-        process.Start();
+        var process = YTDLP.GetMetadataProcess(new YTDLP.MetadataInfo
+        {
+            URL = Media.URL,
+            Fields = metadataFields
+        });
 
         string output;
-        using var reader = process.StandardOutput;
         try
         {
+            await Task.Delay(3000).WaitAsync(cancellationToken);
+            process.Start();
+
+            using var reader = process.StandardOutput;
             output = await reader.ReadToEndAsync(cancellationToken);
         }
         catch (OperationCanceledException)
