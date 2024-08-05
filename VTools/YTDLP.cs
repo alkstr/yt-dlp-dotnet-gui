@@ -7,10 +7,9 @@ namespace VTools
 {
     public static class YTDLP
     {
-        public static readonly string ExecutableName = "yt-dlp.exe";
-
         public class DownloadInfo
         {
+            public required string ExecutablePath;
             public required string URL;
             public required string Format;
             public required string Directory;
@@ -18,6 +17,7 @@ namespace VTools
 
         public class MetadataInfo
         {
+            public required string ExecutablePath;
             public required string URL;
             public required IEnumerable<string> Fields;
         }
@@ -26,7 +26,7 @@ namespace VTools
         {
             StartInfo = new ProcessStartInfo()
             {
-                FileName = ExecutableName,
+                FileName = info.ExecutablePath,
                 Arguments = "" +
                 @$"-P ""{info.Directory}"" " +
                 @$"-f {info.Format} " +
@@ -45,7 +45,7 @@ namespace VTools
         {
             StartInfo = new ProcessStartInfo()
             {
-                FileName = ExecutableName,
+                FileName = info.ExecutablePath,
                 Arguments = $"{info.URL} -O {string.Join(',', info.Fields)} --encoding utf-8",
                 RedirectStandardOutput = true,
                 StandardOutputEncoding = Encoding.UTF8,

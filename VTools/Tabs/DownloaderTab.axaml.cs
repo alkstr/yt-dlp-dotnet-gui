@@ -31,7 +31,7 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
                 ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Another download in progress");
                 return;
             case DownloaderViewModel.DownloadResult.ExecutableNotFound:
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, $"{YTDLP.ExecutableName} is not found");
+                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "yt-dlp executable is not found");
                 return;
             case DownloaderViewModel.DownloadResult.Finished:
                 return;
@@ -46,7 +46,7 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
             case DownloaderViewModel.ChangeMetadataResult.EmptyURLError:
                 return;
             case DownloaderViewModel.ChangeMetadataResult.ExecutableNotFoundError:
-                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"{YTDLP.ExecutableName} is not found");
+                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"yt-dlp executable is not found");
                 return;
             case DownloaderViewModel.ChangeMetadataResult.InvalidOutputError:
                 ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"yt-dlp returned the invalid metadata");

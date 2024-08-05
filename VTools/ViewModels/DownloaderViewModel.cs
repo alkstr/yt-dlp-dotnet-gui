@@ -38,7 +38,7 @@ public partial class DownloaderViewModel : ViewModelBase
         {
             return DownloadResult.AlreadyDownloading;
         }
-        if (!File.Exists(YTDLP.ExecutableName))
+        if (!File.Exists(Configuration.YTDLPPath))
         {
             return DownloadResult.ExecutableNotFound;
         }
@@ -46,7 +46,13 @@ public partial class DownloaderViewModel : ViewModelBase
         Monitor.Enter(DownloadLock);
         Logger.Clear();
 
-        var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo { URL = Media.URL, Format = Media.Format, Directory = Configuration.DownloadDirectory });
+        var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo
+        {
+            ExecutablePath = Configuration.YTDLPPath,
+            URL = Media.URL,
+            Format = Media.Format,
+            Directory = Configuration.DownloadDirectory
+        });
         process.Start();
         process.OutputDataReceived += OnLogReceived;
         process.ErrorDataReceived += OnLogReceived;
@@ -64,7 +70,7 @@ public partial class DownloaderViewModel : ViewModelBase
         {
             return ChangeMetadataResult.EmptyURLError;
         }
-        if (!File.Exists(YTDLP.ExecutableName))
+        if (!File.Exists(Configuration.YTDLPPath))
         {
             return ChangeMetadataResult.ExecutableNotFoundError;
         }
@@ -80,6 +86,7 @@ public partial class DownloaderViewModel : ViewModelBase
         var metadataFields = new[] { "thumbnail", "title", "channel" };
         var process = YTDLP.GetMetadataProcess(new YTDLP.MetadataInfo
         {
+            ExecutablePath = Configuration.YTDLPPath,
             URL = Media.URL,
             Fields = metadataFields
         });
