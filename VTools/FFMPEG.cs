@@ -17,7 +17,7 @@ namespace VTools
             ExecutableNotFoundError,
             Success,
         }
-        public async static Task<EditResult> EditAsync(MediaForEdit media, DataReceivedEventHandler onLogsReceived)
+        public async static Task<EditResult> EditAsync(LocalMediaFile media, DataReceivedEventHandler onLogsReceived)
         {
             if (!File.Exists(ExecutableName))
             {
@@ -49,7 +49,7 @@ namespace VTools
             return EditResult.Success;
         }
 
-        public async static Task<MediaTime?> GetMediaDurationAsync(MediaForEdit media)
+        public async static Task<MediaTime?> GetMediaDurationAsync(LocalMediaFile media)
         {
             if (!File.Exists(FFprobeExecutableName) || string.IsNullOrWhiteSpace(media.Path))
             {
@@ -88,7 +88,7 @@ namespace VTools
             };
         }
 
-        private static string StringArguments(MediaForEdit media)
+        private static string StringArguments(LocalMediaFile media)
         {
             var input = $@"-i ""{media.Path}""";
             var from = media.WillBeCut ? $"-ss {media.CutStart}" : string.Empty;
@@ -98,7 +98,7 @@ namespace VTools
             return string.Join(' ', input, from, to, flags, output);
         }
 
-        private static string DurationStringArguments(MediaForEdit media)
+        private static string DurationStringArguments(LocalMediaFile media)
         {
             var logLevel = "-v error";
             var info = "-show_entries format=duration";

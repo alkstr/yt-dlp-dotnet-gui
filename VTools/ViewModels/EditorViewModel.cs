@@ -9,7 +9,7 @@ namespace VTools.ViewModels;
 
 public partial class EditorViewModel : ViewModelBase
 {
-    public MediaForEdit Media { get; } = new();
+    public LocalMediaFile Media { get; } = new();
     public Logger Logger { get; } = new();
 
     public async Task<FFMPEG.EditResult> EditAsync()

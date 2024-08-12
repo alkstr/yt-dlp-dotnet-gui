@@ -13,7 +13,7 @@ namespace VTools.ViewModels;
 
 public partial class DownloaderViewModel : ViewModelBase
 {
-    public WebMedia Media { get; } = new();
+    public WebMediaFile Media { get; } = new();
     public Logger Logger { get; } = new();
 
     public enum DownloadResult

@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace VTools.Models
 {
-    public partial class MediaForEdit : ObservableObject
+    public partial class LocalMediaFile : ObservableObject
     {
         public static string[] Formats { get; } = [".mp4", ".webm", ".gif"];
 
