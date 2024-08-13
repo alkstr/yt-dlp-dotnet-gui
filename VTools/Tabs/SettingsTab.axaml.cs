@@ -28,29 +28,37 @@ public partial class SettingsTab : Tab<SettingsViewModel>
         }
     }
 
-    internal void OpenYTDLPLink(object sender, RoutedEventArgs args)
+    public async void ChangeYTDLPPathAsync(object sender, RoutedEventArgs args)
     {
-        Process.Start(new ProcessStartInfo()
+        var topLevel = TopLevel.GetTopLevel(this)!;
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
         {
-            FileName = "https://github.com/yt-dlp/yt-dlp/releases/",
-            UseShellExecute = true
+            AllowMultiple = false,
         });
+
+        if (files != null && files.Count > 0 && !string.IsNullOrWhiteSpace(files[0].Path.ToString()))
+        {
+            ViewModel.YTDLPPath = files[0].TryGetLocalPath()!;
+        }
     }
 
-    internal void OpenFFMPEGLink(object sender, RoutedEventArgs args)
-    {
-        Process.Start(new ProcessStartInfo()
-        {
-            FileName = "https://github.com/BtbN/FFmpeg-Builds/releases",
-            UseShellExecute = true
-        });
-    }
+    public void OpenYTDLPRepositoryURL(object sender, RoutedEventArgs args) =>
+        OpenPath("https://github.com/yt-dlp/yt-dlp/releases/");
 
-    public void OpenAppDirectory(object sender, RoutedEventArgs args)
+    public void OpenFFmpegRepositoryURL(object sender, RoutedEventArgs args) =>
+        OpenPath("https://github.com/BtbN/FFmpeg-Builds/releases");
+
+    public void OpenAppDirectory(object sender, RoutedEventArgs args) =>
+        OpenPath(Directory.GetCurrentDirectory());
+
+    public void OpenRepositoryURL(object sender, RoutedEventArgs args) =>
+        OpenPath("https://github.com/alkstr/VTools");
+
+    private static void OpenPath(string path)
     {
         Process.Start(new ProcessStartInfo()
         {
-            FileName = Directory.GetCurrentDirectory(),
+            FileName = path,
             UseShellExecute = true
         });
     }
