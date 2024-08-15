@@ -15,6 +15,11 @@ public partial class DownloaderViewModel : ViewModelBase
 {
     public WebMediaFile Media { get; } = new();
     public Logger Logger { get; } = new();
+    public byte MetadataLoadersCount
+    {
+        get => metadataLoadersCount;
+        private set => SetProperty(ref metadataLoadersCount, value);
+    }
 
     public enum DownloadResult
     {
@@ -26,8 +31,9 @@ public partial class DownloaderViewModel : ViewModelBase
     public enum ChangeMetadataResult
     {
         Finished,
+        Canceled,
         EmptyURLError,
-        ExecutableNotFoundError,
+        YTDLPNotFoundError,
         InvalidOutputError,
         ThumbnailFetchError,
     }
@@ -72,8 +78,12 @@ public partial class DownloaderViewModel : ViewModelBase
         }
         if (!File.Exists(Configuration.YTDLPPath))
         {
-            return ChangeMetadataResult.ExecutableNotFoundError;
+            return ChangeMetadataResult.YTDLPNotFoundError;
         }
+
+        try
+        {
+            MetadataLoadersCount++;
 
         await cancellationTokenSource.CancelAsync();
         cancellationTokenSource = new CancellationTokenSource();
@@ -91,57 +101,54 @@ public partial class DownloaderViewModel : ViewModelBase
             Fields = metadataFields
         });
 
-        string output;
-        try
-        {
+            // Starting a new process for each key press would be too resource-intensive.
+            // Instead, let's wait briefly to ensure the user has typed the entire URL.
             await Task.Delay(3000).WaitAsync(cancellationToken);
             process.Start();
 
-            using var reader = process.StandardOutput;
-            output = await reader.ReadToEndAsync(cancellationToken);
-        }
-        catch (OperationCanceledException)
-        {
-            return ChangeMetadataResult.Finished;
-        }
+            var output = await process.StandardOutput.ReadToEndAsync(cancellationToken);
+            Logger.AppendLine(await process.StandardError.ReadToEndAsync(cancellationToken));   
 
         var lines = output.Split('\n');
-        if (lines.Length < metadataFields.Length)
-        {
-            return ChangeMetadataResult.InvalidOutputError;
-        }
-
+            if (lines.Length < metadataFields.Length) { throw new InvalidDataException(); }
         var thumbnailURL = lines[0];
         Media.Title = lines[1];
         Media.Channel = lines[2];
 
         using var httpClient = new HttpClient();
-        byte[] thumbnailBytes;
-        try
-        {
             var response = await httpClient.GetAsync(thumbnailURL, cancellationToken);
             response.EnsureSuccessStatusCode();
-            thumbnailBytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
+            var thumbnailBytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
+
+            if (thumbnailBytes.Length > 0)
+            {
+                Media.Thumbnail = new Bitmap(new MemoryStream(thumbnailBytes));
+            }
+
+            await process.WaitForExitAsync();
+            return ChangeMetadataResult.Finished;
+        }
+        catch (OperationCanceledException)
+        {
+            return ChangeMetadataResult.Canceled;
         }
         catch (HttpRequestException)
         {
             return ChangeMetadataResult.ThumbnailFetchError;
         }
-        catch (OperationCanceledException)
+        catch (InvalidDataException)
         {
-            return ChangeMetadataResult.Finished;
+            return ChangeMetadataResult.InvalidOutputError;
         }
-        if (thumbnailBytes.Length > 0)
+        finally
         {
-            Media.Thumbnail = new Bitmap(new MemoryStream(thumbnailBytes));
+            MetadataLoadersCount--;
         }
-
-        await process.WaitForExitAsync();
-        return ChangeMetadataResult.Finished;
     }
 
     private readonly object DownloadLock = new();
     private CancellationTokenSource cancellationTokenSource = new();
+    private byte metadataLoadersCount;
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)
     {

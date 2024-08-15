@@ -48,7 +48,9 @@ namespace VTools
                 FileName = info.ExecutablePath,
                 Arguments = $"{info.URL} -O {string.Join(',', info.Fields)} --encoding utf-8",
                 RedirectStandardOutput = true,
+                RedirectStandardError = true,
                 StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8,
                 CreateNoWindow = true,
             }
         };

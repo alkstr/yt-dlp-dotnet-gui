@@ -43,9 +43,11 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
         var result = await ViewModel.ChangeMetadataAsync();
         switch (result)
         {
+            case DownloaderViewModel.ChangeMetadataResult.Canceled:
+                return;
             case DownloaderViewModel.ChangeMetadataResult.EmptyURLError:
                 return;
-            case DownloaderViewModel.ChangeMetadataResult.ExecutableNotFoundError:
+            case DownloaderViewModel.ChangeMetadataResult.YTDLPNotFoundError:
                 ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"yt-dlp executable is not found");
                 return;
             case DownloaderViewModel.ChangeMetadataResult.InvalidOutputError:

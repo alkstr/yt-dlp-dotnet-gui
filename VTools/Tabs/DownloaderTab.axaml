@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assets="clr-namespace:VTools.Assets"
+    xmlns:controls="using:VTools.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -23,15 +24,18 @@
     </UserControl.Resources>
     <ScrollViewer Margin="0,0,0,12" Padding="28,0">
         <StackPanel Spacing="16">
-            <Image
-                Name="ThumbnailImage"
-                Height="240"
-                RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="{Binding Media.Thumbnail}">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout ShowMode="Transient" />
-                </FlyoutBase.AttachedFlyout>
-            </Image>
+            <Panel>
+                <Image
+                    Name="ThumbnailImage"
+                    Height="240"
+                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                    Source="{Binding Media.Thumbnail}">
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout ShowMode="Transient" />
+                    </FlyoutBase.AttachedFlyout>
+                </Image>
+                <controls:CircleThrobber IsVisible="{Binding MetadataLoadersCount}" />
+            </Panel>
 
             <SelectableTextBlock TextWrapping="Wrap">
                 <Run
