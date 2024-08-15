@@ -31,6 +31,7 @@ namespace VTools
                 @$"-P ""{info.Directory}"" " +
                 @$"-f {info.Format} " +
                 @$"-o ""%(title)s [%(id)s].%(ext)s"" " +
+                @$"--extractor-args ""youtube:player_client=mediaconnect"" " +
                 @$"--encoding utf-8 " +
                 @$"{info.URL}",
                 RedirectStandardOutput = true,
