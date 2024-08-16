@@ -13,6 +13,7 @@ namespace VTools
             public required string URL;
             public required string Format;
             public required string Directory;
+            public required string FFmpegPath;
         }
 
         public class MetadataInfo
@@ -31,6 +32,7 @@ namespace VTools
                 @$"-P ""{info.Directory}"" " +
                 @$"-f {info.Format} " +
                 @$"-o ""%(title)s [%(id)s].%(ext)s"" " +
+                @$"--ffmpeg-location ""{info.FFmpegPath}"" " +
                 @$"--extractor-args ""youtube:player_client=mediaconnect"" " +
                 @$"--encoding utf-8 " +
                 @$"{info.URL}",

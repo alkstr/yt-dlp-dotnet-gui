@@ -12,6 +12,7 @@ namespace VTools.Utilities
 
         public static CultureInfo Culture { get; set; }
         public static string YTDLPPath { get; set; }
+        public static string FFmpegPath { get; set; }
         public static string DownloadDirectory { get; set; }
 
         public static void LoadFromFileOrDefault()
@@ -27,6 +28,7 @@ namespace VTools.Utilities
                 Culture           = new CultureInfo(config[nameof(Culture)]);
                 DownloadDirectory = config[nameof(DownloadDirectory)];
                 YTDLPPath         = config[nameof(YTDLPPath)];
+                FFmpegPath        = config[nameof(FFmpegPath)];
             }
             catch (Exception e)
             {
@@ -36,6 +38,7 @@ namespace VTools.Utilities
                 Culture           = new CultureInfo(config[nameof(Culture)]);
                 DownloadDirectory = config[nameof(DownloadDirectory)];
                 YTDLPPath         = config[nameof(YTDLPPath)];
+                FFmpegPath        = config[nameof(FFmpegPath)];
                 SaveToFile();
             }
         }
@@ -46,6 +49,7 @@ namespace VTools.Utilities
                 { nameof(Culture),           Culture.Name },
                 { nameof(DownloadDirectory), DownloadDirectory },
                 { nameof(YTDLPPath),         YTDLPPath },
+                { nameof(FFmpegPath),        FFmpegPath },
             };
 
             try
@@ -71,6 +75,7 @@ namespace VTools.Utilities
             { nameof(Culture),            "en-US" },
             { nameof(DownloadDirectory), $"{Directory.GetCurrentDirectory()}\\downloads" },
             { nameof(YTDLPPath) ,        $"{Directory.GetCurrentDirectory()}\\yt-dlp.exe" },
+            { nameof(FFmpegPath) ,       $"{Directory.GetCurrentDirectory()}\\ffmpeg.exe" },
         };
         private static readonly string fileName = "config";
     }

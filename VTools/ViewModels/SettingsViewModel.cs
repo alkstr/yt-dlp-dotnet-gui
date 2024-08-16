@@ -42,5 +42,17 @@ namespace VTools.ViewModels
                 Configuration.SaveToFile();
             }
         }
+
+        public string FFmpegPath
+        {
+            get => Configuration.FFmpegPath;
+            set
+            {
+                Configuration.FFmpegPath = value;
+                Configuration.Apply();
+                OnPropertyChanged(nameof(FFmpegPath));
+                Configuration.SaveToFile();
+            }
+        }
     }
 }

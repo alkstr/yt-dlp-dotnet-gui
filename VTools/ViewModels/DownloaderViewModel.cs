@@ -57,7 +57,8 @@ public partial class DownloaderViewModel : ViewModelBase
             ExecutablePath = Configuration.YTDLPPath,
             URL = Media.URL,
             Format = Media.Format,
-            Directory = Configuration.DownloadDirectory
+            Directory = Configuration.DownloadDirectory,
+            FFmpegPath = Configuration.FFmpegPath,
         });
         process.Start();
         process.OutputDataReceived += OnLogReceived;
@@ -85,21 +86,21 @@ public partial class DownloaderViewModel : ViewModelBase
         {
             MetadataLoadersCount++;
 
-        await cancellationTokenSource.CancelAsync();
-        cancellationTokenSource = new CancellationTokenSource();
-        var cancellationToken = cancellationTokenSource.Token;
+            await cancellationTokenSource.CancelAsync();
+            cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = cancellationTokenSource.Token;
 
-        Media.Title = "";
-        Media.Channel = "";
-        Media.Thumbnail = null;
+            Media.Title = "";
+            Media.Channel = "";
+            Media.Thumbnail = null;
 
-        var metadataFields = new[] { "thumbnail", "title", "channel" };
-        var process = YTDLP.GetMetadataProcess(new YTDLP.MetadataInfo
-        {
-            ExecutablePath = Configuration.YTDLPPath,
-            URL = Media.URL,
-            Fields = metadataFields
-        });
+            var metadataFields = new[] { "thumbnail", "title", "channel" };
+            var process = YTDLP.GetMetadataProcess(new YTDLP.MetadataInfo
+            {
+                ExecutablePath = Configuration.YTDLPPath,
+                URL = Media.URL,
+                Fields = metadataFields
+            });
 
             // Starting a new process for each key press would be too resource-intensive.
             // Instead, let's wait briefly to ensure the user has typed the entire URL.
@@ -109,13 +110,13 @@ public partial class DownloaderViewModel : ViewModelBase
             var output = await process.StandardOutput.ReadToEndAsync(cancellationToken);
             Logger.AppendLine(await process.StandardError.ReadToEndAsync(cancellationToken));   
 
-        var lines = output.Split('\n');
+            var lines = output.Split('\n');
             if (lines.Length < metadataFields.Length) { throw new InvalidDataException(); }
-        var thumbnailURL = lines[0];
-        Media.Title = lines[1];
-        Media.Channel = lines[2];
+            var thumbnailURL = lines[0];
+            Media.Title = lines[1];
+            Media.Channel = lines[2];
 
-        using var httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
             var response = await httpClient.GetAsync(thumbnailURL, cancellationToken);
             response.EnsureSuccessStatusCode();
             var thumbnailBytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
