@@ -1,8 +1,5 @@
-using System.ComponentModel;
-using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
 using VTools.ViewModels;
 using VTools.Views;
 
@@ -10,17 +7,7 @@ namespace VTools.Tabs;
 
 public partial class DownloaderTab : Tab<DownloaderViewModel>
 {
-    public DownloaderTab() : base(new DownloaderViewModel())
-    {
-        InitializeComponent();
-        ViewModel.Logger.PropertyChanged += OnLogsChanged;
-        logsTimer.Elapsed += (object? sender, ElapsedEventArgs e) =>
-            Dispatcher.UIThread.InvokeAsync(() =>
-                LogsTextBox.Text = ViewModel.Logger.ToString());
-        logsTimer.Start();
-    }
-
-    private readonly Timer logsTimer = new(5000);
+    public DownloaderTab() : base(new DownloaderViewModel()) => InitializeComponent();
 
     private async void DownloadAsync(object sender, RoutedEventArgs args)
     {
@@ -62,10 +49,7 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
     }
 
     private void CopyLogs(object sender, RoutedEventArgs args) =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.ToString());
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', ViewModel.Logger.Lines));
 
     private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
-
-    private void OnLogsChanged(object? sender, PropertyChangedEventArgs e) =>
-        Dispatcher.UIThread.InvokeAsync(() => LogsTextBox.CaretIndex = LogsTextBox.Text?.Length ?? 0);
 }

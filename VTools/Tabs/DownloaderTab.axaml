@@ -86,7 +86,7 @@
                 </ComboBox>
             </Grid>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <icons:SymbolIcon Symbol="BookPulse" />
@@ -94,11 +94,19 @@
                     </StackPanel>
                 </Expander.Header>
                 <StackPanel Spacing="16">
-                    <TextBox
-                        Name="LogsTextBox"
-                        IsReadOnly="True"
-                        MaxLines="8"
-                        MinLines="8" />
+                    <ListBox
+                        Height="256"
+                        BorderThickness="1"
+                        ItemsSource="{Binding Logger.Lines}"
+                        ScrollViewer.AllowAutoHide="False"
+                        ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                        ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <StackPanel
                         FlowDirection="RightToLeft"
                         Orientation="Horizontal"

@@ -1,20 +1,16 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace VTools.Utilities
 {
     public class Logger : ObservableObject
     {
-        public override string ToString()
-        {
-            OnPropertyChanged(nameof(ToString));
-            return stringBuilder.ToString();
-        }
+        public ObservableCollection<string> Lines => logs;
 
-        public void AppendLine(string line) => stringBuilder.AppendLine(line);
+        public void AppendLine(string line) => logs.Add(line.Trim(' ', '\n', '\r'));
 
-        public void Clear() => stringBuilder.Clear();
+        public void Clear() => logs.Clear();
 
-        private readonly StringBuilder stringBuilder = new();
+        private readonly ObservableCollection<string> logs = [];
     }
 }
