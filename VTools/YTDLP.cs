@@ -57,5 +57,15 @@ namespace VTools
                 CreateNoWindow = true,
             }
         };
+
+        public static Process UpdateProcess(string executablePath) => new()
+        {
+            StartInfo = new ProcessStartInfo()
+            {
+                FileName = executablePath,
+                Arguments = $"-U --encoding utf-8",
+                CreateNoWindow = false,
+            }
+        };
     }
 }

@@ -118,10 +118,12 @@
                         </StackPanel>
                     </Grid>
                     <Separator />
-
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Command="{Binding UpdateYTDLPAsync}" Content="Update yt-dlp" />
                     <HyperlinkButton Click="OpenYTDLPRepositoryURL">
                         Download yt-dlp
                     </HyperlinkButton>
+                </StackPanel>
                 </StackPanel>
             </Expander>
 
