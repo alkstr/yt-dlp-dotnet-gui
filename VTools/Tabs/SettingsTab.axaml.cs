@@ -14,7 +14,7 @@ public partial class SettingsTab : Tab<SettingsViewModel>
         InitializeComponent();
     }
 
-    public async void ChangeDownloadDirectoryAsync(object sender, RoutedEventArgs args)
+    public async void ChangeDownloadPathAsync(object sender, RoutedEventArgs args)
     {
         var topLevel = TopLevel.GetTopLevel(this)!;
         var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
@@ -24,7 +24,7 @@ public partial class SettingsTab : Tab<SettingsViewModel>
 
         if (folders != null && folders.Count > 0 && !string.IsNullOrWhiteSpace(folders[0].Path.ToString()))
         {
-            ViewModel.DownloadDirectory = folders[0].TryGetLocalPath()!;
+            ViewModel.DownloadPath = folders[0].TryGetLocalPath()!;
         }
     }
 

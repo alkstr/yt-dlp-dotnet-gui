@@ -57,7 +57,7 @@ public partial class DownloaderViewModel : ViewModelBase
             ExecutablePath = Configuration.YTDLPPath,
             URL = Media.URL,
             Format = Media.Format,
-            Directory = Configuration.DownloadDirectory,
+            Directory = Configuration.DownloadPath,
             FFmpegPath = Configuration.FFmpegPath,
         });
         process.Start();

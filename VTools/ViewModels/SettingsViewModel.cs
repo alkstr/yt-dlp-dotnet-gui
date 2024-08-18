@@ -5,29 +5,25 @@ namespace VTools.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        public CultureInfo[] AvailableCultures { get; } = Configuration.AvailableCultures;
+        public string[] AvailableCultureNames { get; } = Configuration.AvailableCultureNames;
 
-        public CultureInfo CurrentCulture
+        public string CultureName
         {
-            get => Configuration.Culture;
+            get => Configuration.CultureName;
             set
             {
-                Configuration.Culture = value;
-                Configuration.Apply();
-                OnPropertyChanged(nameof(CurrentCulture));
-                Configuration.SaveToFile();
+                Configuration.Set(nameof(Configuration.CultureName), value);
+                OnPropertyChanged(nameof(CultureName));
             }
         }
 
-        public string DownloadDirectory
+        public string DownloadPath
         {
-            get => Configuration.DownloadDirectory;
+            get => Configuration.DownloadPath;
             set
             {
-                Configuration.DownloadDirectory = value;
-                Configuration.Apply();
-                OnPropertyChanged(nameof(CurrentCulture));
-                Configuration.SaveToFile();
+                Configuration.Set(nameof(Configuration.DownloadPath), value);
+                OnPropertyChanged(nameof(DownloadPath));
             }
         }
 
@@ -36,10 +32,8 @@ namespace VTools.ViewModels
             get => Configuration.YTDLPPath;
             set
             {
-                Configuration.YTDLPPath = value;
-                Configuration.Apply();
+                Configuration.Set(nameof(Configuration.YTDLPPath), value);
                 OnPropertyChanged(nameof(YTDLPPath));
-                Configuration.SaveToFile();
             }
         }
 
@@ -48,10 +42,8 @@ namespace VTools.ViewModels
             get => Configuration.FFmpegPath;
             set
             {
-                Configuration.FFmpegPath = value;
-                Configuration.Apply();
+                Configuration.Set(nameof(Configuration.FFmpegPath), value);
                 OnPropertyChanged(nameof(FFmpegPath));
-                Configuration.SaveToFile();
             }
         }
     }
