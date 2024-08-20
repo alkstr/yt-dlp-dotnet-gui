@@ -46,7 +46,7 @@
                 <Run Text="{Binding Media.Channel}" />
             </SelectableTextBlock>
 
-            <Grid ColumnDefinitions="*,16,auto">
+            <Grid Width="{Binding $parent.Bounds.Width}" ColumnDefinitions="*,16,auto">
                 <TextBox
                     Grid.Column="0"
                     Text="{Binding Media.URL, Mode=TwoWay}"
