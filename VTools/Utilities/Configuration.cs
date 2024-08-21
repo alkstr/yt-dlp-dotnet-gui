@@ -30,6 +30,8 @@ namespace VTools.Utilities
         public static string YTDLPPath { get; private set; }
         [Setting("ffmpeg.exe")]
         public static string FFmpegPath { get; private set; }
+        [Setting("ffprobe.exe")]
+        public static string FFprobePath { get; private set; }
         [Setting("downloads")]
         public static string DownloadPath { get; private set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

@@ -123,11 +123,12 @@
 
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="VideoClipWand" Text="FFmpeg" />
+                    <controls:IconTextBlock Icon="VideoClipWand" Text="FFmpeg &amp; FFprobe" />
                 </Expander.Header>
                 <StackPanel Spacing="8">
                     <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
                         <TextBlock
@@ -151,11 +152,33 @@
                                 <icons:SymbolIcon Symbol="DocumentSearch" />
                             </Button>
                         </StackPanel>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="FFprobe executable path" />
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <TextBox
+                                Width="256"
+                                Height="32"
+                                Text="{Binding FFprobePath, Mode=TwoWay}" />
+                            <Button
+                                Width="48"
+                                Height="32"
+                                Click="ChangeFFprobePathAsync">
+                                <icons:SymbolIcon Symbol="DocumentSearch" />
+                            </Button>
+                        </StackPanel>
                     </Grid>
                     <Separator />
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <HyperlinkButton Click="OpenFFmpegRepositoryURL">
-                            Download FFmpeg
+                            Download FFmpeg and FFprobe
                         </HyperlinkButton>
                     </StackPanel>
                 </StackPanel>

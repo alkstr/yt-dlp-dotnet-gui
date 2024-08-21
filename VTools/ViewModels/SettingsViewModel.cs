@@ -46,5 +46,15 @@ namespace VTools.ViewModels
                 OnPropertyChanged(nameof(FFmpegPath));
             }
         }
+
+        public string FFprobePath
+        {
+            get => Configuration.FFprobePath;
+            set
+            {
+                Configuration.Set(nameof(Configuration.FFprobePath), value);
+                OnPropertyChanged(nameof(FFprobePath));
+            }
+        }
     }
 }

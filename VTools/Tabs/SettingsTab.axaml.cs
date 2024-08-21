@@ -56,6 +56,20 @@ public partial class SettingsTab : Tab<SettingsViewModel>
         }
     }
 
+    public async void ChangeFFprobePathAsync(object sender, RoutedEventArgs args)
+    {
+        var topLevel = TopLevel.GetTopLevel(this)!;
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+        {
+            AllowMultiple = false,
+        });
+
+        if (files != null && files.Count > 0 && !string.IsNullOrWhiteSpace(files[0].Path.ToString()))
+        {
+            ViewModel.FFprobePath = files[0].TryGetLocalPath()!;
+        }
+    }
+
     public void OpenYTDLPRepositoryURL(object sender, RoutedEventArgs args) =>
         OpenPath("https://github.com/yt-dlp/yt-dlp/releases/");
 
