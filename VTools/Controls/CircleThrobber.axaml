@@ -5,13 +5,9 @@
     xmlns:controls="using:VTools.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="512"
-    d:DesignWidth="512"
+    d:DesignHeight="256"
+    d:DesignWidth="256"
     mc:Ignorable="d">
-
-    <Design.PreviewWith>
-        <controls:CircleThrobber />
-    </Design.PreviewWith>
 
     <UserControl.Resources>
         <ResourceDictionary>
