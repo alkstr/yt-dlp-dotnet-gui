@@ -26,39 +26,33 @@ public partial class EditorTab : Tab<EditorViewModel>
             var path = files[0].TryGetLocalPath()!;
             ViewModel.Media.Path = path;
             MediaPathTextBox.CaretIndex = path.Length;
-            ViewModel.GetMediaDurationAsync();
+            await ViewModel.DurationAsync();
         }
     }
 
     private async void EditAsync(object sender, RoutedEventArgs args)
     {
-        if (ViewModel is null || sender is null)
-        {
-            throw new NullReferenceException();
-        }
+        if (ViewModel == null || sender == null) { throw new NullReferenceException(); }
 
         var result = await ViewModel.EditAsync();
         switch (result)
         {
-            case FFMPEG.EditResult.Success:
+            case EditorViewModel.EditResult.NoFFmpegError:
             {
+                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "FFmpeg executable is not found");
                 return;
             }
-            case FFMPEG.EditResult.InvalidInput:
+            case EditorViewModel.EditResult.NoFileError:
             {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Invalid input");
+                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Editable file doesn't exist");
                 return;
             }
-            case FFMPEG.EditResult.AnotherInProgressError:
+            case EditorViewModel.EditResult.AnotherInProgressError:
             {
                 ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Another edit in progress");
                 return;
             }
-            case FFMPEG.EditResult.ExecutableNotFoundError:
-            {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, $"{FFMPEG.ExecutableName} is not found");
-                return;
-            }
+            case EditorViewModel.EditResult.Success: { return; }
         }
     }
 

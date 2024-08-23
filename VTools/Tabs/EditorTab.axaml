@@ -87,7 +87,7 @@
                     <CheckBox
                         Grid.Row="0"
                         Grid.Column="2"
-                        Command="{Binding GetMediaDurationAsync}"
+                        Command="{Binding DurationAsync}"
                         IsChecked="{Binding Media.WillBeCut}" />
                     <!--  Row 2  -->
                     <TextBlock

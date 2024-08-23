@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
@@ -12,27 +13,72 @@ public partial class EditorViewModel : ViewModelBase
     public LocalMediaFile Media { get; } = new();
     public Logger Logger { get; } = new();
 
-    public async Task<FFMPEG.EditResult> EditAsync()
+    public enum EditResult
     {
-        if (Monitor.IsEntered(editLock))
-        {
-            return FFMPEG.EditResult.AnotherInProgressError;
-        }
-
-        Monitor.Enter(editLock);
-
-        Logger.Clear();
-        var result = await FFMPEG.EditAsync(Media, OnLogReceived);
-
-        Monitor.Exit(editLock);
-        return result;
+        Success,
+        NoFFmpegError,
+        NoFileError,
+        AnotherInProgressError,
     }
 
-    public async void GetMediaDurationAsync()
+    public enum DurationResult
     {
-        Media.Duration = await FFMPEG.GetMediaDurationAsync(Media) ?? new MediaTime();
+        Success,
+        NoFFprobeError,
+        NoFileError,
+        InvalidOutputError,
+    }
+
+    public async Task<EditResult> EditAsync()
+    {
+        if (!File.Exists(Configuration.FFmpegPath)) { return EditResult.NoFFmpegError; }
+        if (!File.Exists(Media.Path)) { return EditResult.NoFileError; }
+        if (Monitor.IsEntered(editLock)) { return EditResult.AnotherInProgressError; }
+
+        Monitor.Enter(editLock);
+        Logger.Clear();
+
+        var process = FFMPEG.EditProcess(
+            Configuration.FFmpegPath,
+            Media.Path,
+            Media.WillBeCut ? (Media.CutStart.ToString(), Media.CutEnd.ToString()) : (null, null),
+            Media.EditedFileName,
+            Media.Format);
+        process.Start();
+        process.OutputDataReceived += OnLogReceived;
+        process.ErrorDataReceived += OnLogReceived;
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+
+        await process.WaitForExitAsync();
+        Monitor.Exit(editLock);
+        return EditResult.Success;
+    }
+
+    public async Task<DurationResult> DurationAsync()
+    {
+        if (!File.Exists(Configuration.FFprobePath)) { return DurationResult.NoFFprobeError; }
+        if (!File.Exists(Media.Path)) { return DurationResult.NoFileError; }
+
+        var process = FFMPEG.DurationProcess(Configuration.FFprobePath, Media.Path);
+        process.Start();
+        process.BeginErrorReadLine();
+        process.ErrorDataReceived += OnLogReceived;
+
+        var output = await process.StandardOutput.ReadToEndAsync();
+        var duration = output.Split(':');
+        if (duration.Length != 3) { return DurationResult.InvalidOutputError; }
+        Media.Duration = new MediaTime()
+        {
+            Hours = uint.Parse(duration[0]),
+            Minutes = uint.Parse(duration[1]),
+            Seconds = (uint)float.Parse(duration[2])
+        };
         Media.CutStart = new MediaTime();
         Media.CutEnd = Media.Duration;
+
+        await process.WaitForExitAsync();
+        return DurationResult.Success;
     }
 
     private readonly object editLock = new();
