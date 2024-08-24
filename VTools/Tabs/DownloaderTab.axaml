@@ -86,40 +86,7 @@
                 </ComboBox>
             </Grid>
 
-            <Expander Width="{Binding $parent.Bounds.Width}">
-                <Expander.Header>
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <icons:SymbolIcon Symbol="BookPulse" />
-                        <TextBlock VerticalAlignment="Center" Text="{x:Static assets:Resources.Logs_Expander_Header}" />
-                    </StackPanel>
-                </Expander.Header>
-                <StackPanel Spacing="16">
-                    <ListBox
-                        Height="256"
-                        BorderThickness="1"
-                        ItemsSource="{Binding Logger.Lines}"
-                        ScrollViewer.AllowAutoHide="False"
-                        ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <StackPanel
-                        FlowDirection="RightToLeft"
-                        Orientation="Horizontal"
-                        Spacing="16">
-                        <Button Width="48" Click="ClearLogs">
-                            <icons:SymbolIcon Symbol="Delete" />
-                        </Button>
-                        <Button Width="48" Click="CopyLogs">
-                            <icons:SymbolIcon Symbol="Copy" />
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-            </Expander>
+            <controls:LogsControl Width="{Binding $parent.Bounds.Width}" Logger="{Binding Logger}" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>

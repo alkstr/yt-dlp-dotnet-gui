@@ -47,9 +47,4 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
                 return;
         }
     }
-
-    private void CopyLogs(object sender, RoutedEventArgs args) =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', ViewModel.Logger.Lines));
-
-    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
 }

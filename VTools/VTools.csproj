@@ -57,6 +57,9 @@
 		<Compile Update="Controls\CircleThrobber.axaml.cs">	
 			<DependentUpon>CircleThrobber.axaml</DependentUpon>
 		</Compile>
+		<Compile Update="Controls\LogsControl.axaml.cs">
+		  <DependentUpon>LogsControl.axaml</DependentUpon>
+		</Compile>
 		<Compile Update="Tabs\DownloaderTab.axaml.cs">
 			<DependentUpon>DownloaderTab.axaml</DependentUpon>
 		</Compile>

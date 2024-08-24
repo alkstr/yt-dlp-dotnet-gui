@@ -55,9 +55,4 @@ public partial class EditorTab : Tab<EditorViewModel>
             case EditorViewModel.EditResult.Success: { return; }
         }
     }
-
-    private void CopyLogs(object sender, RoutedEventArgs args) =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(ViewModel.Logger.ToString());
-
-    private void ClearLogs(object sender, RoutedEventArgs args) => ViewModel.Logger.Clear();
 }
