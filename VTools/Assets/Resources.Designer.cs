@@ -61,29 +61,20 @@ namespace VTools.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a file.
+        ///   Looks up a localized string similar to About this app.
         /// </summary>
-        public static string ChooseFile_Button_Content {
+        public static string AboutThisApp_TextBlock {
             get {
-                return ResourceManager.GetString("ChooseFile_Button_Content", resourceCulture);
+                return ResourceManager.GetString("AboutThisApp_TextBlock", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
+        ///   Looks up a localized string similar to App folder.
         /// </summary>
-        public static string ClearLogs_Button_Content {
+        public static string AppFolder_TextBlock {
             get {
-                return ResourceManager.GetString("ClearLogs_Button_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy.
-        /// </summary>
-        public static string CopyLogs_Button_Content {
-            get {
-                return ResourceManager.GetString("CopyLogs_Button_Content", resourceCulture);
+                return ResourceManager.GetString("AppFolder_TextBlock", resourceCulture);
             }
         }
         
@@ -97,29 +88,20 @@ namespace VTools.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cut video.
+        ///   Looks up a localized string similar to Cut.
         /// </summary>
-        public static string CutVideo_TextBlock {
+        public static string Cut_TextBlock {
             get {
-                return ResourceManager.GetString("CutVideo_TextBlock", resourceCulture);
+                return ResourceManager.GetString("Cut_TextBlock", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directories.
+        ///   Looks up a localized string similar to Downloader.
         /// </summary>
-        public static string Directories_TextBlock {
+        public static string Downloader_Expander_Header {
             get {
-                return ResourceManager.GetString("Directories_TextBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Download.
-        /// </summary>
-        public static string Download_Button_Content {
-            get {
-                return ResourceManager.GetString("Download_Button_Content", resourceCulture);
+                return ResourceManager.GetString("Downloader_Expander_Header", resourceCulture);
             }
         }
         
@@ -133,11 +115,20 @@ namespace VTools.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download FFmpeg.
+        ///   Looks up a localized string similar to Download FFmpeg and FFprobe.
         /// </summary>
-        public static string DownloadFFMPEG_Button_Content {
+        public static string DownloadFFmpeg_Button_Content {
             get {
-                return ResourceManager.GetString("DownloadFFMPEG_Button_Content", resourceCulture);
+                return ResourceManager.GetString("DownloadFFmpeg_Button_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download path.
+        /// </summary>
+        public static string DownloadPath_TextBlock {
+            get {
+                return ResourceManager.GetString("DownloadPath_TextBlock", resourceCulture);
             }
         }
         
@@ -147,15 +138,6 @@ namespace VTools.Assets {
         public static string DownloadYTDLP_Button_Content {
             get {
                 return ResourceManager.GetString("DownloadYTDLP_Button_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        public static string Edit_Button_Content {
-            get {
-                return ResourceManager.GetString("Edit_Button_Content", resourceCulture);
             }
         }
         
@@ -178,6 +160,24 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Executable path.
+        /// </summary>
+        public static string ExecutablePath_TextBlock {
+            get {
+                return ResourceManager.GetString("ExecutablePath_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extension.
+        /// </summary>
+        public static string Extension_TextBlock {
+            get {
+                return ResourceManager.GetString("Extension_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to External tools.
         /// </summary>
         public static string ExternalTools_TextBlock {
@@ -187,11 +187,56 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FFmpeg &amp; FFprobe.
+        /// </summary>
+        public static string FFmpegAndFFprobe_Expander_Header {
+            get {
+                return ResourceManager.GetString("FFmpegAndFFprobe_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FFmpeg executable path.
+        /// </summary>
+        public static string FFmpegExecutablePath_TextBlock {
+            get {
+                return ResourceManager.GetString("FFmpegExecutablePath_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FFprobe executable path.
+        /// </summary>
+        public static string FFprobeExecutablePath_TextBlock {
+            get {
+                return ResourceManager.GetString("FFprobeExecutablePath_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Format.
         /// </summary>
-        public static string Format_TextBlock {
+        public static string Format_Expander_Header {
             get {
-                return ResourceManager.GetString("Format_TextBlock", resourceCulture);
+                return ResourceManager.GetString("Format_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string General_TextBlock {
+            get {
+                return ResourceManager.GetString("General_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language_TextBlock {
+            get {
+                return ResourceManager.GetString("Language_TextBlock", resourceCulture);
             }
         }
         
@@ -223,11 +268,11 @@ namespace VTools.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open app directory.
+        ///   Looks up a localized string similar to Options.
         /// </summary>
-        public static string OpenAppDirectory_Button_Content {
+        public static string Options_Expander_Header {
             get {
-                return ResourceManager.GetString("OpenAppDirectory_Button_Content", resourceCulture);
+                return ResourceManager.GetString("Options_Expander_Header", resourceCulture);
             }
         }
         
@@ -237,6 +282,15 @@ namespace VTools.Assets {
         public static string OutputFileName_TextBox_Watermark {
             get {
                 return ResourceManager.GetString("OutputFileName_TextBox_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub repository.
+        /// </summary>
+        public static string Repository_Button_Content {
+            get {
+                return ResourceManager.GetString("Repository_Button_Content", resourceCulture);
             }
         }
         
@@ -259,20 +313,29 @@ namespace VTools.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User interface.
+        ///   Looks up a localized string similar to Update yt-dlp.
         /// </summary>
-        public static string UI_TextBlock {
+        public static string UpdateYTDLP_Button_Content {
             get {
-                return ResourceManager.GetString("UI_TextBlock", resourceCulture);
+                return ResourceManager.GetString("UpdateYTDLP_Button_Content", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UI Language.
+        ///   Looks up a localized string similar to User interface.
         /// </summary>
-        public static string UILanguage_TextBlock {
+        public static string UserInterface_Expander_Header {
             get {
-                return ResourceManager.GetString("UILanguage_TextBlock", resourceCulture);
+                return ResourceManager.GetString("UserInterface_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp.
+        /// </summary>
+        public static string YTDLP_Expander_Header {
+            get {
+                return ResourceManager.GetString("YTDLP_Expander_Header", resourceCulture);
             }
         }
     }

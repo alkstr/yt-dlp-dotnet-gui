@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChooseFile_Button_Content" xml:space="preserve">
-    <value>Выбрать файл</value>
-  </data>
-  <data name="ClearLogs_Button_Content" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="CopyLogs_Button_Content" xml:space="preserve">
-    <value>Скопировать</value>
-  </data>
-  <data name="CutVideo_TextBlock" xml:space="preserve">
-    <value>Обрезать видео</value>
+  <data name="Cut_TextBlock" xml:space="preserve">
+    <value>Обрезать</value>
   </data>
   <data name="Cut_Expander_Header" xml:space="preserve">
     <value>Обрезка</value>
@@ -135,20 +126,14 @@
   <data name="Downloader_Tab_Header" xml:space="preserve">
     <value>Загрузчик</value>
   </data>
-  <data name="DownloadFFMPEG_Button_Content" xml:space="preserve">
-    <value>Скачать FFmpeg</value>
+  <data name="DownloadFFmpeg_Button_Content" xml:space="preserve">
+    <value>Скачать FFmpeg и FFprobe</value>
   </data>
   <data name="DownloadYTDLP_Button_Content" xml:space="preserve">
     <value>Скачать yt-dlp</value>
   </data>
-  <data name="Download_Button_Content" xml:space="preserve">
-    <value>Скачать</value>
-  </data>
   <data name="Editor_Tab_Header" xml:space="preserve">
     <value>Редактор</value>
-  </data>
-  <data name="Edit_Button_Content" xml:space="preserve">
-    <value>Отредактировать</value>
   </data>
   <data name="End_TextBlock" xml:space="preserve">
     <value>Конец</value>
@@ -165,14 +150,8 @@
   <data name="MediaURL_TextBox_Watermark" xml:space="preserve">
     <value>Введите URL медиафайла</value>
   </data>
-  <data name="OpenAppDirectory_Button_Content" xml:space="preserve">
-    <value>Открыть директорию приложения</value>
-  </data>
   <data name="OutputFileName_TextBox_Watermark" xml:space="preserve">
     <value>Введите название выходного файла</value>
-  </data>
-  <data name="Directories_TextBlock" xml:space="preserve">
-    <value>Директории</value>
   </data>
   <data name="Settings_Tab_Header" xml:space="preserve">
     <value>Настройки</value>
@@ -180,13 +159,55 @@
   <data name="Start_TextBlock" xml:space="preserve">
     <value>Начало</value>
   </data>
-  <data name="UILanguage_TextBlock" xml:space="preserve">
-    <value>Язык интерфейса</value>
+  <data name="Options_Expander_Header" xml:space="preserve">
+    <value>Опции</value>
   </data>
-  <data name="UI_TextBlock" xml:space="preserve">
+  <data name="AboutThisApp_TextBlock" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="AppFolder_TextBlock" xml:space="preserve">
+    <value>Местоположение приложения</value>
+  </data>
+  <data name="Downloader_Expander_Header" xml:space="preserve">
+    <value>Загрузчик</value>
+  </data>
+  <data name="DownloadPath_TextBlock" xml:space="preserve">
+    <value>Путь скачивания</value>
+  </data>
+  <data name="ExecutablePath_TextBlock" xml:space="preserve">
+    <value>Путь к исполняемому файлу</value>
+  </data>
+  <data name="FFmpegAndFFprobe_Expander_Header" xml:space="preserve">
+    <value>FFmpeg &amp; FFprobe</value>
+  </data>
+  <data name="FFmpegExecutablePath_TextBlock" xml:space="preserve">
+    <value>Путь к FFmpeg</value>
+  </data>
+  <data name="FFprobeExecutablePath_TextBlock" xml:space="preserve">
+    <value>Путь к FFprobe</value>
+  </data>
+  <data name="Language_TextBlock" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Repository_Button_Content" xml:space="preserve">
+    <value>GitHub репозиторий</value>
+  </data>
+  <data name="UpdateYTDLP_Button_Content" xml:space="preserve">
+    <value>Обновить yt-dlp</value>
+  </data>
+  <data name="UserInterface_Expander_Header" xml:space="preserve">
     <value>Пользовательский интерфейс</value>
   </data>
-  <data name="Format_TextBlock" xml:space="preserve">
+  <data name="YTDLP_Expander_Header" xml:space="preserve">
+    <value>yt-dlp</value>
+  </data>
+  <data name="General_TextBlock" xml:space="preserve">
+    <value>Общие настройки</value>
+  </data>
+  <data name="Extension_TextBlock" xml:space="preserve">
+    <value>Расширение</value>
+  </data>
+  <data name="Format_Expander_Header" xml:space="preserve">
     <value>Формат</value>
   </data>
 </root>
