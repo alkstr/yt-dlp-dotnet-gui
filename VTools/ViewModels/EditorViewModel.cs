@@ -38,7 +38,7 @@ public partial class EditorViewModel : ViewModelBase
         Monitor.Enter(editLock);
         Logger.Clear();
 
-        var process = FFMPEG.EditProcess(
+        var process = FFmpeg.EditProcess(
             Configuration.FFmpegPath,
             Media.Path,
             Media.WillBeCut ? (Media.CutStart.ToString(), Media.CutEnd.ToString()) : (null, null),
@@ -60,7 +60,7 @@ public partial class EditorViewModel : ViewModelBase
         if (!File.Exists(Configuration.FFprobePath)) { return DurationResult.NoFFprobeError; }
         if (!File.Exists(Media.Path)) { return DurationResult.NoFileError; }
 
-        var process = FFMPEG.DurationProcess(Configuration.FFprobePath, Media.Path);
+        var process = FFmpeg.DurationProcess(Configuration.FFprobePath, Media.Path);
         process.Start();
         process.BeginErrorReadLine();
         process.ErrorDataReceived += OnLogReceived;

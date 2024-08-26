@@ -2,8 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 
-
-namespace VTools
+namespace VTools.Utilities
 {
     public static class YTDLP
     {

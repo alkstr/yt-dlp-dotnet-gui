@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text;
 
-namespace VTools
+namespace VTools.Utilities
 {
-    public static class FFMPEG
+    public static class FFmpeg
     {
         public static Process EditProcess(
             string ffmpegPath,
