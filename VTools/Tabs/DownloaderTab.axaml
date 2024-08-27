@@ -66,25 +66,26 @@
                 </Button>
             </Grid>
 
-            <Grid ColumnDefinitions="auto,8,auto,16,auto">
-                <icons:SymbolIcon Grid.Column="0" Symbol="DocumentChevronDouble" />
-                <TextBlock
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    Text="{x:Static assets:Resources.Format_TextBlock}" />
-                <ComboBox
-                    Grid.Column="4"
-                    Width="88"
-                    HorizontalContentAlignment="Center"
-                    ItemsSource="{Binding Media.Formats}"
-                    SelectedItem="{Binding Media.Format}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" Text="{Binding}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Grid>
+            <Expander HorizontalAlignment="Stretch">
+                <Expander.Header>
+                    <controls:IconTextBlock Icon="Options" Text="{x:Static assets:Resources.Options_Expander_Header}" />
+                </Expander.Header>
+                <Grid ColumnDefinitions="*,auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Extension_TextBlock}" />
+                    <ComboBox
+                        Grid.Column="1"
+                        Width="96"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Media.Formats}"
+                        SelectedItem="{Binding Media.Format}" />
+                </Grid>
+            </Expander>
 
             <controls:LogsControl Width="{Binding $parent.Bounds.Width}" Logger="{Binding Logger}" />
         </StackPanel>
