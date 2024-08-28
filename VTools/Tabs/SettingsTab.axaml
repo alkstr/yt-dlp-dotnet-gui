@@ -2,6 +2,7 @@
     x:Class="VTools.Tabs.SettingsTab"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assets="using:VTools.Assets"
     xmlns:controls="using:VTools.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:FluentIcons.Avalonia"
@@ -23,10 +24,10 @@
     </UserControl.Resources>
     <ScrollViewer Margin="0,12" Padding="28,0">
         <StackPanel Spacing="16">
-            <TextBlock Text="General" />
+            <TextBlock Text="{x:Static assets:Resources.General_TextBlock}" />
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="PersonDesktop" Text="User interface" />
+                    <controls:IconTextBlock Icon="PersonDesktop" Text="{x:Static assets:Resources.UserInterface_Expander_Header}" />
                 </Expander.Header>
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
@@ -35,7 +36,7 @@
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Language" />
+                        Text="{x:Static assets:Resources.Language_TextBlock}" />
                     <ComboBox
                         Grid.Column="1"
                         Width="256"
@@ -47,7 +48,7 @@
 
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="ArrowDownload" Text="Downloader" />
+                    <controls:IconTextBlock Icon="ArrowDownload" Text="{x:Static assets:Resources.Downloader_Expander_Header}" />
                 </Expander.Header>
                 <StackPanel Spacing="8">
                     <Grid ColumnDefinitions="*,auto">
@@ -58,7 +59,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Download path" />
+                            Text="{x:Static assets:Resources.DownloadPath_TextBlock}" />
                         <StackPanel
                             Grid.Row="0"
                             Grid.Column="1"
@@ -79,10 +80,10 @@
                 </StackPanel>
             </Expander>
 
-            <TextBlock Text="External tools" />
+            <TextBlock Text="{x:Static assets:Resources.ExternalTools_TextBlock}" />
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="VideoClipMultiple" Text="yt-dlp" />
+                    <controls:IconTextBlock Icon="VideoClipMultiple" Text="{x:Static assets:Resources.YTDLP_Expander_Header}" />
                 </Expander.Header>
                 <StackPanel Spacing="8">
                     <Grid ColumnDefinitions="*,auto">
@@ -93,7 +94,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Executable path" />
+                            Text="{x:Static assets:Resources.ExecutablePath_TextBlock}" />
                         <StackPanel
                             Grid.Row="0"
                             Grid.Column="1"
@@ -113,17 +114,15 @@
                     </Grid>
                     <Separator />
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Button Command="{Binding UpdateYTDLPAsync}" Content="Update yt-dlp" />
-                        <HyperlinkButton Click="OpenYTDLPRepositoryURL">
-                            Download yt-dlp
-                        </HyperlinkButton>
+                        <Button Command="{Binding UpdateYTDLPAsync}" Content="{x:Static assets:Resources.UpdateYTDLP_Button_Content}" />
+                        <HyperlinkButton Click="OpenYTDLPRepositoryURL" Content="{x:Static assets:Resources.DownloadYTDLP_Button_Content}" />
                     </StackPanel>
                 </StackPanel>
             </Expander>
 
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="VideoClipWand" Text="FFmpeg &amp; FFprobe" />
+                    <controls:IconTextBlock Icon="VideoClipWand" Text="{x:Static assets:Resources.FFmpegAndFFprobe_Expander_Header}" />
                 </Expander.Header>
                 <StackPanel Spacing="8">
                     <Grid ColumnDefinitions="*,auto">
@@ -135,7 +134,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="FFmpeg executable path" />
+                            Text="{x:Static assets:Resources.FFmpegExecutablePath_TextBlock}" />
                         <StackPanel
                             Grid.Row="0"
                             Grid.Column="1"
@@ -157,7 +156,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="FFprobe executable path" />
+                            Text="{x:Static assets:Resources.FFprobeExecutablePath_TextBlock}" />
                         <StackPanel
                             Grid.Row="1"
                             Grid.Column="1"
@@ -177,23 +176,21 @@
                     </Grid>
                     <Separator />
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <HyperlinkButton Click="OpenFFmpegRepositoryURL">
-                            Download FFmpeg and FFprobe
-                        </HyperlinkButton>
+                        <HyperlinkButton Click="OpenFFmpegRepositoryURL" Content="{x:Static assets:Resources.DownloadFFmpeg_Button_Content}" />
                     </StackPanel>
                 </StackPanel>
             </Expander>
 
-            <TextBlock FontWeight="Bold" Text="About this app" />
-            <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Text="App folder" />
-                <HyperlinkButton Click="OpenAppDirectory">
-                    <icons:SymbolIcon Symbol="OpenFolder" />
-                </HyperlinkButton>
+            <TextBlock FontWeight="Bold" Text="{x:Static assets:Resources.AboutThisApp_TextBlock}" />
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="{x:Static assets:Resources.AppFolder_TextBlock}" />
+                    <HyperlinkButton Click="OpenAppDirectory">
+                        <icons:SymbolIcon Symbol="OpenFolder" />
+                    </HyperlinkButton>
+                </StackPanel>
+                <HyperlinkButton Click="OpenRepositoryURL" Content="{x:Static assets:Resources.Repository_Button_Content}" />
             </StackPanel>
-            <HyperlinkButton Click="OpenRepositoryURL">
-                GitHub repository
-            </HyperlinkButton>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
