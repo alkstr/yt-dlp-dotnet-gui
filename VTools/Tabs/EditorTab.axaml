@@ -24,25 +24,30 @@
     </UserControl.Resources>
     <ScrollViewer Margin="0,12,0,12" Padding="28,0">
         <StackPanel Spacing="16">
-            <Grid ColumnDefinitions="auto,16,*,16,auto" RowDefinitions="auto,16,auto">
+            <Grid ColumnDefinitions="*,16,auto" RowDefinitions="auto,16,auto">
                 <!--  Row 0  -->
-                <Button
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Width="48"
-                    Click="ChooseFileAsync">
-                    <icons:SymbolIcon Symbol="DocumentAdd" />
-                </Button>
                 <TextBox
                     Name="MediaPathTextBox"
                     Grid.Row="0"
-                    Grid.Column="2"
-                    IsEnabled="False"
+                    Grid.Column="0"
                     Text="{Binding Media.Path}"
                     Watermark="{x:Static assets:Resources.MediaPath_TextBox_Watermark}" />
                 <Button
                     Grid.Row="0"
-                    Grid.Column="4"
+                    Grid.Column="2"
+                    Width="48"
+                    Click="ChooseFileAsync">
+                    <icons:SymbolIcon Symbol="DocumentSearch" />
+                </Button>
+                <!--  Row 2  -->
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="{Binding Media.EditedFileName}"
+                    Watermark="{x:Static assets:Resources.OutputFileName_TextBox_Watermark}" />
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="2"
                     Width="48"
                     Click="EditAsync">
                     <icons:SymbolIcon Symbol="VideoClipWand" />
@@ -50,12 +55,6 @@
                         <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
                     </FlyoutBase.AttachedFlyout>
                 </Button>
-                <!--  Row 2  -->
-                <TextBox
-                    Grid.Row="2"
-                    Grid.Column="2"
-                    Text="{Binding Media.EditedFileName}"
-                    Watermark="{x:Static assets:Resources.OutputFileName_TextBox_Watermark}" />
             </Grid>
 
             <Grid ColumnDefinitions="auto,8,auto,16,auto">
