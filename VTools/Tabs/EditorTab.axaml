@@ -57,18 +57,28 @@
                 </Button>
             </Grid>
 
-            <Grid ColumnDefinitions="auto,8,auto,16,auto">
-                <icons:SymbolIcon Grid.Column="0" Symbol="DocumentChevronDouble" />
+            <Expander HorizontalAlignment="Stretch">
+                <Expander.Header>
+                    <controls:IconTextBlock Icon="ResizeVideo" Text="{x:Static assets:Resources.Format_Expander_Header}" />
+                </Expander.Header>
+                <Grid ColumnDefinitions="*,auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                    </Grid.RowDefinitions>
                 <TextBlock
-                    Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="{x:Static assets:Resources.Format_TextBlock}" />
+                        Text="{x:Static assets:Resources.Extension_TextBlock}" />
                 <ComboBox
-                    Grid.Column="4"
-                    Width="88"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="96"
+                        VerticalAlignment="Center"
                     ItemsSource="{Binding Media.Formats}"
                     SelectedItem="{Binding Media.Format}" />
             </Grid>
+            </Expander>
 
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
