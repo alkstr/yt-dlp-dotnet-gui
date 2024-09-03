@@ -79,6 +79,24 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best quality.
+        /// </summary>
+        public static string BestQuality_ComboBox_Item {
+            get {
+                return ResourceManager.GetString("BestQuality_ComboBox_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best quality (audio only).
+        /// </summary>
+        public static string BestQualityAudioOnly_ComboBox_Item {
+            get {
+                return ResourceManager.GetString("BestQualityAudioOnly_ComboBox_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cutting.
         /// </summary>
         public static string Cut_Expander_Header {
@@ -151,6 +169,15 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Embedded subtitles.
+        /// </summary>
+        public static string EmbeddedSubtitles_ComboBox_Item {
+            get {
+                return ResourceManager.GetString("EmbeddedSubtitles_ComboBox_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End.
         /// </summary>
         public static string End_TextBlock {
@@ -214,11 +241,29 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File subtitles.
+        /// </summary>
+        public static string FileSubtitles_ComboBox_Item {
+            get {
+                return ResourceManager.GetString("FileSubtitles_ComboBox_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Format.
         /// </summary>
         public static string Format_Expander_Header {
             get {
                 return ResourceManager.GetString("Format_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format.
+        /// </summary>
+        public static string Format_TextBlock {
+            get {
+                return ResourceManager.GetString("Format_TextBlock", resourceCulture);
             }
         }
         
@@ -268,6 +313,15 @@ namespace VTools.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No subtitles.
+        /// </summary>
+        public static string NoSubtitles_ComboBox_Item {
+            get {
+                return ResourceManager.GetString("NoSubtitles_ComboBox_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string Options_Expander_Header {
@@ -309,6 +363,15 @@ namespace VTools.Assets {
         public static string Start_TextBlock {
             get {
                 return ResourceManager.GetString("Start_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtitles.
+        /// </summary>
+        public static string Subtitles_TextBlock {
+            get {
+                return ResourceManager.GetString("Subtitles_TextBlock", resourceCulture);
             }
         }
         

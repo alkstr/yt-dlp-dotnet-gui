@@ -204,10 +204,31 @@
   <data name="General_TextBlock" xml:space="preserve">
     <value>Общие настройки</value>
   </data>
-  <data name="Extension_TextBlock" xml:space="preserve">
-    <value>Расширение</value>
+  <data name="Format_TextBlock" xml:space="preserve">
+    <value>Формат</value>
   </data>
   <data name="Format_Expander_Header" xml:space="preserve">
     <value>Формат</value>
+  </data>
+  <data name="Subtitles_TextBlock" xml:space="preserve">
+    <value>Субтитры</value>
+  </data>
+  <data name="NoSubtitles_ComboBox_Item" xml:space="preserve">
+    <value>Без субтитров</value>
+  </data>
+  <data name="EmbeddedSubtitles_ComboBox_Item" xml:space="preserve">
+    <value>Встроенные субтитры</value>
+  </data>
+  <data name="FileSubtitles_ComboBox_Item" xml:space="preserve">
+    <value>Субтитры в файл</value>
+  </data>
+  <data name="BestQuality_ComboBox_Item" xml:space="preserve">
+    <value>Лучшее качество</value>
+  </data>
+  <data name="BestQualityAudioOnly_ComboBox_Item" xml:space="preserve">
+    <value>Лучшее качество (только аудио)</value>
+  </data>
+  <data name="Extension_TextBlock" xml:space="preserve">
+    <value>Расширение</value>
   </data>
 </root>

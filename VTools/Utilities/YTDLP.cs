@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace VTools.Utilities
 {
     public static class YTDLP
     {
-        public class DownloadInfo
+        public enum Subtitles
         {
-            public required string ExecutablePath;
-            public required string URL;
-            public required string Format;
-            public required string Directory;
-            public required string FFmpegPath;
+            None,
+            Embedded,
+            File,
+        }
+
+        public enum Format
+        {
+            Best,
+            BestAudioOnly,
         }
 
         public class MetadataInfo
@@ -22,26 +27,51 @@ namespace VTools.Utilities
             public required IEnumerable<string> Fields;
         }
 
-        public static Process GetDownloadProcess(DownloadInfo info) => new()
+        public static Process DownloadProcess(
+            string ytdlpPath,
+            string ffmpegPath,
+            string url,
+            Format format,
+            Subtitles subtitles,
+            string downloadPath)
         {
-            StartInfo = new ProcessStartInfo()
+            var formatArg = format switch
             {
-                FileName = info.ExecutablePath,
-                Arguments = "" +
-                @$"-P ""{info.Directory}"" " +
-                @$"-f {info.Format} " +
-                @$"-o ""%(title)s [%(id)s].%(ext)s"" " +
-                @$"--ffmpeg-location ""{info.FFmpegPath}"" " +
-                @$"--extractor-args ""youtube:player_client=mediaconnect"" " +
-                @$"--encoding utf-8 " +
-                @$"{info.URL}",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                StandardErrorEncoding = Encoding.UTF8,
-                CreateNoWindow = true,
-            }
-        };
+                Format.Best => null,
+                Format.BestAudioOnly => "-f bestaudio",
+                _ => throw new System.NotImplementedException(),
+            };
+
+            var subtitlesArg = subtitles switch
+            {
+                Subtitles.None => null,
+                Subtitles.Embedded => "--embed-subs",
+                Subtitles.File => "--write-subs",
+                _ => throw new System.NotImplementedException()
+            };
+
+            return new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = ytdlpPath,
+                    Arguments = JoinArguments(
+                        $"-P \"{downloadPath}\"",
+                        formatArg,
+                        subtitlesArg,
+                        "-o \"%(title)s [%(id)s].%(ext)s\"",
+                        $"--ffmpeg-location \"{ffmpegPath}\"",
+                        "--extractor-args \"youtube:player_client=mediaconnect\"",
+                        "--encoding utf-8",
+                        $"\"{url}\""),
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardErrorEncoding = Encoding.UTF8,
+                    CreateNoWindow = true,
+                }
+            };
+        }
 
         public static Process GetMetadataProcess(MetadataInfo info) => new()
         {
@@ -66,5 +96,8 @@ namespace VTools.Utilities
                 CreateNoWindow = false,
             }
         };
+
+        private static string JoinArguments(params string?[] arguments) =>
+            string.Join(' ', arguments.Where(arg => arg != null));
     }
 }

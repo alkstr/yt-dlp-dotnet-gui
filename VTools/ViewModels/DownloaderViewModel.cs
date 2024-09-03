@@ -52,14 +52,14 @@ public partial class DownloaderViewModel : ViewModelBase
         Monitor.Enter(DownloadLock);
         Logger.Clear();
 
-        var process = YTDLP.GetDownloadProcess(new YTDLP.DownloadInfo
-        {
-            ExecutablePath = Configuration.YTDLPPath,
-            URL = Media.URL,
-            Format = Media.Format,
-            Directory = Configuration.DownloadPath,
-            FFmpegPath = Configuration.FFmpegPath,
-        });
+        var process = YTDLP.DownloadProcess(
+            Configuration.YTDLPPath,
+            Configuration.FFmpegPath,
+            Media.URL,
+            Media.Format.Type,
+            Media.Subtitles.Type,
+            Configuration.DownloadPath
+        );
         process.Start();
         process.OutputDataReceived += OnLogReceived;
         process.ErrorDataReceived += OnLogReceived;
@@ -108,7 +108,7 @@ public partial class DownloaderViewModel : ViewModelBase
             process.Start();
 
             var output = await process.StandardOutput.ReadToEndAsync(cancellationToken);
-            Logger.AppendLine(await process.StandardError.ReadToEndAsync(cancellationToken));   
+            Logger.AppendLine(await process.StandardError.ReadToEndAsync(cancellationToken));
 
             var lines = output.Split('\n');
             if (lines.Length < metadataFields.Length) { throw new InvalidDataException(); }

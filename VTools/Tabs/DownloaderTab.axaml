@@ -73,17 +73,43 @@
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
+                        <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="{x:Static assets:Resources.Extension_TextBlock}" />
+                        Text="{x:Static assets:Resources.Format_TextBlock}" />
                     <ComboBox
                         Grid.Column="1"
-                        Width="96"
+                        Width="256"
                         VerticalAlignment="Center"
-                        ItemsSource="{Binding Media.Formats}"
-                        SelectedItem="{Binding Media.Format}" />
+                        ItemsSource="{Binding Media.FormatSet}"
+                        SelectedItem="{Binding Media.Format}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Subtitles_TextBlock}" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="256"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Media.SubtitlesSet}"
+                        SelectedItem="{Binding Media.Subtitles}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
             </Expander>
 

@@ -204,10 +204,31 @@
   <data name="General_TextBlock" xml:space="preserve">
     <value>General</value>
   </data>
-  <data name="Extension_TextBlock" xml:space="preserve">
-    <value>Extension</value>
+  <data name="Format_TextBlock" xml:space="preserve">
+    <value>Format</value>
   </data>
   <data name="Format_Expander_Header" xml:space="preserve">
     <value>Format</value>
+  </data>
+  <data name="Subtitles_TextBlock" xml:space="preserve">
+    <value>Subtitles</value>
+  </data>
+  <data name="NoSubtitles_ComboBox_Item" xml:space="preserve">
+    <value>No subtitles</value>
+  </data>
+  <data name="EmbeddedSubtitles_ComboBox_Item" xml:space="preserve">
+    <value>Embedded subtitles</value>
+  </data>
+  <data name="FileSubtitles_ComboBox_Item" xml:space="preserve">
+    <value>File subtitles</value>
+  </data>
+  <data name="BestQuality_ComboBox_Item" xml:space="preserve">
+    <value>Best quality</value>
+  </data>
+  <data name="BestQualityAudioOnly_ComboBox_Item" xml:space="preserve">
+    <value>Best quality (audio only)</value>
+  </data>
+  <data name="Extension_TextBlock" xml:space="preserve">
+    <value>Extension</value>
   </data>
 </root>
