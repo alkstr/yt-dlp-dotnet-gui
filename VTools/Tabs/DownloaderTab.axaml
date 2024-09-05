@@ -66,7 +66,7 @@
                 </Button>
             </Grid>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="Options" Text="{x:Static assets:Resources.Options_Expander_Header}" />
                 </Expander.Header>

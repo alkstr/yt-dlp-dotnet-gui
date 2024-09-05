@@ -25,7 +25,7 @@
     <ScrollViewer Margin="0,12" Padding="28,0">
         <StackPanel Spacing="16">
             <TextBlock Text="{x:Static assets:Resources.General_TextBlock}" />
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="PersonDesktop" Text="{x:Static assets:Resources.UserInterface_Expander_Header}" />
                 </Expander.Header>
@@ -46,7 +46,7 @@
                 </Grid>
             </Expander>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="ArrowDownload" Text="{x:Static assets:Resources.Downloader_Expander_Header}" />
                 </Expander.Header>
@@ -81,7 +81,7 @@
             </Expander>
 
             <TextBlock Text="{x:Static assets:Resources.ExternalTools_TextBlock}" />
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipMultiple" Text="{x:Static assets:Resources.YTDLP_Expander_Header}" />
                 </Expander.Header>
@@ -120,7 +120,7 @@
                 </StackPanel>
             </Expander>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipWand" Text="{x:Static assets:Resources.FFmpegAndFFprobe_Expander_Header}" />
                 </Expander.Header>

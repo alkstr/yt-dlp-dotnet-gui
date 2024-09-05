@@ -57,7 +57,7 @@
                 </Button>
             </Grid>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="ResizeVideo" Text="{x:Static assets:Resources.Format_Expander_Header}" />
                 </Expander.Header>
@@ -80,7 +80,7 @@
                 </Grid>
             </Expander>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="Cut" Text="{x:Static assets:Resources.Cut_Expander_Header}" />
                 </Expander.Header>
