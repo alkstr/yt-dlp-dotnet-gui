@@ -24,7 +24,10 @@
     </UserControl.Resources>
     <ScrollViewer Margin="0,12,0,12" Padding="28,0">
         <StackPanel Spacing="16">
-            <Grid ColumnDefinitions="*,16,auto" RowDefinitions="auto,16,auto">
+            <Grid
+                Width="{Binding $parent.Bounds.Width}"
+                ColumnDefinitions="*,16,auto"
+                RowDefinitions="auto,16,auto">
                 <!--  Row 0  -->
                 <TextBox
                     Name="MediaPathTextBox"
