@@ -7,7 +7,11 @@ namespace VTools.Utilities
     {
         public ObservableCollection<string> Lines => logs;
 
-        public void AppendLine(string line) => logs.Add(line.Trim(' ', '\n', '\r'));
+        public void AppendLine(string line)
+        {
+            line = line.Trim(' ', '\n', '\r');
+            if (!string.IsNullOrWhiteSpace(line)) { logs.Add(line); }
+        }
 
         public void Clear() => logs.Clear();
 
