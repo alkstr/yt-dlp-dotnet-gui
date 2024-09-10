@@ -41,7 +41,7 @@ public partial class EditorViewModel : ViewModelBase
         var process = FFmpeg.EditProcess(
             Configuration.FFmpegPath,
             Media.Path,
-            Media.WillBeCut ? (Media.CutStart.ToString(), Media.CutEnd.ToString()) : (null, null),
+            Media.Cut ? (Media.CutStart.ToString(), Media.CutEnd.ToString()) : (null, null),
             Media.EditedFileName,
             Media.Format);
         process.Start();

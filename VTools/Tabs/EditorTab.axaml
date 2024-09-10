@@ -103,7 +103,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Command="{Binding DurationAsync}"
-                        IsChecked="{Binding Media.WillBeCut}" />
+                        IsChecked="{Binding Media.Cut}" />
                     <!--  Row 1  -->
                     <TextBlock
                         Grid.Row="1"
@@ -119,21 +119,21 @@
                         <NumericUpDown
                             Width="108"
                             FormatString="00"
-                            IsEnabled="{Binding Media.WillBeCut}"
+                            IsEnabled="{Binding Media.Cut}"
                             Maximum="99"
                             Minimum="0"
                             Value="{Binding Media.CutStart.Hours, Mode=TwoWay}" />
                         <NumericUpDown
                             Width="108"
                             FormatString="00"
-                            IsEnabled="{Binding Media.WillBeCut}"
+                            IsEnabled="{Binding Media.Cut}"
                             Maximum="59"
                             Minimum="0"
                             Value="{Binding Media.CutStart.Minutes, Mode=TwoWay}" />
                         <NumericUpDown
                             Width="108"
                             FormatString="00"
-                            IsEnabled="{Binding Media.WillBeCut}"
+                            IsEnabled="{Binding Media.Cut}"
                             Maximum="59"
                             Minimum="0"
                             Value="{Binding Media.CutStart.Seconds, Mode=TwoWay}" />
@@ -153,21 +153,21 @@
                         <NumericUpDown
                             Width="108"
                             FormatString="00"
-                            IsEnabled="{Binding Media.WillBeCut}"
+                            IsEnabled="{Binding Media.Cut}"
                             Maximum="99"
                             Minimum="0"
                             Value="{Binding Media.CutEnd.Hours, Mode=TwoWay}" />
                         <NumericUpDown
                             Width="108"
                             FormatString="00"
-                            IsEnabled="{Binding Media.WillBeCut}"
+                            IsEnabled="{Binding Media.Cut}"
                             Maximum="59"
                             Minimum="0"
                             Value="{Binding Media.CutEnd.Minutes, Mode=TwoWay}" />
                         <NumericUpDown
                             Width="108"
                             FormatString="00"
-                            IsEnabled="{Binding Media.WillBeCut}"
+                            IsEnabled="{Binding Media.Cut}"
                             Maximum="59"
                             Minimum="0"
                             Value="{Binding Media.CutEnd.Seconds, Mode=TwoWay}" />

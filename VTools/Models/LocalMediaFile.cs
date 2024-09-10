@@ -18,7 +18,7 @@ namespace VTools.Models
         [ObservableProperty]
         private string editedFileName = "";
         [ObservableProperty]
-        private bool willBeCut = false;
+        private bool cut = false;
         [ObservableProperty]
         private string path = "";
     }
