@@ -31,7 +31,13 @@ namespace VTools.Models
         public uint? Minutes { get => minutes; set => SetProperty(ref minutes, value ?? 0); }
         public uint? Seconds { get => seconds; set => SetProperty(ref seconds, value ?? 0); }
 
-        public override string ToString() => $"{Hours}:{Minutes}:{Seconds}";
+        public override string ToString() => (hours, minutes, seconds) switch
+        {
+            (0, 0, 0) => "",
+            (0, 0, _) => $"{seconds:00}",
+            (0, _, _) => $"{minutes:00}:{seconds:00}",
+            (_, _, _) => $"{hours:00}:{minutes:00}:{seconds:00}",
+        };
 
         private uint hours = 0;
         private uint minutes = 0;
