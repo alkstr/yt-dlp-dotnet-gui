@@ -10,17 +10,32 @@ namespace VTools.Models
         public string Format { get; set; } = Formats.First();
 
         [ObservableProperty]
+        private string path = "";
+        [ObservableProperty]
         private MediaTime duration = new();
+        [ObservableProperty]
+        private int? width;
+        [ObservableProperty]
+        private int? height;
+
+        [ObservableProperty]
+        private bool cut = false;
         [ObservableProperty]
         private MediaTime cutStart = new();
         [ObservableProperty]
         private MediaTime cutEnd = new();
+
+        [ObservableProperty]
+        private bool changeWidth = false;
+        [ObservableProperty]
+        private int? newWidth = null;
+        [ObservableProperty]
+        private bool changeHeight = false;
+        [ObservableProperty]
+        private int? newHeight = null;
+
         [ObservableProperty]
         private string editedFileName = "";
-        [ObservableProperty]
-        private bool cut = false;
-        [ObservableProperty]
-        private string path = "";
     }
 
     public partial class MediaTime : ObservableObject
