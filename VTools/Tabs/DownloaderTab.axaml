@@ -22,18 +22,23 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer Margin="0,0,0,12" Padding="28,0">
+
+    <ScrollViewer Margin="0,14,0,14" Padding="28,0">
         <StackPanel Spacing="16">
-            <Panel>
+            <Panel HorizontalAlignment="Center">
+                <Border BorderBrush="DarkGray" BorderThickness="1">
                 <Image
                     Name="ThumbnailImage"
-                    Height="240"
+                        Width="480"
+                        Height="270"
+                        HorizontalAlignment="Center"
                     RenderOptions.BitmapInterpolationMode="HighQuality"
                     Source="{Binding Media.Thumbnail}">
                     <FlyoutBase.AttachedFlyout>
                         <Flyout ShowMode="Transient" />
                     </FlyoutBase.AttachedFlyout>
                 </Image>
+                </Border>
                 <controls:CircleThrobber IsVisible="{Binding MetadataLoadersCount}" />
             </Panel>
 
