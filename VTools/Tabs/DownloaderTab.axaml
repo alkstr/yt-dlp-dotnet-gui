@@ -27,22 +27,22 @@
         <StackPanel Spacing="16">
             <Panel HorizontalAlignment="Center">
                 <Border BorderBrush="DarkGray" BorderThickness="1">
-                <Image
-                    Name="ThumbnailImage"
+                    <Image
+                        Name="ThumbnailImage"
                         Width="480"
                         Height="270"
                         HorizontalAlignment="Center"
-                    RenderOptions.BitmapInterpolationMode="HighQuality"
-                    Source="{Binding Media.Thumbnail}">
-                    <FlyoutBase.AttachedFlyout>
-                        <Flyout ShowMode="Transient" />
-                    </FlyoutBase.AttachedFlyout>
-                </Image>
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        Source="{Binding Media.Thumbnail}">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout ShowMode="Transient" />
+                        </FlyoutBase.AttachedFlyout>
+                    </Image>
                 </Border>
                 <controls:CircleThrobber IsVisible="{Binding MetadataLoadersCount}" />
             </Panel>
 
-            <SelectableTextBlock TextWrapping="Wrap">
+            <SelectableTextBlock Width="{Binding $parent.Bounds.Width}" TextWrapping="Wrap">
                 <Run
                     FontSize="18"
                     FontWeight="Bold"
