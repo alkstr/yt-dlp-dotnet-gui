@@ -129,6 +129,8 @@
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
+                        <RowDefinition Height="48" />
+                        <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -142,6 +144,30 @@
                         VerticalAlignment="Center"
                         ItemsSource="{Binding Media.Formats}"
                         SelectedItem="{Binding Media.Format}" />
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Width" />
+                    <controls:OptionalNumericTextBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Height="32"
+                        IsTextBoxEnabled="{Binding Media.ChangeWidth, Mode=TwoWay}"
+                        Value="{Binding Media.NewWidth, Mode=TwoWay}" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Height" />
+                    <controls:OptionalNumericTextBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Height="32"
+                        IsTextBoxEnabled="{Binding Media.ChangeHeight, Mode=TwoWay}"
+                        Value="{Binding Media.NewHeight, Mode=TwoWay}" />
                 </Grid>
             </Expander>
 
