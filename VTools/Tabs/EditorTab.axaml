@@ -190,7 +190,6 @@
                     <CheckBox
                         Grid.Row="0"
                         Grid.Column="1"
-                        Command="{Binding DurationAsync}"
                         IsChecked="{Binding Media.Cut}" />
                     <!--  Row 1  -->
                     <TextBlock
