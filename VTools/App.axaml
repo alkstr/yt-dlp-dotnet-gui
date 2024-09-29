@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Controls/IconTextBlock.axaml" />
                 <ResourceInclude Source="/Controls/LogsControl.axaml" />
+                <ResourceInclude Source="/Controls/OptionalNumericTextBox.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
