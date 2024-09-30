@@ -5,7 +5,7 @@ namespace VTools.Models
 {
     public partial class LocalMediaFile : ObservableObject
     {
-        public static string[] Formats { get; } = [".mp4", ".webm", ".gif"];
+        public static string[] Formats { get; } = [".mp4", ".webm", ".gif", ".png", ".mp3"];
 
         public string Format { get; set; } = Formats.First();
 
