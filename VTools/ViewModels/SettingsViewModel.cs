@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using System.Threading.Tasks;
 using VTools.Utilities;
 
 namespace VTools.ViewModels
@@ -56,5 +56,9 @@ namespace VTools.ViewModels
                 OnPropertyChanged(nameof(FFprobePath));
             }
         }
+
+#pragma warning disable CA1822 // Mark members as static
+        public void UpdateYTDLP() => YTDLP.UpdateProcess(Configuration.YTDLPPath).Start();
+#pragma warning restore CA1822 // Mark members as static
     }
 }

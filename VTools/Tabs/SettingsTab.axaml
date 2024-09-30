@@ -114,7 +114,7 @@
                     </Grid>
                     <Separator />
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Button Command="{Binding UpdateYTDLPAsync}" Content="{x:Static assets:Resources.UpdateYTDLP_Button_Content}" />
+                        <Button Command="{Binding UpdateYTDLP}" Content="{x:Static assets:Resources.UpdateYTDLP_Button_Content}" />
                         <HyperlinkButton Click="OpenYTDLPDownloadURL" Content="{x:Static assets:Resources.DownloadYTDLP_Button_Content}" />
                     </StackPanel>
                 </StackPanel>
