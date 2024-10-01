@@ -16,6 +16,7 @@ public class IconTextBlock : TemplatedControl
         get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }
+
     public string Text
     {
         get => GetValue(TextProperty);
