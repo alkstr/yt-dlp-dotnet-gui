@@ -4,11 +4,13 @@
     xmlns:assets="using:VTools.Assets"
     xmlns:controls="using:VTools.Controls"
     xmlns:icons="using:FluentIcons.Avalonia">
+
     <Design.PreviewWith>
         <StackPanel Width="512" Height="512">
             <controls:LogsControl Width="384" Margin="64" />
         </StackPanel>
     </Design.PreviewWith>
+
     <ControlTheme x:Key="{x:Type controls:LogsControl}" TargetType="controls:LogsControl">
         <Setter Property="Template">
             <ControlTemplate>
@@ -17,6 +19,7 @@
                         <controls:IconTextBlock Icon="BookPulse" Text="{x:Static assets:Resources.Logs_Expander_Header}" />
                     </Expander.Header>
                     <StackPanel Spacing="16">
+
                         <ListBox
                             Height="256"
                             BorderThickness="1"
@@ -30,6 +33,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+
                         <StackPanel
                             FlowDirection="RightToLeft"
                             Orientation="Horizontal"
@@ -41,9 +45,11 @@
                                 <icons:SymbolIcon Symbol="Copy" />
                             </Button>
                         </StackPanel>
+
                     </StackPanel>
                 </Expander>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
+
 </ResourceDictionary>

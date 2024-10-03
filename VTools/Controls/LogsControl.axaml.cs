@@ -25,8 +25,7 @@ public partial class LogsControl : TemplatedControl
         CopyCommand = new RelayCommand(Copy);
         ClearCommand = new RelayCommand(Clear);
     }
-    
-    private void Copy() =>
-        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', Logger.Lines));
+
+    private void Copy() => TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(string.Join('\n', Logger.Lines));
     private void Clear() => Logger.Clear();
 }
