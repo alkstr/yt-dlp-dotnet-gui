@@ -7,42 +7,42 @@ namespace VTools.Models
     {
         public static string[] Formats { get; } = [".mp4", ".webm", ".gif", ".png", ".mp3"];
 
-        public string Format { get; set; } = Formats.First();
+        public string NewFormat { get; set; } = Formats.First();
 
         [ObservableProperty]
-        private string path = "";
+        private string    path     = "";
         [ObservableProperty]
         private MediaTime duration = new();
         [ObservableProperty]
-        private int? width;
+        private int?      width    = null;
         [ObservableProperty]
-        private int? height;
+        private int?      height   = null;
 
         [ObservableProperty]
-        private bool cut = false;
+        private bool      cut      = false;
         [ObservableProperty]
         private MediaTime cutStart = new();
         [ObservableProperty]
-        private MediaTime cutEnd = new();
+        private MediaTime cutEnd   = new();
 
         [ObservableProperty]
-        private bool changeWidth = false;
+        private bool changeWidth  = false;
         [ObservableProperty]
-        private int? newWidth = null;
+        private int? newWidth     = null;
         [ObservableProperty]
         private bool changeHeight = false;
         [ObservableProperty]
-        private int? newHeight = null;
+        private int? newHeight    = null;
 
         [ObservableProperty]
-        private string editedFileName = "";
+        private string newFileName = "";
     }
 
     public partial class MediaTime : ObservableObject
     {
         // The NumericUpDown control requires its value property to be nullable;
         // otherwise, having null in the control's text field crashes the program.
-        public uint? Hours { get => hours; set => SetProperty(ref hours, value ?? 0); }
+        public uint? Hours   { get => hours;   set => SetProperty(ref hours, value ?? 0); }
         public uint? Minutes { get => minutes; set => SetProperty(ref minutes, value ?? 0); }
         public uint? Seconds { get => seconds; set => SetProperty(ref seconds, value ?? 0); }
 

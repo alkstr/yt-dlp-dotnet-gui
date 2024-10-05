@@ -11,37 +11,37 @@ namespace VTools.Models
     {
         public static HashSet<Format> FormatSet { get; } =
         [
-            new Format(YTDLP.Format.Best, Resources.BestQuality_ComboBox_Item),
-            new Format(YTDLP.Format.BestAudioOnly, Resources.BestQualityAudioOnly_ComboBox_Item),
+            new Format(YTDLP.Download.Format.Best,          Resources.BestQuality_ComboBox_Item),
+            new Format(YTDLP.Download.Format.BestAudioOnly, Resources.BestQualityAudioOnly_ComboBox_Item),
         ];
         public static HashSet<Subtitles> SubtitlesSet { get; } =
         [
-            new Subtitles(YTDLP.Subtitles.None, Resources.NoSubtitles_ComboBox_Item),
-            new Subtitles(YTDLP.Subtitles.Embedded, Resources.EmbeddedSubtitles_ComboBox_Item),
-            new Subtitles(YTDLP.Subtitles.File, Resources.FileSubtitles_ComboBox_Item),
+            new Subtitles(YTDLP.Download.Subtitles.None,     Resources.NoSubtitles_ComboBox_Item),
+            new Subtitles(YTDLP.Download.Subtitles.Embedded, Resources.EmbeddedSubtitles_ComboBox_Item),
+            new Subtitles(YTDLP.Download.Subtitles.File,     Resources.FileSubtitles_ComboBox_Item),
         ];
 
-        public string URL { get; set; } = "";
-        public Format Format { get; set; } = FormatSet.First();
+        public string    URL       { get; set; } = "";
+        public Format    Format    { get; set; } = FormatSet.First();
         public Subtitles Subtitles { get; set; } = SubtitlesSet.First();
 
         [ObservableProperty]
         private Bitmap? thumbnail = null;
         [ObservableProperty]
-        private string title = "";
+        private string  title     = "";
         [ObservableProperty]
-        private string channel = "";
+        private string  channel   = "";
     }
 
-    public readonly struct Subtitles(YTDLP.Subtitles type, string description)
+    public readonly struct Subtitles(YTDLP.Download.Subtitles type, string description)
     {
-        public YTDLP.Subtitles Type { get; } = type;
+        public YTDLP.Download.Subtitles Type { get; } = type;
         public string Description { get; } = description;
     }
 
-    public readonly struct Format(YTDLP.Format type, string description)
+    public readonly struct Format(YTDLP.Download.Format type, string description)
     {
-        public YTDLP.Format Type { get; } = type;
+        public YTDLP.Download.Format Type { get; } = type;
         public string Description { get; } = description;
     }
 }
