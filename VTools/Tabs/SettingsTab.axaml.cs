@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using VTools.Utilities;
 using VTools.ViewModels;
 
 namespace VTools.Tabs;
@@ -39,10 +38,10 @@ public partial class SettingsTab : Tab<SettingsViewModel>
         OpenPath("https://github.com/alkstr/VTools");
 
     private enum StorageItem
-        {
+    {
         File,
         Folder,
-        }
+    }
 
     private async Task ChangePathAsync(string pathPropertyName, StorageItem storageItemType)
     {
@@ -54,15 +53,15 @@ public partial class SettingsTab : Tab<SettingsViewModel>
         {
             case StorageItem.File:
                 storageItems = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-    {
-            AllowMultiple = false,
-        });
+                {
+                    AllowMultiple = false,
+                }); 
                 break;
             case StorageItem.Folder:
                 storageItems = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
-        {
-            AllowMultiple = false,
-        });
+                {
+                    AllowMultiple = false,
+                });
                 break;
         }
 
