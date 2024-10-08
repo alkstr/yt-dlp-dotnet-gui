@@ -24,21 +24,22 @@ namespace VTools.Utilities
             public static Process Process(
                 string ffprobePath,
                 string filePath,
-                IEnumerable<StreamEntry> streamMetadata,
-                IEnumerable<FormatEntry> formatMetadata)
+                IEnumerable<StreamEntry> streamEntries,
+                IEnumerable<FormatEntry> formatEntries)
             {
-                var streamEntriesStr = string.Join(',', streamMetadata.Select(entry => entry switch
+                var streamEntriesStr = string.Join(',', streamEntries.Select(entry => entry switch
                 {
                     StreamEntry.Duration => "duration",
-                    StreamEntry.Width => "width",
-                    StreamEntry.Height => "height",
-                    _ => throw new System.NotImplementedException(),
-                }));
-                var formatEntriesStr = string.Join(',', formatMetadata.Select(entry => entry switch
+                    StreamEntry.Width    => "width",
+                    StreamEntry.Height   => "height",
+                    _                    => null,
+                }).Where(e => e != null));
+
+                var formatEntriesStr = string.Join(',', formatEntries.Select(entry => entry switch
                 {
                     FormatEntry.Duration => "duration",
-                    _ => throw new System.NotImplementedException(),
-                }));
+                    _                    => null,
+                }).Where(e => e != null));
 
                 var entriesArg = $"-show_entries format=\"{formatEntriesStr}\":stream=\"{streamEntriesStr}\"";
 
@@ -55,9 +56,9 @@ namespace VTools.Utilities
                             "-sexagesimal",
                             $"\"{filePath}\""),
                         RedirectStandardOutput = true,
-                        RedirectStandardError = true,
+                        RedirectStandardError  = true,
                         StandardOutputEncoding = Encoding.UTF8,
-                        StandardErrorEncoding = Encoding.UTF8,
+                        StandardErrorEncoding  = Encoding.UTF8,
                         CreateNoWindow = true,
                     }
                 };
@@ -81,62 +82,54 @@ namespace VTools.Utilities
             }
         }
 
-        public static Process EditProcess(
-            string ffmpegPath,
-            string path,
-            (string?, string?) cutInterval,
-            (uint?, uint?) scale,
-            string editedFileName,
-            string editedFileExtension)
+        public static class Edit
         {
-            var scaleArg = scale switch
+            public static Process Process(
+                string ffmpegPath,
+                string path,
+                (string?, string?) cutInterval,
+                (uint?, uint?) scale,
+                string newFileName,
+                string newFileExtension)
             {
-                (null, null) => null,
-                (uint, null) => $"-vf \"scale={scale.Item1}:-1\"",
-                (null, uint) => $"-vf \"scale=-1:{scale.Item2}\"",
-                (uint, uint) => $"-vf \"scale={scale.Item1}:{scale.Item2}",
-            };
-
-            return new Process()
-            {
-                StartInfo = new ProcessStartInfo()
+                var scaleArg = scale switch
                 {
-                    FileName = ffmpegPath,
-                    Arguments = JoinArguments(
-                        $"-i \"{path}\"",
-                        scaleArg,
-                        cutInterval.Item1 == null ? null : $"-ss \"{cutInterval.Item1}\"",
-                        cutInterval.Item2 == null ? null : $"-to \"{cutInterval.Item2}\"",
-                        $"\"{editedFileName}{editedFileExtension}\"",
-                        "-y"),
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    StandardErrorEncoding = Encoding.UTF8,
-                    CreateNoWindow = true,
-                }
-            };
+                    (null, null) => null,
+                    (uint, null) => $"-vf \"scale={scale.Item1}:-1\"",
+                    (null, uint) => $"-vf \"scale=-1:{scale.Item2}\"",
+                    (uint, uint) => $"-vf \"scale={scale.Item1}:{scale.Item2}",
+                };
+
+                var cutIntervalArg = cutInterval switch
+                {
+                    (null,   null)   => null,
+                    (string, null)   => $"-ss \"{cutInterval.Item1}\"",
+                    (null,   string) => $"-to \"{cutInterval.Item2}\"",
+                    (string, string) => $"-ss \"{cutInterval.Item1}\" -to \"{cutInterval.Item2}\"",
+                };
+
+                var fullFileNameArg = $"\"{newFileName}{newFileExtension}\"";
+
+                return new Process()
+                {
+                    StartInfo = new ProcessStartInfo()
+                    {
+                        FileName = ffmpegPath,
+                        Arguments = JoinArguments(
+                            $"-i \"{path}\"",
+                            scaleArg,
+                            cutIntervalArg,
+                            fullFileNameArg,
+                            "-y"),
+                        RedirectStandardOutput = true,
+                        RedirectStandardError  = true,
+                        StandardOutputEncoding = Encoding.UTF8,
+                        StandardErrorEncoding  = Encoding.UTF8,
+                        CreateNoWindow = true,
+                    }
+                };
+            }
         }
-
-        public static Process DurationProcess(
-            string ffprobePath,
-            string path) => new()
-            {
-                StartInfo = new ProcessStartInfo()
-                {
-                    FileName = ffprobePath,
-                    Arguments = JoinArguments(
-                        "-v error",
-                        "-show_entries format=duration",
-                        "-of default=noprint_wrappers=1:nokey=1 -sexagesimal",
-                        $"\"{path}\""),
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    StandardErrorEncoding = Encoding.UTF8,
-                    CreateNoWindow = true,
-                }
-            };
 
         private static string JoinArguments(params string?[] arguments) =>
             string.Join(' ', arguments.Where(arg => arg != null));
