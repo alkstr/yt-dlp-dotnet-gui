@@ -40,26 +40,19 @@ public partial class DownloaderViewModel : ViewModelBase
 
     public async Task<DownloadResult> DownloadAsync()
     {
-        if (Monitor.IsEntered(DownloadLock))
-        {
-            return DownloadResult.AlreadyDownloading;
-        }
-        if (!File.Exists(Configuration.YTDLPPath))
-        {
-            return DownloadResult.ExecutableNotFound;
-        }
+        if (Monitor.IsEntered(DownloadLock))       { return DownloadResult.AlreadyDownloading; }
+        if (!File.Exists(Configuration.YTDLPPath)) { return DownloadResult.ExecutableNotFound; }
 
         Monitor.Enter(DownloadLock);
         Logger.Clear();
 
-        var process = YTDLP.DownloadProcess(
+        var process = YTDLP.Download.Process(
             Configuration.YTDLPPath,
             Configuration.FFmpegPath,
             Media.URL,
             Media.Format.Type,
             Media.Subtitles.Type,
-            Configuration.DownloadPath
-        );
+            Configuration.DownloadPath);
         process.Start();
         process.OutputDataReceived += OnLogReceived;
         process.ErrorDataReceived += OnLogReceived;
@@ -73,14 +66,8 @@ public partial class DownloaderViewModel : ViewModelBase
 
     public async Task<ChangeMetadataResult> ChangeMetadataAsync()
     {
-        if (string.IsNullOrWhiteSpace(Media.URL))
-        {
-            return ChangeMetadataResult.EmptyURLError;
-        }
-        if (!File.Exists(Configuration.YTDLPPath))
-        {
-            return ChangeMetadataResult.YTDLPNotFoundError;
-        }
+        if (string.IsNullOrWhiteSpace(Media.URL))  { return ChangeMetadataResult.EmptyURLError; }
+        if (!File.Exists(Configuration.YTDLPPath)) { return ChangeMetadataResult.YTDLPNotFoundError; }
 
         try
         {
@@ -94,13 +81,13 @@ public partial class DownloaderViewModel : ViewModelBase
             Media.Channel = "";
             Media.Thumbnail = null;
 
-            var metadataFields = new[] { "thumbnail", "title", "channel" };
-            var process = YTDLP.GetMetadataProcess(new YTDLP.MetadataInfo
+            var metadataFields = new[] 
             {
-                ExecutablePath = Configuration.YTDLPPath,
-                URL = Media.URL,
-                Fields = metadataFields
-            });
+                YTDLP.Metadata.Field.ThumbnailURL,
+                YTDLP.Metadata.Field.Title,
+                YTDLP.Metadata.Field.Channel
+            };
+            var process = YTDLP.Metadata.Process(Configuration.YTDLPPath, Media.URL, metadataFields);
 
             // Starting a new process for each key press would be too resource-intensive.
             // Instead, let's wait briefly to ensure the user has typed the entire URL.
@@ -129,18 +116,9 @@ public partial class DownloaderViewModel : ViewModelBase
             await process.WaitForExitAsync();
             return ChangeMetadataResult.Finished;
         }
-        catch (OperationCanceledException)
-        {
-            return ChangeMetadataResult.Canceled;
-        }
-        catch (HttpRequestException)
-        {
-            return ChangeMetadataResult.ThumbnailFetchError;
-        }
-        catch (InvalidDataException)
-        {
-            return ChangeMetadataResult.InvalidOutputError;
-        }
+        catch (OperationCanceledException) { return ChangeMetadataResult.Canceled; }
+        catch (HttpRequestException)       { return ChangeMetadataResult.ThumbnailFetchError; }
+        catch (InvalidDataException)       { return ChangeMetadataResult.InvalidOutputError; }
         finally
         {
             MetadataLoadersCount--;
