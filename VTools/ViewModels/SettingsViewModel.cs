@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using VTools.Utilities;
+﻿using VTools.Utilities;
 
 namespace VTools.ViewModels
 {
@@ -58,7 +57,7 @@ namespace VTools.ViewModels
         }
 
 #pragma warning disable CA1822 // Mark members as static
-        public void UpdateYTDLP() => YTDLP.UpdateProcess(Configuration.YTDLPPath).Start();
+        public void UpdateYTDLP() => YTDLP.Update.Process(Configuration.YTDLPPath).Start();
 #pragma warning restore CA1822 // Mark members as static
     }
 }
