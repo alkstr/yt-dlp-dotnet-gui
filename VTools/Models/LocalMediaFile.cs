@@ -45,6 +45,7 @@ namespace VTools.Models
         public uint? Hours   { get => hours;   set => SetProperty(ref hours, value ?? 0); }
         public uint? Minutes { get => minutes; set => SetProperty(ref minutes, value ?? 0); }
         public uint? Seconds { get => seconds; set => SetProperty(ref seconds, value ?? 0); }
+        public string FullString => $"{hours:00}:{minutes:00}:{seconds:00}";
 
         public override string ToString() => (hours, minutes, seconds) switch
         {
