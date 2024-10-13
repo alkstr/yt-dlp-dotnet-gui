@@ -89,6 +89,7 @@ namespace VTools.Utilities
                 string path,
                 (string?, string?) cutInterval,
                 (uint?, uint?) scale,
+                string savePath,
                 string newFileName,
                 string newFileExtension)
             {
@@ -108,7 +109,7 @@ namespace VTools.Utilities
                     (string, string) => $"-ss \"{cutInterval.Item1}\" -to \"{cutInterval.Item2}\"",
                 };
 
-                var fullFileNameArg = $"\"{newFileName}{newFileExtension}\"";
+                var fullFileNameArg = $"\"{savePath}/{newFileName}{newFileExtension}\"";
 
                 return new Process()
                 {

@@ -80,6 +80,42 @@
                 </StackPanel>
             </Expander>
 
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock Icon="VideoClipWand" Text="Editor" />
+                </Expander.Header>
+				
+                <Grid ColumnDefinitions="*,auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                    </Grid.RowDefinitions>
+					
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="Edits save path" />
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <TextBox
+                            Width="256"
+                            Height="32"
+                            Text="{Binding EditsPath, Mode=TwoWay}" />
+                        <Button
+                            Width="48"
+                            Height="32"
+                            Click="ChangeEditsFolderAsync">
+                            <icons:SymbolIcon Symbol="FolderOpen" />
+                        </Button>
+                </StackPanel>
+					
+                </Grid>
+				
+            </Expander>
+
             <TextBlock Text="{x:Static assets:Resources.ExternalTools_TextBlock}" />
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>

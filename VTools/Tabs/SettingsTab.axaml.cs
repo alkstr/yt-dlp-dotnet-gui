@@ -16,6 +16,9 @@ public partial class SettingsTab : Tab<SettingsViewModel>
     public async void ChangeDownloadFolderAsync(object sender, RoutedEventArgs args) => 
         await ChangePathAsync(nameof(ViewModel.DownloadPath), StorageItem.Folder);
 
+    public async void ChangeEditsFolderAsync(object sender, RoutedEventArgs args) =>
+        await ChangePathAsync(nameof(ViewModel.EditsPath), StorageItem.Folder);
+
     public async void ChangeYTDLPPathAsync(object sender, RoutedEventArgs args) =>
         await ChangePathAsync(nameof(ViewModel.YTDLPPath), StorageItem.File);
 

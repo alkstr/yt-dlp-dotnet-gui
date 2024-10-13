@@ -26,6 +26,16 @@ namespace VTools.ViewModels
             }
         }
 
+        public string EditsPath
+        {
+            get => Configuration.EditsPath;
+            set
+            {
+                Configuration.Set(nameof(Configuration.EditsPath), value);
+                OnPropertyChanged(nameof(EditsPath));
+            }
+        }
+
         public string YTDLPPath
         {
             get => Configuration.YTDLPPath;
