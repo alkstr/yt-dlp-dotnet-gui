@@ -12,9 +12,11 @@
     d:DesignWidth="{DynamicResource WindowWidth}"
     x:DataType="vm:SettingsViewModel"
     mc:Ignorable="d">
+
     <Design.DataContext>
         <vm:DesignSettingsViewModel />
     </Design.DataContext>
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,17 +24,22 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+
     <ScrollViewer Margin="0,12" Padding="28,0">
         <StackPanel Spacing="16">
+
             <TextBlock Text="{x:Static assets:Resources.General_TextBlock}" />
+
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="PersonDesktop" Text="{x:Static assets:Resources.UserInterface_Expander_Header}" />
                 </Expander.Header>
+				
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
+					
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
@@ -43,18 +50,23 @@
                         VerticalAlignment="Center"
                         ItemsSource="{Binding AvailableCultureNames}"
                         SelectedItem="{Binding CultureName}" />
+					
                 </Grid>
+				
             </Expander>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="ArrowDownload" Text="{x:Static assets:Resources.Downloader_Expander_Header}" />
                 </Expander.Header>
+				
                 <StackPanel Spacing="8">
+					
                     <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
+						
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -76,8 +88,11 @@
                                 <icons:SymbolIcon Symbol="FolderOpen" />
                             </Button>
                         </StackPanel>
+						
                     </Grid>
+					
                 </StackPanel>
+				
             </Expander>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
@@ -110,22 +125,26 @@
                             Click="ChangeEditsFolderAsync">
                             <icons:SymbolIcon Symbol="FolderOpen" />
                         </Button>
-                </StackPanel>
+                    </StackPanel>
 					
                 </Grid>
 				
             </Expander>
 
             <TextBlock Text="{x:Static assets:Resources.ExternalTools_TextBlock}" />
+
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipMultiple" Text="{x:Static assets:Resources.YTDLP_Expander_Header}" />
                 </Expander.Header>
+				
                 <StackPanel Spacing="8">
+
                     <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
+						
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -147,25 +166,33 @@
                                 <icons:SymbolIcon Symbol="DocumentSearch" />
                             </Button>
                         </StackPanel>
+						
                     </Grid>
+
                     <Separator />
+
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <Button Command="{Binding UpdateYTDLP}" Content="{x:Static assets:Resources.UpdateYTDLP_Button_Content}" />
                         <HyperlinkButton Click="OpenYTDLPDownloadURL" Content="{x:Static assets:Resources.DownloadYTDLP_Button_Content}" />
                     </StackPanel>
+					
                 </StackPanel>
+				
             </Expander>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipWand" Text="{x:Static assets:Resources.FFmpegAndFFprobe_Expander_Header}" />
                 </Expander.Header>
+				
                 <StackPanel Spacing="8">
+
                     <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
+						
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -209,15 +236,21 @@
                                 <icons:SymbolIcon Symbol="DocumentSearch" />
                             </Button>
                         </StackPanel>
+						
                     </Grid>
+
                     <Separator />
+
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <HyperlinkButton Click="OpenFFmpegDownloadURL" Content="{x:Static assets:Resources.DownloadFFmpeg_Button_Content}" />
                     </StackPanel>
+
                 </StackPanel>
+				
             </Expander>
 
             <TextBlock FontWeight="Bold" Text="{x:Static assets:Resources.AboutThisApp_TextBlock}" />
+
             <StackPanel Orientation="Vertical" Spacing="8">
                 <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="{x:Static assets:Resources.AppFolder_TextBlock}" />
@@ -227,6 +260,8 @@
                 </StackPanel>
                 <HyperlinkButton Click="OpenAppRepositoryURL" Content="{x:Static assets:Resources.Repository_Button_Content}" />
             </StackPanel>
+
         </StackPanel>
     </ScrollViewer>
+	
 </UserControl>

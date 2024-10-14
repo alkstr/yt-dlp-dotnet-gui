@@ -27,7 +27,7 @@
 
     <ScrollViewer Margin="0,14,0,14" Padding="28,0">
         <StackPanel Spacing="16">
-
+			
             <Panel HorizontalAlignment="Center">
                 <Border BorderBrush="DarkGray" BorderThickness="1">
                     <Image
@@ -78,7 +78,6 @@
                     <controls:IconTextBlock Icon="Options" Text="{x:Static assets:Resources.Options_Expander_Header}" />
                 </Expander.Header>
                 <Grid ColumnDefinitions="*,auto">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
                         <RowDefinition Height="48" />
@@ -127,4 +126,5 @@
 
         </StackPanel>
     </ScrollViewer>
+	
 </UserControl>
