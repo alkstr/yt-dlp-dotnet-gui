@@ -57,10 +57,21 @@
                     Grid.Column="2"
                     Width="48"
                     Click="EditAsync">
-                    <icons:SymbolIcon Symbol="VideoClipWand" IconVariant="Filled" />
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1}" />
+                        </Style>
+                        <Style Selector="Button:focus /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+                        </Style>
+                    </Button.Styles>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
                     </FlyoutBase.AttachedFlyout>
+                    <icons:SymbolIcon Foreground="White" Symbol="VideoClipWand" />
                 </Button>
             
 			</Grid>

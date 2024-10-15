@@ -27,7 +27,7 @@
 
     <ScrollViewer Margin="0,14,0,14" Padding="28,0">
         <StackPanel Spacing="16">
-			
+
             <Panel HorizontalAlignment="Center">
                 <Border BorderBrush="DarkGray" BorderThickness="1">
                     <Image
@@ -66,10 +66,21 @@
                     Grid.Column="2"
                     Width="48"
                     Click="DownloadAsync">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1}" />
+                        </Style>
+                        <Style Selector="Button:focus /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+                        </Style>
+                    </Button.Styles>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout />
                     </FlyoutBase.AttachedFlyout>
-                    <icons:SymbolIcon Symbol="ArrowDownload" />
+                    <icons:SymbolIcon Foreground="White" Symbol="ArrowDownload" />
                 </Button>
             </Grid>
 
@@ -126,5 +137,5 @@
 
         </StackPanel>
     </ScrollViewer>
-	
+
 </UserControl>
