@@ -66,6 +66,16 @@ namespace VTools.ViewModels
             }
         }
 
+        public string Proxy
+        {
+            get => Configuration.Proxy;
+            set
+            {
+                Configuration.Set(nameof(Proxy), value);
+                OnPropertyChanged(nameof(Proxy));
+            }
+        }
+
 #pragma warning disable CA1822 // Mark members as static
         public void UpdateYTDLP() => YTDLP.Update.Process(Configuration.YTDLPPath).Start();
 #pragma warning restore CA1822 // Mark members as static

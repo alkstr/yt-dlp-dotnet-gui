@@ -66,6 +66,7 @@ namespace VTools.Utilities
                 string url,
                 Format format,
                 Subtitles subtitles,
+                string? proxy,
                 string downloadPath)
             {
                 var formatArg = format switch
@@ -90,6 +91,7 @@ namespace VTools.Utilities
                         FileName = ytdlpPath,
                         Arguments = JoinArguments(
                             $"-P \"{downloadPath}\"",
+                            $"--proxy \"{proxy ?? ""}\"",
                             formatArg,
                             subtitlesArg,
                             "-o \"%(title)s [%(id)s].%(ext)s\"",

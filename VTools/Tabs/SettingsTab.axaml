@@ -34,12 +34,12 @@
                 <Expander.Header>
                     <controls:IconTextBlock Icon="PersonDesktop" Text="{x:Static assets:Resources.UserInterface_Expander_Header}" />
                 </Expander.Header>
-				
+
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
-					
+
                     <TextBlock
                         Grid.Column="0"
                         VerticalAlignment="Center"
@@ -50,23 +50,24 @@
                         VerticalAlignment="Center"
                         ItemsSource="{Binding AvailableCultureNames}"
                         SelectedItem="{Binding CultureName}" />
-					
+
                 </Grid>
-				
+
             </Expander>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="ArrowDownload" Text="{x:Static assets:Resources.Downloader_Expander_Header}" />
                 </Expander.Header>
-				
+
                 <StackPanel Spacing="8">
-					
+
                     <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
-						
+
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -88,23 +89,37 @@
                                 <icons:SymbolIcon Symbol="FolderOpen" />
                             </Button>
                         </StackPanel>
-						
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Proxy" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Width="256"
+                            Height="32"
+                            HorizontalAlignment="Right"
+                            Text="{Binding Proxy, Mode=TwoWay}"
+                            Watermark="socks5://user:pass@127.0.0.1:1080/" />
+
                     </Grid>
-					
+
                 </StackPanel>
-				
+
             </Expander>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipWand" Text="Editor" />
                 </Expander.Header>
-				
+
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
-					
+
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
@@ -126,9 +141,9 @@
                             <icons:SymbolIcon Symbol="FolderOpen" />
                         </Button>
                     </StackPanel>
-					
+
                 </Grid>
-				
+
             </Expander>
 
             <TextBlock Text="{x:Static assets:Resources.ExternalTools_TextBlock}" />
@@ -137,14 +152,14 @@
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipMultiple" Text="{x:Static assets:Resources.YTDLP_Expander_Header}" />
                 </Expander.Header>
-				
+
                 <StackPanel Spacing="8">
 
                     <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
-						
+
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -166,7 +181,7 @@
                                 <icons:SymbolIcon Symbol="DocumentSearch" />
                             </Button>
                         </StackPanel>
-						
+
                     </Grid>
 
                     <Separator />
@@ -175,16 +190,16 @@
                         <Button Command="{Binding UpdateYTDLP}" Content="{x:Static assets:Resources.UpdateYTDLP_Button_Content}" />
                         <HyperlinkButton Click="OpenYTDLPDownloadURL" Content="{x:Static assets:Resources.DownloadYTDLP_Button_Content}" />
                     </StackPanel>
-					
+
                 </StackPanel>
-				
+
             </Expander>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="VideoClipWand" Text="{x:Static assets:Resources.FFmpegAndFFprobe_Expander_Header}" />
                 </Expander.Header>
-				
+
                 <StackPanel Spacing="8">
 
                     <Grid ColumnDefinitions="*,auto">
@@ -192,7 +207,7 @@
                             <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
-						
+
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
@@ -236,7 +251,7 @@
                                 <icons:SymbolIcon Symbol="DocumentSearch" />
                             </Button>
                         </StackPanel>
-						
+
                     </Grid>
 
                     <Separator />
@@ -246,7 +261,7 @@
                     </StackPanel>
 
                 </StackPanel>
-				
+
             </Expander>
 
             <TextBlock FontWeight="Bold" Text="{x:Static assets:Resources.AboutThisApp_TextBlock}" />
@@ -263,5 +278,5 @@
 
         </StackPanel>
     </ScrollViewer>
-	
+
 </UserControl>

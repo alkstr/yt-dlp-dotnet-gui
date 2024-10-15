@@ -52,6 +52,7 @@ public partial class DownloaderViewModel : ViewModelBase
             Media.URL,
             Media.Format.Type,
             Media.Subtitles.Type,
+            Configuration.Proxy,
             Configuration.DownloadPath);
         process.Start();
         process.OutputDataReceived += OnLogReceived;
