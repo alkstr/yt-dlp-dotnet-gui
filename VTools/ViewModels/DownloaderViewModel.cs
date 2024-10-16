@@ -21,56 +21,73 @@ public partial class DownloaderViewModel : ViewModelBase
         private set => SetProperty(ref metadataLoadersCount, value);
     }
 
-    public enum DownloadResult
+    public enum DownloadError
     {
-        Finished,
-        AlreadyDownloading,
-        ExecutableNotFound,
+        AnotherInProgress,
+        NoYTDLP,
+        Other,
     }
 
-    public enum ChangeMetadataResult
+    public enum ChangeMetadataError
     {
-        Finished,
-        Canceled,
-        EmptyURLError,
-        YTDLPNotFoundError,
-        InvalidOutputError,
-        ThumbnailFetchError,
+        NoURL,
+        NoYTDLP,
+        InvalidOutput,
+        FailedToFetch,
+        Other,
     }
 
-    public async Task<DownloadResult> DownloadAsync()
+    public async Task<Error<DownloadError>?> DownloadAsync()
     {
-        if (Monitor.IsEntered(DownloadLock))       { return DownloadResult.AlreadyDownloading; }
-        if (!File.Exists(Configuration.YTDLPPath)) { return DownloadResult.ExecutableNotFound; }
+        if (Monitor.IsEntered(DownloadLock))
+        {
+            return new(DownloadError.AnotherInProgress, "Another download in progress");
+        }
+        if (!File.Exists(Configuration.YTDLPPath))
+        {
+            return new(DownloadError.NoYTDLP, "yt-dlp executable is not found");
+        }
 
-        Monitor.Enter(DownloadLock);
-        Logger.Clear();
+        try
+        {
+            Monitor.Enter(DownloadLock);
+            Logger.Clear();
 
-        var process = YTDLP.Download.Process(
-            Configuration.YTDLPPath,
-            Configuration.FFmpegPath,
-            Media.URL,
-            Media.Format.Type,
-            Media.Subtitles.Type,
-            Configuration.Proxy,
-            string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
-            string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
-            Configuration.DownloadPath);
-        process.Start();
-        process.OutputDataReceived += OnLogReceived;
-        process.ErrorDataReceived += OnLogReceived;
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-        await process.WaitForExitAsync();
-        Monitor.Exit(DownloadLock);
-
-        return DownloadResult.Finished;
+            var process = YTDLP.Download.Process(
+                Configuration.YTDLPPath,
+                Configuration.FFmpegPath,
+                Media.URL,
+                Media.Format.Type,
+                Media.Subtitles.Type,
+                Configuration.Proxy,
+                string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
+                string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
+                Configuration.DownloadPath);
+            process.Start();
+            process.OutputDataReceived += OnLogReceived;
+            process.ErrorDataReceived += OnLogReceived;
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
+            Monitor.Exit(DownloadLock);
+        }
+        catch (Exception e)
+        {
+            return new(DownloadError.Other, e.Message);
+        }
+        return null;
     }
 
-    public async Task<ChangeMetadataResult> ChangeMetadataAsync()
+    public async Task<Error<ChangeMetadataError>?> ChangeMetadataAsync()
     {
-        if (string.IsNullOrWhiteSpace(Media.URL))  { return ChangeMetadataResult.EmptyURLError; }
-        if (!File.Exists(Configuration.YTDLPPath)) { return ChangeMetadataResult.YTDLPNotFoundError; }
+        if (string.IsNullOrWhiteSpace(Media.URL))
+        {
+            return null;
+        }
+        if (!File.Exists(Configuration.YTDLPPath))
+        {
+            return new(ChangeMetadataError.NoYTDLP, "yt-dlp executable is not found");
+        }
 
         try
         {
@@ -84,14 +101,14 @@ public partial class DownloaderViewModel : ViewModelBase
             Media.Channel = "";
             Media.Thumbnail = null;
 
-            var metadataFields = new[] 
+            var metadataFields = new[]
             {
                 YTDLP.Metadata.Field.ThumbnailURL,
                 YTDLP.Metadata.Field.Title,
                 YTDLP.Metadata.Field.Channel
             };
             var process = YTDLP.Metadata.Process(
-                Configuration.YTDLPPath, 
+                Configuration.YTDLPPath,
                 Media.URL,
                 Configuration.Proxy,
                 string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
@@ -123,11 +140,24 @@ public partial class DownloaderViewModel : ViewModelBase
             }
 
             await process.WaitForExitAsync();
-            return ChangeMetadataResult.Finished;
+            return null;
         }
-        catch (OperationCanceledException) { return ChangeMetadataResult.Canceled; }
-        catch (HttpRequestException)       { return ChangeMetadataResult.ThumbnailFetchError; }
-        catch (InvalidDataException)       { return ChangeMetadataResult.InvalidOutputError; }
+        catch (OperationCanceledException) 
+        { 
+            return null;
+        }
+        catch (HttpRequestException) 
+        { 
+            return new(ChangeMetadataError.FailedToFetch, "Couldn't fetch the thumbnail"); 
+        }
+        catch (InvalidDataException) 
+        { 
+            return new(ChangeMetadataError.InvalidOutput, "yt-dlp returned the invalid metadata"); 
+        }
+        catch (Exception e)
+        {
+            return new(ChangeMetadataError.Other, e.Message);
+        }
         finally
         {
             MetadataLoadersCount--;

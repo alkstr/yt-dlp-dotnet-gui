@@ -60,7 +60,11 @@
                     Text="{Binding Media.URL, Mode=TwoWay}"
                     TextChanged="OnURLChanged"
                     TextWrapping="NoWrap"
-                    Watermark="{x:Static assets:Resources.MediaURL_TextBox_Watermark}" />
+                    Watermark="{x:Static assets:Resources.MediaURL_TextBox_Watermark}">
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout />
+                    </FlyoutBase.AttachedFlyout>
+                </TextBox>
                 <Button
                     Name="DownloadButton"
                     Grid.Column="2"

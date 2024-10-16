@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -31,27 +30,13 @@ public partial class EditorTab : Tab<EditorViewModel>
 
     private async void EditAsync(object sender, RoutedEventArgs args)
     {
-        if (ViewModel == null || sender == null) { throw new NullReferenceException(); }
+        var error = await ViewModel.EditAsync();
+        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
+    }
 
-        var result = await ViewModel.EditAsync();
-        switch (result)
-        {
-            case EditorViewModel.EditResult.NoFFmpegError:
-            {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "FFmpeg executable is not found");
-                return;
-            }
-            case EditorViewModel.EditResult.NoFileError:
-            {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Editable file doesn't exist");
-                return;
-            }
-            case EditorViewModel.EditResult.AnotherInProgressError:
-            {
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Another edit in progress");
-                return;
-            }
-            case EditorViewModel.EditResult.Success: { return; }
-        }
+    private async void MetadataAsync(object sender, RoutedEventArgs args)
+    {
+        var error = await ViewModel.MetadataAsync();
+        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
     }
 }

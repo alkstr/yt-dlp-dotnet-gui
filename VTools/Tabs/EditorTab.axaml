@@ -12,11 +12,11 @@
     d:DesignWidth="{DynamicResource WindowWidth}"
     x:DataType="vm:EditorViewModel"
     mc:Ignorable="d">
-    
-	<Design.DataContext>
+
+    <Design.DataContext>
         <vm:DesignEditorViewModel />
     </Design.DataContext>
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,16 +24,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-	
+
     <ScrollViewer Margin="0,12,0,12" Padding="28,0">
         <StackPanel Spacing="16">
-            
-			<Grid
+
+            <Grid
                 Width="{Binding $parent.Bounds.Width}"
                 ColumnDefinitions="*,16,auto"
                 RowDefinitions="auto,16,auto">
 
-				<TextBox
+                <TextBox
                     Name="MediaPathTextBox"
                     Grid.Row="0"
                     Grid.Column="0"
@@ -47,7 +47,7 @@
                     <icons:SymbolIcon Symbol="DocumentSearch" />
                 </Button>
 
-				<TextBox
+                <TextBox
                     Grid.Row="2"
                     Grid.Column="0"
                     Text="{Binding Media.NewFileName}"
@@ -73,17 +73,17 @@
                     </FlyoutBase.AttachedFlyout>
                     <icons:SymbolIcon Foreground="White" Symbol="VideoClipWand" />
                 </Button>
-            
-			</Grid>
+
+            </Grid>
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
                     <controls:IconTextBlock Icon="Info" Text="Metadata" />
                 </Expander.Header>
-                
-				<StackPanel Spacing="8">
-                    
-					<Grid ColumnDefinitions="*,auto">
+
+                <StackPanel Spacing="8">
+
+                    <Grid ColumnDefinitions="*,auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
@@ -125,7 +125,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Text="{Binding Media.Height}" />
-					
+
                     </Grid>
 
                     <Separator
@@ -136,9 +136,13 @@
                     <Button
                         Grid.Row="4"
                         Grid.Column="0"
-                        Command="{Binding MetadataAsync}"
-                        Content="Load metadata" />
-				
+                        Click="MetadataAsync"
+                        Content="Load metadata">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout ShowMode="Transient" />
+                        </FlyoutBase.AttachedFlyout>
+                    </Button>
+
                 </StackPanel>
             </Expander>
 
@@ -146,14 +150,14 @@
                 <Expander.Header>
                     <controls:IconTextBlock Icon="ResizeVideo" Text="{x:Static assets:Resources.Format_Expander_Header}" />
                 </Expander.Header>
-                
-				<Grid ColumnDefinitions="*,auto">
+
+                <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
                         <RowDefinition Height="48" />
                         <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
-					
+
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
@@ -190,7 +194,7 @@
                         Height="32"
                         IsTextBoxEnabled="{Binding Media.ChangeHeight, Mode=TwoWay}"
                         Value="{Binding Media.NewHeight, Mode=TwoWay}" />
-				
+
                 </Grid>
             </Expander>
 
@@ -198,14 +202,14 @@
                 <Expander.Header>
                     <controls:IconTextBlock Icon="Cut" Text="{x:Static assets:Resources.Cut_Expander_Header}" />
                 </Expander.Header>
-				
+
                 <Grid ColumnDefinitions="*,auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48" />
                         <RowDefinition Height="48" />
                         <RowDefinition Height="48" />
                     </Grid.RowDefinitions>
-					
+
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
@@ -215,8 +219,8 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         IsChecked="{Binding Media.Cut}" />
-                    
-					<TextBlock
+
+                    <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
                         VerticalAlignment="Center"
@@ -249,7 +253,7 @@
                             Minimum="0"
                             Value="{Binding Media.CutStart.Seconds, Mode=TwoWay}" />
                     </StackPanel>
-					
+
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="0"
@@ -282,14 +286,14 @@
                             Maximum="59"
                             Minimum="0"
                             Value="{Binding Media.CutEnd.Seconds, Mode=TwoWay}" />
-				    </StackPanel>
-				
+                    </StackPanel>
+
                 </Grid>
-			
+
             </Expander>
 
             <controls:LogsControl Width="{Binding $parent.Bounds.Width}" Logger="{Binding Logger}" />
-		
+
         </StackPanel>
     </ScrollViewer>
 

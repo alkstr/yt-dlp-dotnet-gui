@@ -11,40 +11,13 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
 
     private async void DownloadAsync(object sender, RoutedEventArgs args)
     {
-        var result = await ViewModel.DownloadAsync();
-        switch (result)
-        {
-            case DownloaderViewModel.DownloadResult.AlreadyDownloading:
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "Another download in progress");
-                return;
-            case DownloaderViewModel.DownloadResult.ExecutableNotFound:
-                ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, "yt-dlp executable is not found");
-                return;
-            case DownloaderViewModel.DownloadResult.Finished:
-                return;
-        }
+        var error = await ViewModel.DownloadAsync();
+        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
     }
 
-    private async void OnURLChanged(object? sender, TextChangedEventArgs e)
+    private async void OnURLChanged(object sender, TextChangedEventArgs e)
     {
-        var result = await ViewModel.ChangeMetadataAsync();
-        switch (result)
-        {
-            case DownloaderViewModel.ChangeMetadataResult.Canceled:
-                return;
-            case DownloaderViewModel.ChangeMetadataResult.EmptyURLError:
-                return;
-            case DownloaderViewModel.ChangeMetadataResult.YTDLPNotFoundError:
-                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"yt-dlp executable is not found");
-                return;
-            case DownloaderViewModel.ChangeMetadataResult.InvalidOutputError:
-                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"yt-dlp returned the invalid metadata");
-                return;
-            case DownloaderViewModel.ChangeMetadataResult.ThumbnailFetchError:
-                ViewUtilities.ShowAttachedFlyoutWithText(ThumbnailImage, $"Couldn't fetch the thumbnail");
-                return;
-            case DownloaderViewModel.ChangeMetadataResult.Finished:
-                return;
-        }
+        var error = await ViewModel.ChangeMetadataAsync();
+        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
     }
 }
