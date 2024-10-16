@@ -19,6 +19,9 @@ public partial class SettingsTab : Tab<SettingsViewModel>
     public async void ChangeEditsFolderAsync(object sender, RoutedEventArgs args) =>
         await ChangePathAsync(nameof(ViewModel.EditsPath), StorageItem.Folder);
 
+    public async void ChangeCookiesPathAsync(object sender, RoutedEventArgs args) =>
+        await ChangePathAsync(nameof(ViewModel.CookiesPath), StorageItem.File);
+
     public async void ChangeYTDLPPathAsync(object sender, RoutedEventArgs args) =>
         await ChangePathAsync(nameof(ViewModel.YTDLPPath), StorageItem.File);
 
@@ -27,6 +30,9 @@ public partial class SettingsTab : Tab<SettingsViewModel>
 
     public async void ChangeFFprobePathAsync(object sender, RoutedEventArgs args) =>
         await ChangePathAsync(nameof(ViewModel.FFprobePath), StorageItem.File);
+
+    public void OpenPOTokenGuideURL(object sender, RoutedEventArgs args) =>
+        OpenPath("https://github.com/yt-dlp/yt-dlp/wiki/Extractors#po-token-guide");
 
     public void OpenYTDLPDownloadURL(object sender, RoutedEventArgs args) =>
         OpenPath("https://github.com/yt-dlp/yt-dlp/releases/");

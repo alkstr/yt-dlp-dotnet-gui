@@ -76,6 +76,26 @@ namespace VTools.ViewModels
             }
         }
 
+        public string POToken
+        {
+            get => Configuration.POToken;
+            set
+            {
+                Configuration.Set(nameof(POToken), value);
+                OnPropertyChanged(nameof(POToken));
+            }
+        }
+
+        public string CookiesPath
+        {
+            get => Configuration.CookiesPath;
+            set
+            {
+                Configuration.Set(nameof(CookiesPath), value);
+                OnPropertyChanged(nameof(CookiesPath));
+            }
+        }
+
 #pragma warning disable CA1822 // Mark members as static
         public void UpdateYTDLP() => YTDLP.Update.Process(Configuration.YTDLPPath).Start();
 #pragma warning restore CA1822 // Mark members as static

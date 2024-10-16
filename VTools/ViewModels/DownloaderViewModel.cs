@@ -53,6 +53,8 @@ public partial class DownloaderViewModel : ViewModelBase
             Media.Format.Type,
             Media.Subtitles.Type,
             Configuration.Proxy,
+            string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
+            string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
             Configuration.DownloadPath);
         process.Start();
         process.OutputDataReceived += OnLogReceived;
@@ -88,7 +90,13 @@ public partial class DownloaderViewModel : ViewModelBase
                 YTDLP.Metadata.Field.Title,
                 YTDLP.Metadata.Field.Channel
             };
-            var process = YTDLP.Metadata.Process(Configuration.YTDLPPath, Media.URL, metadataFields);
+            var process = YTDLP.Metadata.Process(
+                Configuration.YTDLPPath, 
+                Media.URL,
+                Configuration.Proxy,
+                string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
+                string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
+                metadataFields);
 
             // Starting a new process for each key press would be too resource-intensive.
             // Instead, let's wait briefly to ensure the user has typed the entire URL.

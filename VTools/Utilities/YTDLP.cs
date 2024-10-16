@@ -19,6 +19,9 @@ namespace VTools.Utilities
             public static Process Process(
                 string ytdlpPath,
                 string url,
+                string? proxy,
+                string? poToken,
+                string? cookiesPath,
                 IEnumerable<Field> fields)
             {
                 var fieldsArg = string.Join(',', fields.Select(field => field switch
@@ -29,12 +32,32 @@ namespace VTools.Utilities
                     _                  => null,
                 }).Where(f => f != null));
 
+                var extractorArg = poToken switch
+                {
+                    null => null,
+                    _    => $"--extractor-args \"youtube:player-client=mediaconnect;po_token=web+{poToken}\"",
+                };
+
+                var cookiesArg = cookiesPath switch
+                {
+                    null => null,
+                    _    => $"--cookies \"{cookiesPath}\"",
+                };
+
                 return new()
                 {
                     StartInfo = new ProcessStartInfo()
                     {
                         FileName = ytdlpPath,
-                        Arguments = JoinArguments(url, "-O", fieldsArg, "--encoding utf-8"),
+                        Arguments = JoinArguments(
+                            url, 
+                            "-O",
+                            fieldsArg,
+                            $"--proxy \"{proxy ?? ""}\"",
+                            extractorArg,
+                            cookiesArg,
+                            "--encoding utf-8"
+                            ),
                         RedirectStandardOutput = true,
                         RedirectStandardError  = true,
                         StandardOutputEncoding = Encoding.UTF8,
@@ -67,6 +90,8 @@ namespace VTools.Utilities
                 Format format,
                 Subtitles subtitles,
                 string? proxy,
+                string? poToken,
+                string? cookiesPath,
                 string downloadPath)
             {
                 var formatArg = format switch
@@ -84,6 +109,18 @@ namespace VTools.Utilities
                     _                  => null,
                 };
 
+                var extractorArg = poToken switch
+                {
+                    null => null,
+                    _    => $"--extractor-args \"youtube:player-client=mediaconnect;po_token=web+{poToken}\"",
+                };
+
+                var cookiesArg = cookiesPath switch
+                {
+                    null => null,
+                    _    => $"--cookies \"{cookiesPath}\"",
+                };
+
                 return new Process()
                 {
                     StartInfo = new ProcessStartInfo()
@@ -96,7 +133,8 @@ namespace VTools.Utilities
                             subtitlesArg,
                             "-o \"%(title)s [%(id)s].%(ext)s\"",
                             $"--ffmpeg-location \"{ffmpegPath}\"",
-                            "--extractor-args \"youtube:player_client=mediaconnect\"",
+                            extractorArg,
+                            cookiesArg,
                             "--encoding utf-8",
                             $"\"{url}\""),
                         RedirectStandardOutput = true,

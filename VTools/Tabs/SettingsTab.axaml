@@ -66,6 +66,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
 
                         <TextBlock
@@ -103,6 +105,49 @@
                             HorizontalAlignment="Right"
                             Text="{Binding Proxy, Mode=TwoWay}"
                             Watermark="socks5://user:pass@127.0.0.1:1080/" />
+
+                        <StackPanel
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="PO Token" />
+                            <HyperlinkButton
+                                Height="32"
+                                VerticalAlignment="Center"
+                                Click="OpenPOTokenGuideURL">
+                                <icons:SymbolIcon Symbol="OpenFolder" />
+                            </HyperlinkButton>
+                        </StackPanel>
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Width="256"
+                            Height="32"
+                            HorizontalAlignment="Right"
+                            Text="{Binding POToken, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="Cookies file" />
+                        <StackPanel
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <TextBox
+                                Width="256"
+                                Height="32"
+                                Text="{Binding CookiesPath, Mode=TwoWay}" />
+                            <Button
+                                Width="48"
+                                Height="32"
+                                Click="ChangeCookiesPathAsync">
+                                <icons:SymbolIcon Symbol="DocumentSearch" />
+                            </Button>
+                        </StackPanel>
 
                     </Grid>
 
