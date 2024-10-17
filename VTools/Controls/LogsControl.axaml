@@ -22,6 +22,7 @@
 
                         <ListBox
                             Height="256"
+                            BorderBrush="DarkGray"
                             BorderThickness="1"
                             ItemsSource="{Binding Logger.Lines, RelativeSource={RelativeSource TemplatedParent}}"
                             ScrollViewer.AllowAutoHide="False"
