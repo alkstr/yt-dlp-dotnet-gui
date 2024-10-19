@@ -9,11 +9,11 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<ProjectGuid>{60D4BCE3-64EE-40DD-A437-75CE0C9A69CD}</ProjectGuid>
-		<Configurations>Debug;Release;Release x64</Configurations>
+		<Configurations>Debug;Release</Configurations>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia.Desktop" Version="11.1.0-rc2" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.1.4" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\VTools\VTools.csproj" />

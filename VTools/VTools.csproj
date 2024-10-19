@@ -5,7 +5,7 @@
 		<LangVersion>latest</LangVersion>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<Configurations>Debug;Release;Release x64</Configurations>
+		<Configurations>Debug;Release</Configurations>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
@@ -22,25 +22,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.1.0-rc2" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0-rc2" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0-rc2" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Avalonia" Version="11.1.4" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.4" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.4" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0-rc2" />
-		<PackageReference Include="FluentIcons.Avalonia" Version="1.1.250-ci" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.4" />
+		<PackageReference Include="FluentIcons.Avalonia" Version="1.1.261" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Update="Assets\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </AvaloniaResource>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <AvaloniaXaml Update="Assets\WindowResources.axaml">
 	    <SubType>Designer</SubType>
 	  </AvaloniaXaml>
-	  <AvaloniaResource Update="Assets\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </AvaloniaResource>
 	</ItemGroup>
 
 	<ItemGroup>
