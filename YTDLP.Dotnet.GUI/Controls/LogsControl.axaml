@@ -1,0 +1,56 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assets="using:YTDLP.Dotnet.GUI.Assets"
+    xmlns:controls="using:YTDLP.Dotnet.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia">
+
+    <Design.PreviewWith>
+        <StackPanel Width="512" Height="512">
+            <controls:LogsControl Width="384" Margin="64" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:LogsControl}" TargetType="controls:LogsControl">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Expander Width="{TemplateBinding Width}">
+                    <Expander.Header>
+                        <controls:IconTextBlock Icon="BookPulse" Text="{x:Static assets:Resources.Logs_Expander_Header}" />
+                    </Expander.Header>
+                    <StackPanel Spacing="16">
+
+                        <ListBox
+                            Height="256"
+                            BorderBrush="DarkGray"
+                            BorderThickness="1"
+                            ItemsSource="{Binding Logger.Lines, RelativeSource={RelativeSource TemplatedParent}}"
+                            ScrollViewer.AllowAutoHide="False"
+                            ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <StackPanel
+                            FlowDirection="RightToLeft"
+                            Orientation="Horizontal"
+                            Spacing="16">
+                            <Button Width="48" Command="{Binding ClearCommand, RelativeSource={RelativeSource TemplatedParent}}}">
+                                <icons:SymbolIcon Symbol="Delete" />
+                            </Button>
+                            <Button Width="48" Command="{Binding CopyCommand, RelativeSource={RelativeSource TemplatedParent}}}">
+                                <icons:SymbolIcon Symbol="Copy" />
+                            </Button>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Expander>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>
