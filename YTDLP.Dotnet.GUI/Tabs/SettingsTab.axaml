@@ -96,7 +96,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Proxy" />
+                            Text="{x:Static assets:Resources.Proxy_TextBlock}" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
@@ -111,7 +111,7 @@
                             Grid.Column="0"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="PO Token" />
+                            <TextBlock VerticalAlignment="Center" Text="{x:Static assets:Resources.POToken_TextBlock}" />
                             <HyperlinkButton
                                 Height="32"
                                 VerticalAlignment="Center"
@@ -131,7 +131,7 @@
                             Grid.Row="3"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Cookies file" />
+                            Text="{x:Static assets:Resources.CookiesFile_TextBlock}" />
                         <StackPanel
                             Grid.Row="3"
                             Grid.Column="1"
@@ -157,7 +157,7 @@
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="VideoClipWand" Text="Editor" />
+                    <controls:IconTextBlock Icon="VideoClipWand" Text="{x:Static assets:Resources.Editor_Expander_Header}" />
                 </Expander.Header>
 
                 <Grid ColumnDefinitions="*,auto">
@@ -169,7 +169,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Edits save path" />
+                        Text="{x:Static assets:Resources.SavePath_TextBlock}" />
                     <StackPanel
                         Grid.Row="0"
                         Grid.Column="1"
@@ -209,7 +209,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="{x:Static assets:Resources.ExecutablePath_TextBlock}" />
+                            Text="{x:Static assets:Resources.YTDLPPath_TextBlock}" />
                         <StackPanel
                             Grid.Row="0"
                             Grid.Column="1"

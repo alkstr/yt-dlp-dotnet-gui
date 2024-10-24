@@ -78,7 +78,7 @@
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="Info" Text="Metadata" />
+                    <controls:IconTextBlock Icon="Info" Text="{x:Static assets:Resources.Metadata_Expander_Header}" />
                 </Expander.Header>
 
                 <StackPanel Spacing="8">
@@ -94,7 +94,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Duration" />
+                            Text="{x:Static assets:Resources.Duration_TextBlock}" />
                         <SelectableTextBlock
                             Grid.Row="0"
                             Grid.Column="1"
@@ -106,7 +106,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Width" />
+                            Text="{x:Static assets:Resources.Width_TextBlock}" />
                         <SelectableTextBlock
                             Grid.Row="1"
                             Grid.Column="1"
@@ -118,7 +118,7 @@
                             Grid.Row="2"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Text="Height" />
+                            Text="{x:Static assets:Resources.Height_TextBlock}" />
                         <SelectableTextBlock
                             Grid.Row="2"
                             Grid.Column="1"
@@ -137,7 +137,7 @@
                         Grid.Row="4"
                         Grid.Column="0"
                         Click="MetadataAsync"
-                        Content="Load metadata">
+                        Content="{x:Static assets:Resources.LoadMetadata_Button_Content}">
                         <FlyoutBase.AttachedFlyout>
                             <Flyout ShowMode="Transient" />
                         </FlyoutBase.AttachedFlyout>
@@ -175,7 +175,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Width" />
+                        Text="{x:Static assets:Resources.Width_TextBlock}" />
                     <controls:OptionalNumericTextBox
                         Grid.Row="1"
                         Grid.Column="1"
@@ -187,7 +187,7 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="Height" />
+                        Text="{x:Static assets:Resources.Height_TextBlock}" />
                     <controls:OptionalNumericTextBox
                         Grid.Row="2"
                         Grid.Column="1"

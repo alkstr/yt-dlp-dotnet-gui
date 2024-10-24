@@ -97,6 +97,15 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cookies file.
+        /// </summary>
+        public static string CookiesFile_TextBlock {
+            get {
+                return ResourceManager.GetString("CookiesFile_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cutting.
         /// </summary>
         public static string Cut_Expander_Header {
@@ -160,6 +169,24 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Duration_TextBlock {
+            get {
+                return ResourceManager.GetString("Duration_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editor.
+        /// </summary>
+        public static string Editor_Expander_Header {
+            get {
+                return ResourceManager.GetString("Editor_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editor.
         /// </summary>
         public static string Editor_Tab_Header {
@@ -183,15 +210,6 @@ namespace YTDLP.Dotnet.GUI.Assets {
         public static string End_TextBlock {
             get {
                 return ResourceManager.GetString("End_TextBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Executable path.
-        /// </summary>
-        public static string ExecutablePath_TextBlock {
-            get {
-                return ResourceManager.GetString("ExecutablePath_TextBlock", resourceCulture);
             }
         }
         
@@ -277,11 +295,29 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string Height_TextBlock {
+            get {
+                return ResourceManager.GetString("Height_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language_TextBlock {
             get {
                 return ResourceManager.GetString("Language_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load metadata.
+        /// </summary>
+        public static string LoadMetadata_Button_Content {
+            get {
+                return ResourceManager.GetString("LoadMetadata_Button_Content", resourceCulture);
             }
         }
         
@@ -313,6 +349,15 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metadata.
+        /// </summary>
+        public static string Metadata_Expander_Header {
+            get {
+                return ResourceManager.GetString("Metadata_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No subtitles.
         /// </summary>
         public static string NoSubtitles_ComboBox_Item {
@@ -340,11 +385,38 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PO Token.
+        /// </summary>
+        public static string POToken_TextBlock {
+            get {
+                return ResourceManager.GetString("POToken_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy.
+        /// </summary>
+        public static string Proxy_TextBlock {
+            get {
+                return ResourceManager.GetString("Proxy_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GitHub repository.
         /// </summary>
         public static string Repository_Button_Content {
             get {
                 return ResourceManager.GetString("Repository_Button_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save path.
+        /// </summary>
+        public static string SavePath_TextBlock {
+            get {
+                return ResourceManager.GetString("SavePath_TextBlock", resourceCulture);
             }
         }
         
@@ -394,11 +466,29 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string Width_TextBlock {
+            get {
+                return ResourceManager.GetString("Width_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to yt-dlp.
         /// </summary>
         public static string YTDLP_Expander_Header {
             get {
                 return ResourceManager.GetString("YTDLP_Expander_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path to yt-dlp.
+        /// </summary>
+        public static string YTDLPPath_TextBlock {
+            get {
+                return ResourceManager.GetString("YTDLPPath_TextBlock", resourceCulture);
             }
         }
     }
