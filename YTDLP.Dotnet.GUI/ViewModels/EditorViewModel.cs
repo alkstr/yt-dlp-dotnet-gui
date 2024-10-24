@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
+using YTDLP.Dotnet.GUI.Assets;
 using YTDLP.Dotnet.GUI.Models;
 using YTDLP.Dotnet.GUI.Utilities;
 
@@ -35,15 +36,15 @@ public partial class EditorViewModel : ViewModelBase
     {
         if (!File.Exists(Configuration.FFmpegPath))
         {
-            return new(EditError.NoFFmpeg, "FFmpeg executable is not found");
+            return new(EditError.NoFFmpeg, Resources.NoFFmpeg_Edit_Error);
         }
         if (!File.Exists(Media.Path))
         {
-            return new(EditError.NoFile, "Editable file doesn't exist");
+            return new(EditError.NoFile, Resources.NoFile_Edit_Error);
         }
         if (Monitor.IsEntered(editLock))
         {
-            return new(EditError.AnotherInProgress, "Another edit in progress");
+            return new(EditError.AnotherInProgress, Resources.AnotherInProgress_Edit_Error);
         }
 
         try
@@ -82,11 +83,11 @@ public partial class EditorViewModel : ViewModelBase
     {
         if (!File.Exists(Configuration.FFprobePath))
         {
-            return new(MetadataError.NoFFProbe, "No FFprobe");
+            return new(MetadataError.NoFFProbe, Resources.NoFFProbe_Metadata_Error);
         }
         if (!File.Exists(Media.Path))
         {
-            return new(MetadataError.NoFile, "File doesn't exist");
+            return new(MetadataError.NoFile, Resources.NoFile_Metadata_Error);
         }
 
         try

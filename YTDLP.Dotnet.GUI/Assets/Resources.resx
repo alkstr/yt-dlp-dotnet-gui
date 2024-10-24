@@ -261,4 +261,34 @@
   <data name="SavePath_TextBlock" xml:space="preserve">
     <value>Save path</value>
   </data>
+  <data name="AnotherInProgress_Download_Error" xml:space="preserve">
+    <value>Another download in progress</value>
+  </data>
+  <data name="NoYTDLP_Download_Error" xml:space="preserve">
+    <value>yt-dlp is not found</value>
+  </data>
+  <data name="FailedToFetch_ChangeMetadata_Error" xml:space="preserve">
+    <value>Couldn't fetch the thumbnail</value>
+  </data>
+  <data name="InvalidOutput_ChangeMetadata_Error" xml:space="preserve">
+    <value>yt-dlp returned the invalid metadata</value>
+  </data>
+  <data name="NoYTDLP_ChangeMetadata_Error" xml:space="preserve">
+    <value>yt-dlp is not found</value>
+  </data>
+  <data name="NoFFmpeg_Edit_Error" xml:space="preserve">
+    <value>ffmpeg is not found</value>
+  </data>
+  <data name="NoFile_Edit_Error" xml:space="preserve">
+    <value>Editable file is not found</value>
+  </data>
+  <data name="AnotherInProgress_Edit_Error" xml:space="preserve">
+    <value>Another edit in progress</value>
+  </data>
+  <data name="NoFFProbe_Metadata_Error" xml:space="preserve">
+    <value>ffprobe is not found</value>
+  </data>
+  <data name="NoFile_Metadata_Error" xml:space="preserve">
+    <value>File is not found</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
+using YTDLP.Dotnet.GUI.Assets;
 using YTDLP.Dotnet.GUI.Models;
 using YTDLP.Dotnet.GUI.Utilities;
 
@@ -41,11 +42,11 @@ public partial class DownloaderViewModel : ViewModelBase
     {
         if (Monitor.IsEntered(DownloadLock))
         {
-            return new(DownloadError.AnotherInProgress, "Another download in progress");
+            return new(DownloadError.AnotherInProgress, Resources.AnotherInProgress_Download_Error);
         }
         if (!File.Exists(Configuration.YTDLPPath))
         {
-            return new(DownloadError.NoYTDLP, "yt-dlp executable is not found");
+            return new(DownloadError.NoYTDLP, Resources.NoYTDLP_Download_Error);
         }
 
         try
@@ -86,7 +87,7 @@ public partial class DownloaderViewModel : ViewModelBase
         }
         if (!File.Exists(Configuration.YTDLPPath))
         {
-            return new(ChangeMetadataError.NoYTDLP, "yt-dlp executable is not found");
+            return new(ChangeMetadataError.NoYTDLP, Resources.NoYTDLP_ChangeMetadata_Error);
         }
 
         try
@@ -148,11 +149,11 @@ public partial class DownloaderViewModel : ViewModelBase
         }
         catch (HttpRequestException)
         {
-            return new(ChangeMetadataError.FailedToFetch, "Couldn't fetch the thumbnail");
+            return new(ChangeMetadataError.FailedToFetch, Resources.FailedToFetch_ChangeMetadata_Error);
         }
         catch (InvalidDataException)
         {
-            return new(ChangeMetadataError.InvalidOutput, "yt-dlp returned the invalid metadata");
+            return new(ChangeMetadataError.InvalidOutput, Resources.InvalidOutput_ChangeMetadata_Error);
         }
         catch (Exception e)
         {

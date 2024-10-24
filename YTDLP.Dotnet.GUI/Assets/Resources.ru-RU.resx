@@ -261,4 +261,34 @@
   <data name="SavePath_TextBlock" xml:space="preserve">
     <value>Путь сохранения</value>
   </data>
+  <data name="AnotherInProgress_Download_Error" xml:space="preserve">
+    <value>Другая загрузка в процессе</value>
+  </data>
+  <data name="NoYTDLP_Download_Error" xml:space="preserve">
+    <value>Не удалось найти yt-dlp</value>
+  </data>
+  <data name="FailedToFetch_ChangeMetadata_Error" xml:space="preserve">
+    <value>Не удалось загрузить иконку медиафайла</value>
+  </data>
+  <data name="InvalidOutput_ChangeMetadata_Error" xml:space="preserve">
+    <value>yt-dlp передал неверные метаданные</value>
+  </data>
+  <data name="NoYTDLP_ChangeMetadata_Error" xml:space="preserve">
+    <value>Не удалось найти yt-dlp</value>
+  </data>
+  <data name="NoFFmpeg_Edit_Error" xml:space="preserve">
+    <value>Не удалось найти ffmpeg</value>
+  </data>
+  <data name="NoFile_Edit_Error" xml:space="preserve">
+    <value>Не удалось найти файл для редактирования</value>
+  </data>
+  <data name="AnotherInProgress_Edit_Error" xml:space="preserve">
+    <value>Другое редактирование в процессе</value>
+  </data>
+  <data name="NoFFProbe_Metadata_Error" xml:space="preserve">
+    <value>Не удалось найти ffprobe</value>
+  </data>
+  <data name="NoFile_Metadata_Error" xml:space="preserve">
+    <value>Не удалось найти файл</value>
+  </data>
 </root>

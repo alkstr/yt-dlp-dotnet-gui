@@ -70,6 +70,24 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Another download in progress.
+        /// </summary>
+        public static string AnotherInProgress_Download_Error {
+            get {
+                return ResourceManager.GetString("AnotherInProgress_Download_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Another edit in progress.
+        /// </summary>
+        public static string AnotherInProgress_Edit_Error {
+            get {
+                return ResourceManager.GetString("AnotherInProgress_Edit_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App folder.
         /// </summary>
         public static string AppFolder_TextBlock {
@@ -232,6 +250,15 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t fetch the thumbnail.
+        /// </summary>
+        public static string FailedToFetch_ChangeMetadata_Error {
+            get {
+                return ResourceManager.GetString("FailedToFetch_ChangeMetadata_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FFmpeg &amp; FFprobe.
         /// </summary>
         public static string FFmpegAndFFprobe_Expander_Header {
@@ -304,6 +331,15 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to yt-dlp returned the invalid metadata.
+        /// </summary>
+        public static string InvalidOutput_ChangeMetadata_Error {
+            get {
+                return ResourceManager.GetString("InvalidOutput_ChangeMetadata_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language_TextBlock {
@@ -358,11 +394,65 @@ namespace YTDLP.Dotnet.GUI.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ffmpeg is not found.
+        /// </summary>
+        public static string NoFFmpeg_Edit_Error {
+            get {
+                return ResourceManager.GetString("NoFFmpeg_Edit_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ffprobe is not found.
+        /// </summary>
+        public static string NoFFProbe_Metadata_Error {
+            get {
+                return ResourceManager.GetString("NoFFProbe_Metadata_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editable file is not found.
+        /// </summary>
+        public static string NoFile_Edit_Error {
+            get {
+                return ResourceManager.GetString("NoFile_Edit_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is not found.
+        /// </summary>
+        public static string NoFile_Metadata_Error {
+            get {
+                return ResourceManager.GetString("NoFile_Metadata_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No subtitles.
         /// </summary>
         public static string NoSubtitles_ComboBox_Item {
             get {
                 return ResourceManager.GetString("NoSubtitles_ComboBox_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp is not found.
+        /// </summary>
+        public static string NoYTDLP_ChangeMetadata_Error {
+            get {
+                return ResourceManager.GetString("NoYTDLP_ChangeMetadata_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp is not found.
+        /// </summary>
+        public static string NoYTDLP_Download_Error {
+            get {
+                return ResourceManager.GetString("NoYTDLP_Download_Error", resourceCulture);
             }
         }
         
