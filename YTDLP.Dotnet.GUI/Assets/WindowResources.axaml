@@ -1,4 +1,17 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="BackgroundColor">#F2F2F2</SolidColorBrush>
+            <SolidColorBrush x:Key="BorderColor">#C7C7C7</SolidColorBrush>
+            <SolidColorBrush x:Key="ContrastBorderColor">#666666</SolidColorBrush>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="BackgroundColor">#2B2B2B</SolidColorBrush>
+            <SolidColorBrush x:Key="BorderColor">#444444</SolidColorBrush>
+            <SolidColorBrush x:Key="ContrastBorderColor">#999999</SolidColorBrush>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+    
     <x:Double x:Key="WindowWidth">600</x:Double>
-    <x:Double x:Key="WindowHeight">600</x:Double>
+    <x:Double x:Key="WindowHeight">650</x:Double>
 </ResourceDictionary>

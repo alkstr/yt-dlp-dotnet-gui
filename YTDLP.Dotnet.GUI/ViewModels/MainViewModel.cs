@@ -1,3 +1,3 @@
 ﻿namespace YTDLP.Dotnet.GUI.ViewModels;
 
-public partial class MainViewModel : ViewModelBase { }
+public class MainViewModel : ViewModelBase;

@@ -12,7 +12,7 @@ using YTDLP.Dotnet.GUI.Utilities;
 
 namespace YTDLP.Dotnet.GUI.ViewModels;
 
-public partial class EditorViewModel : ViewModelBase
+public class EditorViewModel : ViewModelBase
 {
     public LocalMediaFile Media { get; } = new();
     public Logger Logger { get; } = new();
@@ -22,29 +22,31 @@ public partial class EditorViewModel : ViewModelBase
         NoFFmpeg,
         NoFile,
         AnotherInProgress,
-        Other,
+        Other
     }
 
     public enum MetadataError
     {
         NoFFProbe,
         NoFile,
-        Other,
+        Other
     }
 
     public async Task<Error<EditError>?> EditAsync()
     {
         if (!File.Exists(Configuration.FFmpegPath))
         {
-            return new(EditError.NoFFmpeg, Resources.NoFFmpeg_Edit_Error);
+            return new Error<EditError>(EditError.NoFFmpeg, Resources.NoFFmpeg_Edit_Error);
         }
+
         if (!File.Exists(Media.Path))
         {
-            return new(EditError.NoFile, Resources.NoFile_Edit_Error);
+            return new Error<EditError>(EditError.NoFile, Resources.NoFile_Edit_Error);
         }
+
         if (Monitor.IsEntered(editLock))
         {
-            return new(EditError.AnotherInProgress, Resources.AnotherInProgress_Edit_Error);
+            return new Error<EditError>(EditError.AnotherInProgress, Resources.AnotherInProgress_Edit_Error);
         }
 
         try
@@ -61,7 +63,10 @@ public partial class EditorViewModel : ViewModelBase
                 Media.NewFileName,
                 Media.NewFormat);
 
-            if (!Directory.Exists(Configuration.EditsPath)) { Directory.CreateDirectory(Configuration.EditsPath); }
+            if (!Directory.Exists(Configuration.EditsPath))
+            {
+                Directory.CreateDirectory(Configuration.EditsPath);
+            }
 
             process.Start();
             process.OutputDataReceived += OnLogReceived;
@@ -74,8 +79,9 @@ public partial class EditorViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            return new(EditError.Other, e.Message);
+            return new Error<EditError>(EditError.Other, e.Message);
         }
+
         return null;
     }
 
@@ -83,11 +89,12 @@ public partial class EditorViewModel : ViewModelBase
     {
         if (!File.Exists(Configuration.FFprobePath))
         {
-            return new(MetadataError.NoFFProbe, Resources.NoFFProbe_Metadata_Error);
+            return new Error<MetadataError>(MetadataError.NoFFProbe, Resources.NoFFProbe_Metadata_Error);
         }
+
         if (!File.Exists(Media.Path))
         {
-            return new(MetadataError.NoFile, Resources.NoFile_Metadata_Error);
+            return new Error<MetadataError>(MetadataError.NoFile, Resources.NoFile_Metadata_Error);
         }
 
         try
@@ -105,7 +112,7 @@ public partial class EditorViewModel : ViewModelBase
             var metadata = JsonSerializer.Deserialize<FFmpeg.Metadata.Output>(output, serializerOptions);
 
             var duration = metadata.Format.Duration.Split(':');
-            Media.Duration = new MediaTime()
+            Media.Duration = new MediaTime
             {
                 Hours = uint.Parse(duration[0]),
                 Minutes = uint.Parse(duration[1]),
@@ -127,7 +134,7 @@ public partial class EditorViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            return new(MetadataError.Other, e.Message);
+            return new Error<MetadataError>(MetadataError.Other, e.Message);
         }
 
         return null;
@@ -138,7 +145,11 @@ public partial class EditorViewModel : ViewModelBase
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(e.Data)) { return; }
+        if (string.IsNullOrWhiteSpace(e.Data))
+        {
+            return;
+        }
+
         Dispatcher.UIThread.InvokeAsync(() => Logger.AppendLine(e.Data));
     }
 }

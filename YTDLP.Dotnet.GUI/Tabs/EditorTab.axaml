@@ -2,12 +2,12 @@
     x:Class="YTDLP.Dotnet.GUI.Tabs.EditorTab"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:assets="clr-namespace:YTDLP.Dotnet.GUI.Assets"
-    xmlns:controls="using:YTDLP.Dotnet.GUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:YTDLP.Dotnet.GUI.ViewModels"
+    xmlns:assets="using:YTDLP.Dotnet.GUI.Assets"
+    xmlns:controls="using:YTDLP.Dotnet.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia"
+    xmlns:vm="using:YTDLP.Dotnet.GUI.ViewModels"
     d:DesignHeight="{DynamicResource WindowHeight}"
     d:DesignWidth="{DynamicResource WindowWidth}"
     x:DataType="vm:EditorViewModel"
@@ -83,12 +83,7 @@
 
                 <StackPanel Spacing="8">
 
-                    <Grid ColumnDefinitions="*,auto">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="48" />
-                            <RowDefinition Height="48" />
-                            <RowDefinition Height="48" />
-                        </Grid.RowDefinitions>
+                    <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,48">
 
                         <TextBlock
                             Grid.Row="0"
@@ -128,14 +123,9 @@
 
                     </Grid>
 
-                    <Separator
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2" />
+                    <Separator />
 
                     <Button
-                        Grid.Row="4"
-                        Grid.Column="0"
                         Click="MetadataAsync"
                         Content="{x:Static assets:Resources.LoadMetadata_Button_Content}">
                         <FlyoutBase.AttachedFlyout>
@@ -148,15 +138,12 @@
 
             <Expander Width="{Binding $parent.Bounds.Width}">
                 <Expander.Header>
-                    <controls:IconTextBlock Icon="ResizeVideo" Text="{x:Static assets:Resources.Format_Expander_Header}" />
+                    <controls:IconTextBlock
+                        Icon="ResizeVideo"
+                        Text="{x:Static assets:Resources.Format_Expander_Header}" />
                 </Expander.Header>
 
-                <Grid ColumnDefinitions="*,auto">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="48" />
-                        <RowDefinition Height="48" />
-                        <RowDefinition Height="48" />
-                    </Grid.RowDefinitions>
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,48">
 
                     <TextBlock
                         Grid.Row="0"
@@ -203,12 +190,7 @@
                     <controls:IconTextBlock Icon="Cut" Text="{x:Static assets:Resources.Cut_Expander_Header}" />
                 </Expander.Header>
 
-                <Grid ColumnDefinitions="*,auto">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="48" />
-                        <RowDefinition Height="48" />
-                        <RowDefinition Height="48" />
-                    </Grid.RowDefinitions>
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,48">
 
                     <TextBlock
                         Grid.Row="0"

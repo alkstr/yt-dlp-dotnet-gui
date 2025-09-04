@@ -12,10 +12,17 @@ using YTDLP.Dotnet.GUI.Utilities;
 
 namespace YTDLP.Dotnet.GUI.ViewModels;
 
-public partial class DownloaderViewModel : ViewModelBase
+public class DownloaderViewModel : ViewModelBase
 {
     public WebMediaFile Media { get; } = new();
     public Logger Logger { get; } = new();
+
+    public byte DownloaderCount
+    {
+        get => downloaderCount;
+        private set => SetProperty(ref downloaderCount, value);
+    }
+
     public byte MetadataLoadersCount
     {
         get => metadataLoadersCount;
@@ -24,58 +31,75 @@ public partial class DownloaderViewModel : ViewModelBase
 
     public enum DownloadError
     {
-        AnotherInProgress,
         NoYTDLP,
-        Other,
+        Other
     }
 
     public enum ChangeMetadataError
     {
-        NoURL,
         NoYTDLP,
         InvalidOutput,
         FailedToFetch,
-        Other,
+        Other
     }
 
-    public async Task<Error<DownloadError>?> DownloadAsync()
+    public async Task<Error<DownloadError>?> DownloadOrCancelAsync()
     {
-        if (Monitor.IsEntered(DownloadLock))
-        {
-            return new(DownloadError.AnotherInProgress, Resources.AnotherInProgress_Download_Error);
-        }
         if (!File.Exists(Configuration.YTDLPPath))
         {
-            return new(DownloadError.NoYTDLP, Resources.NoYTDLP_Download_Error);
+            return new Error<DownloadError>(DownloadError.NoYTDLP, Resources.NoYTDLP_Download_Error);
+        }
+
+        if (DownloaderCount > 0)
+        {
+            await downloaderCancellationTokenSource.CancelAsync();
+            foreach (var process in Process.GetProcessesByName("yt-dlp"))
+            {
+                process.Kill();
+            }
+
+            return null;
         }
 
         try
         {
-            Monitor.Enter(DownloadLock);
-            Logger.Clear();
+            DownloaderCount++;
 
-            var process = YouTube.Download.Process(
+            downloaderCancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = downloaderCancellationTokenSource.Token;
+
+            downloader = YouTube.Download.Process(
                 Configuration.YTDLPPath,
                 Configuration.FFmpegPath,
                 Media.URL,
                 Media.Format.Type,
                 Media.Subtitles.Type,
-                Configuration.Proxy,
+                Configuration.IsProxyEnabled.IsFalse() ? null : Configuration.Proxy,
                 string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
                 string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
                 Configuration.DownloadPath);
-            process.Start();
-            process.OutputDataReceived += OnLogReceived;
-            process.ErrorDataReceived += OnLogReceived;
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            await process.WaitForExitAsync();
-            Monitor.Exit(DownloadLock);
+
+            downloader.Start();
+            downloader.OutputDataReceived += OnLogReceived;
+            downloader.ErrorDataReceived += OnLogReceived;
+            downloader.BeginOutputReadLine();
+            downloader.BeginErrorReadLine();
+            await downloader.WaitForExitAsync(cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            return null;
         }
         catch (Exception e)
         {
-            return new(DownloadError.Other, e.Message);
+            return new Error<DownloadError>(DownloadError.Other, e.Message);
         }
+        finally
+        {
+            downloader = null;
+            DownloaderCount--;
+        }
+
         return null;
     }
 
@@ -85,18 +109,19 @@ public partial class DownloaderViewModel : ViewModelBase
         {
             return null;
         }
+
         if (!File.Exists(Configuration.YTDLPPath))
         {
-            return new(ChangeMetadataError.NoYTDLP, Resources.NoYTDLP_ChangeMetadata_Error);
+            return new Error<ChangeMetadataError>(ChangeMetadataError.NoYTDLP, Resources.NoYTDLP_ChangeMetadata_Error);
         }
 
         try
         {
             MetadataLoadersCount++;
 
-            await cancellationTokenSource.CancelAsync();
-            cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
+            await metadataLoaderCancellationTokenSource.CancelAsync();
+            metadataLoaderCancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = metadataLoaderCancellationTokenSource.Token;
 
             Media.Title = "";
             Media.Channel = "";
@@ -111,21 +136,25 @@ public partial class DownloaderViewModel : ViewModelBase
             var process = YouTube.Metadata.Process(
                 Configuration.YTDLPPath,
                 Media.URL,
-                Configuration.Proxy,
+                Configuration.IsProxyEnabled.IsFalse() ? null : Configuration.Proxy,
                 string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
                 string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
                 metadataFields);
 
             // Starting a new process for each key press would be too resource-intensive.
             // Instead, let's wait briefly to ensure the user has typed the entire URL.
-            await Task.Delay(3000).WaitAsync(cancellationToken);
+            await Task.Delay(3000, cancellationToken).WaitAsync(cancellationToken);
             process.Start();
 
             var output = await process.StandardOutput.ReadToEndAsync(cancellationToken);
             Logger.AppendLine(await process.StandardError.ReadToEndAsync(cancellationToken));
 
             var lines = output.Split('\n');
-            if (lines.Length < metadataFields.Length) { throw new InvalidDataException(); }
+            if (lines.Length < metadataFields.Length)
+            {
+                throw new InvalidDataException();
+            }
+
             var thumbnailURL = lines[0];
             Media.Title = lines[1];
             Media.Channel = lines[2];
@@ -140,7 +169,7 @@ public partial class DownloaderViewModel : ViewModelBase
                 Media.Thumbnail = new Bitmap(new MemoryStream(thumbnailBytes));
             }
 
-            await process.WaitForExitAsync();
+            await process.WaitForExitAsync(cancellationToken);
             return null;
         }
         catch (OperationCanceledException)
@@ -149,15 +178,17 @@ public partial class DownloaderViewModel : ViewModelBase
         }
         catch (HttpRequestException)
         {
-            return new(ChangeMetadataError.FailedToFetch, Resources.FailedToFetch_ChangeMetadata_Error);
+            return new Error<ChangeMetadataError>(ChangeMetadataError.FailedToFetch,
+                Resources.FailedToFetch_ChangeMetadata_Error);
         }
         catch (InvalidDataException)
         {
-            return new(ChangeMetadataError.InvalidOutput, Resources.InvalidOutput_ChangeMetadata_Error);
+            return new Error<ChangeMetadataError>(ChangeMetadataError.InvalidOutput,
+                Resources.InvalidOutput_ChangeMetadata_Error);
         }
         catch (Exception e)
         {
-            return new(ChangeMetadataError.Other, e.Message);
+            return new Error<ChangeMetadataError>(ChangeMetadataError.Other, e.Message);
         }
         finally
         {
@@ -165,13 +196,20 @@ public partial class DownloaderViewModel : ViewModelBase
         }
     }
 
-    private readonly object DownloadLock = new();
-    private CancellationTokenSource cancellationTokenSource = new();
+    private CancellationTokenSource downloaderCancellationTokenSource = new();
+    private byte downloaderCount;
+    private Process? downloader;
+
+    private CancellationTokenSource metadataLoaderCancellationTokenSource = new();
     private byte metadataLoadersCount;
 
     private void OnLogReceived(object sender, DataReceivedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(e.Data)) { return; }
+        if (string.IsNullOrWhiteSpace(e.Data))
+        {
+            return;
+        }
+
         Dispatcher.UIThread.InvokeAsync(() => Logger.AppendLine(e.Data));
     }
 }

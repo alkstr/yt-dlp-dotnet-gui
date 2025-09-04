@@ -1,76 +1,74 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
-		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<Configurations>Debug;Release</Configurations>
-		<Platforms>AnyCPU;x64</Platforms>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>AnyCPU;x64</Platforms>
+    </PropertyGroup>
 
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<AvaloniaResource Include="Assets\**" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Remove="Assets\Resources.resx"/>
+        <AvaloniaResource Remove="Assets\Resources.ru-RU.resx"/>
+        <AvaloniaResource Remove="Assets\WindowResources.axaml"/>
+    </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.1.4"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.4"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.4"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
 
-	<ItemGroup>
-	  <AvaloniaResource Remove="Assets\Resources.resx" />
-	  <AvaloniaResource Remove="Assets\Resources.ru-RU.resx" />
-	  <AvaloniaResource Remove="Assets\WindowResources.axaml" />
-	</ItemGroup>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.4"/>
+        <PackageReference Include="FluentIcons.Avalonia" Version="1.1.261"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.1.4" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.4" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.4" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <ItemGroup>
+        <AvaloniaResource Update="Assets\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </AvaloniaResource>
+    </ItemGroup>
 
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.4" />
-		<PackageReference Include="FluentIcons.Avalonia" Version="1.1.261" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaXaml Update="Assets\WindowResources.axaml">
+            <SubType>Designer</SubType>
+        </AvaloniaXaml>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <AvaloniaResource Update="Assets\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </AvaloniaResource>
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Assets\Resources.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Assets\Resources.ru-RU.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <AvaloniaXaml Update="Assets\WindowResources.axaml">
-	    <SubType>Designer</SubType>
-	  </AvaloniaXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Assets\Resources.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Assets\Resources.ru-RU.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="Controls\CircleThrobber.axaml.cs">	
-			<DependentUpon>CircleThrobber.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Controls\LogsControl.axaml.cs">
-		  <DependentUpon>LogsControl.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Tabs\DownloaderTab.axaml.cs">
-			<DependentUpon>DownloaderTab.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Tabs\EditorTab.axaml.cs">
-			<DependentUpon>EditorTab.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Tabs\SettingsTab.axaml.cs">
-			<DependentUpon>SettingsTab.axaml</DependentUpon>
-		</Compile>
-	</ItemGroup>
+    <ItemGroup>
+        <Compile Update="Controls\CircleThrobber.axaml.cs">
+            <DependentUpon>CircleThrobber.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Controls\LogsControl.axaml.cs">
+            <DependentUpon>LogsControl.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Tabs\DownloaderTab.axaml.cs">
+            <DependentUpon>DownloaderTab.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Tabs\EditorTab.axaml.cs">
+            <DependentUpon>EditorTab.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Tabs\SettingsTab.axaml.cs">
+            <DependentUpon>SettingsTab.axaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
 </Project>

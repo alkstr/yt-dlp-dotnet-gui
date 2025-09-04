@@ -2,12 +2,13 @@
     x:Class="YTDLP.Dotnet.GUI.Tabs.DownloaderTab"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:assets="clr-namespace:YTDLP.Dotnet.GUI.Assets"
-    xmlns:controls="using:YTDLP.Dotnet.GUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:YTDLP.Dotnet.GUI.ViewModels"
+    xmlns:assets="using:YTDLP.Dotnet.GUI.Assets"
+    xmlns:controls="using:YTDLP.Dotnet.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia"
+    xmlns:vm="using:YTDLP.Dotnet.GUI.ViewModels"
+    xmlns:utils="using:YTDLP.Dotnet.GUI.Utilities"
     d:DesignHeight="{DynamicResource WindowHeight}"
     d:DesignWidth="{DynamicResource WindowWidth}"
     x:DataType="vm:DownloaderViewModel"
@@ -28,12 +29,13 @@
     <ScrollViewer Margin="0,14,0,14" Padding="28,0">
         <StackPanel Spacing="16">
 
-            <Panel HorizontalAlignment="Center">
-                <Border BorderBrush="DarkGray" BorderThickness="1">
+            <Panel
+                HorizontalAlignment="Center"
+                Width="520"
+                Height="294">
+                <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="3" Padding="1">
                     <Image
                         Name="ThumbnailImage"
-                        Width="480"
-                        Height="270"
                         HorizontalAlignment="Center"
                         RenderOptions.BitmapInterpolationMode="HighQuality"
                         Source="{Binding Media.Thumbnail}">
@@ -45,16 +47,23 @@
                 <controls:CircleThrobber IsVisible="{Binding MetadataLoadersCount}" />
             </Panel>
 
-            <SelectableTextBlock Width="{Binding $parent.Bounds.Width}" TextWrapping="Wrap">
-                <Run
-                    FontSize="18"
-                    FontWeight="Bold"
-                    Text="{Binding Media.Title}" />
-                <LineBreak />
-                <Run Text="{Binding Media.Channel}" />
-            </SelectableTextBlock>
+            <Border
+                Width="{Binding $parent.Bounds.Width}"
+                Background="{DynamicResource BackgroundColor}"
+                CornerRadius="3"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderColor}">
+                <SelectableTextBlock TextWrapping="Wrap" Padding="8">
+                    <Run
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="{Binding Media.Title}" />
+                    <LineBreak />
+                    <Run Text="{Binding Media.Channel}" />
+                </SelectableTextBlock>
+            </Border>
 
-            <Grid Width="{Binding $parent.Bounds.Width}" ColumnDefinitions="*,16,auto">
+            <Grid Width="{Binding $parent.Bounds.Width}" ColumnDefinitions="*,16,auto,16,auto">
                 <TextBox
                     Grid.Column="0"
                     Text="{Binding Media.URL, Mode=TwoWay}"
@@ -65,11 +74,23 @@
                         <Flyout />
                     </FlyoutBase.AttachedFlyout>
                 </TextBox>
+
                 <Button
-                    Name="DownloadButton"
+                    Name="RefreshButton"
                     Grid.Column="2"
                     Width="48"
-                    Click="DownloadAsync">
+                    Click="RefreshAsync">
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout />
+                    </FlyoutBase.AttachedFlyout>
+                    <icons:SymbolIcon Symbol="ArrowClockwise" />
+                </Button>
+
+                <Button
+                    Name="DownloadButton"
+                    Grid.Column="4"
+                    Width="48"
+                    Click="DownloadOrCancelAsync">
                     <Button.Styles>
                         <Style Selector="Button">
                             <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
@@ -84,7 +105,9 @@
                     <FlyoutBase.AttachedFlyout>
                         <Flyout />
                     </FlyoutBase.AttachedFlyout>
-                    <icons:SymbolIcon Foreground="White" Symbol="ArrowDownload" />
+                    <icons:SymbolIcon
+                        Foreground="White"
+                        Symbol="{Binding DownloaderCount, Converter={x:Static utils:Converters.DownloadButtonIconConverter}}" />
                 </Button>
             </Grid>
 
@@ -92,17 +115,15 @@
                 <Expander.Header>
                     <controls:IconTextBlock Icon="Options" Text="{x:Static assets:Resources.Options_Expander_Header}" />
                 </Expander.Header>
-                <Grid ColumnDefinitions="*,auto">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="48" />
-                        <RowDefinition Height="48" />
-                    </Grid.RowDefinitions>
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48">
 
                     <TextBlock
+                        Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="{x:Static assets:Resources.Format_TextBlock}" />
                     <ComboBox
+                        Grid.Row="0"
                         Grid.Column="1"
                         Width="256"
                         VerticalAlignment="Center"

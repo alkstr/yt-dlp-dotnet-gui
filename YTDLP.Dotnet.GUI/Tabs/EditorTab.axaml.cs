@@ -18,25 +18,34 @@ public partial class EditorTab : Tab<EditorViewModel>
             new FilePickerOpenOptions
             {
                 Title = "Open Media File",
-                AllowMultiple = false,
+                AllowMultiple = false
             });
-        if (files.Any())
+
+        if (!files.Any())
         {
-            var path = files[0].TryGetLocalPath()!;
-            ViewModel.Media.Path = path;
-            MediaPathTextBox.CaretIndex = path.Length;
+            return;
         }
+
+        var path = files[0].TryGetLocalPath()!;
+        ViewModel.Media.Path = path;
+        MediaPathTextBox.CaretIndex = path.Length;
     }
 
     private async void EditAsync(object sender, RoutedEventArgs args)
     {
         var error = await ViewModel.EditAsync();
-        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
+        if (error != null)
+        {
+            ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message);
+        }
     }
 
     private async void MetadataAsync(object sender, RoutedEventArgs args)
     {
         var error = await ViewModel.MetadataAsync();
-        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
+        if (error != null)
+        {
+            ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message);
+        }
     }
 }

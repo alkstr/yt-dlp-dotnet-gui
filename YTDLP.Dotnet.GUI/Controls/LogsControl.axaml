@@ -11,38 +11,52 @@
         </StackPanel>
     </Design.PreviewWith>
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="/Assets/WindowResources.axaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <ControlTheme x:Key="{x:Type controls:LogsControl}" TargetType="controls:LogsControl">
         <Setter Property="Template">
             <ControlTemplate>
                 <Expander Width="{TemplateBinding Width}">
                     <Expander.Header>
-                        <controls:IconTextBlock Icon="BookPulse" Text="{x:Static assets:Resources.Logs_Expander_Header}" />
+                        <controls:IconTextBlock
+                            Icon="BookPulse"
+                            Text="{x:Static assets:Resources.Logs_Expander_Header}" />
                     </Expander.Header>
                     <StackPanel Spacing="16">
 
-                        <ListBox
-                            Height="256"
-                            BorderBrush="DarkGray"
+                        <Border
+                            BorderBrush="{DynamicResource ContrastBorderColor}"
                             BorderThickness="1"
-                            ItemsSource="{Binding Logger.Lines, RelativeSource={RelativeSource TemplatedParent}}"
-                            ScrollViewer.AllowAutoHide="False"
-                            ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                            CornerRadius="3"
+                            Padding="1">
+                            <ListBox
+                                Height="256"
+                                ItemsSource="{Binding Logger.Lines, RelativeSource={RelativeSource TemplatedParent}}"
+                                ScrollViewer.AllowAutoHide="False"
+                                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
 
                         <StackPanel
                             FlowDirection="RightToLeft"
                             Orientation="Horizontal"
                             Spacing="16">
-                            <Button Width="48" Command="{Binding ClearCommand, RelativeSource={RelativeSource TemplatedParent}}}">
+                            <Button
+                                Width="48"
+                                Command="{Binding ClearCommand, RelativeSource={RelativeSource TemplatedParent}}">
                                 <icons:SymbolIcon Symbol="Delete" />
                             </Button>
-                            <Button Width="48" Command="{Binding CopyCommand, RelativeSource={RelativeSource TemplatedParent}}}">
+                            <Button
+                                Width="48"
+                                Command="{Binding CopyCommand, RelativeSource={RelativeSource TemplatedParent}}">
                                 <icons:SymbolIcon Symbol="Copy" />
                             </Button>
                         </StackPanel>

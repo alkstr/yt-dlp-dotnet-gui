@@ -3,12 +3,14 @@ using Avalonia.Controls.Primitives;
 
 namespace YTDLP.Dotnet.GUI.Controls;
 
-public partial class OptionalNumericTextBox : TemplatedControl
+public class OptionalNumericTextBox : TemplatedControl
 {
     public static readonly StyledProperty<bool> IsTextBoxEnabledProperty =
         AvaloniaProperty.Register<OptionalNumericTextBox, bool>(nameof(IsTextBoxEnabled));
-    public static readonly StyledProperty<int>  TextBoxWidthProperty =
+
+    public static readonly StyledProperty<int> TextBoxWidthProperty =
         AvaloniaProperty.Register<OptionalNumericTextBox, int>(nameof(TextBoxWidth), 64);
+
     public static readonly StyledProperty<int?> ValueProperty =
         AvaloniaProperty.Register<OptionalNumericTextBox, int?>(nameof(Value));
 

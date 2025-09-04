@@ -2,4 +2,4 @@
 
 namespace YTDLP.Dotnet.GUI.ViewModels;
 
-public class ViewModelBase : ObservableObject { }
+public class ViewModelBase : ObservableObject;

@@ -1,70 +1,70 @@
 ﻿using YTDLP.Dotnet.GUI.Utilities;
 
-namespace YTDLP.Dotnet.GUI.ViewModels
+namespace YTDLP.Dotnet.GUI.ViewModels;
+
+public class SettingsViewModel : ViewModelBase
 {
-    public class SettingsViewModel : ViewModelBase
+    public static string[] AvailableCultureNames => Configuration.AvailableCultureNames;
+
+    public string CultureName
     {
-        public string[] AvailableCultureNames { get; } = Configuration.AvailableCultureNames;
-
-        public string CultureName
+        get => Configuration.CultureName;
+        set
         {
-            get => Configuration.CultureName;
-            set
-            {
-                Configuration.Set(nameof(Configuration.CultureName), value);
-                OnPropertyChanged(nameof(CultureName));
-            }
+            Configuration.Set(nameof(Configuration.CultureName), value);
+            OnPropertyChanged();
         }
+    }
 
-        public string DownloadPath
+    public string DownloadPath
+    {
+        get => Configuration.DownloadPath;
+        set
         {
-            get => Configuration.DownloadPath;
-            set
-            {
-                Configuration.Set(nameof(Configuration.DownloadPath), value);
-                OnPropertyChanged(nameof(DownloadPath));
-            }
+            Configuration.Set(nameof(Configuration.DownloadPath), value);
+            OnPropertyChanged();
         }
+    }
 
-        public string EditsPath
+    public string EditsPath
+    {
+        get => Configuration.EditsPath;
+        set
         {
-            get => Configuration.EditsPath;
-            set
-            {
-                Configuration.Set(nameof(Configuration.EditsPath), value);
-                OnPropertyChanged(nameof(EditsPath));
-            }
+            Configuration.Set(nameof(Configuration.EditsPath), value);
+            OnPropertyChanged();
         }
+    }
 
-        public string YTDLPPath
+    public string YTDLPPath
+    {
+        get => Configuration.YTDLPPath;
+        set
         {
-            get => Configuration.YTDLPPath;
-            set
-            {
-                Configuration.Set(nameof(Configuration.YTDLPPath), value);
-                OnPropertyChanged(nameof(YTDLPPath));
-            }
+            Configuration.Set(nameof(Configuration.YTDLPPath), value);
+            OnPropertyChanged();
         }
+    }
 
-        public string FFmpegPath
+    public string FFmpegPath
+    {
+        get => Configuration.FFmpegPath;
+        set
         {
-            get => Configuration.FFmpegPath;
-            set
-            {
-                Configuration.Set(nameof(Configuration.FFmpegPath), value);
-                OnPropertyChanged(nameof(FFmpegPath));
-            }
+            Configuration.Set(nameof(Configuration.FFmpegPath), value);
+            OnPropertyChanged();
         }
+    }
 
-        public string FFprobePath
+    public string FFprobePath
+    {
+        get => Configuration.FFprobePath;
+        set
         {
-            get => Configuration.FFprobePath;
-            set
-            {
-                Configuration.Set(nameof(Configuration.FFprobePath), value);
-                OnPropertyChanged(nameof(FFprobePath));
-            }
+            Configuration.Set(nameof(Configuration.FFprobePath), value);
+            OnPropertyChanged();
         }
+    }
 
     public bool IsProxyEnabled
     {
@@ -76,38 +76,35 @@ namespace YTDLP.Dotnet.GUI.ViewModels
         }
     }
 
-        public string Proxy
+    public string Proxy
+    {
+        get => Configuration.Proxy;
+        set
         {
-            get => Configuration.Proxy;
-            set
-            {
-                Configuration.Set(nameof(Proxy), value);
-                OnPropertyChanged(nameof(Proxy));
-            }
+            Configuration.Set(nameof(Proxy), value);
+            OnPropertyChanged();
         }
-
-        public string POToken
-        {
-            get => Configuration.POToken;
-            set
-            {
-                Configuration.Set(nameof(POToken), value);
-                OnPropertyChanged(nameof(POToken));
-            }
-        }
-
-        public string CookiesPath
-        {
-            get => Configuration.CookiesPath;
-            set
-            {
-                Configuration.Set(nameof(CookiesPath), value);
-                OnPropertyChanged(nameof(CookiesPath));
-            }
-        }
-
-#pragma warning disable CA1822 // Mark members as static
-        public void UpdateYTDLP() => YouTube.Update.Process(Configuration.YTDLPPath).Start();
-#pragma warning restore CA1822 // Mark members as static
     }
+
+    public string POToken
+    {
+        get => Configuration.POToken;
+        set
+        {
+            Configuration.Set(nameof(POToken), value);
+            OnPropertyChanged();
+        }
+    }
+
+    public string CookiesPath
+    {
+        get => Configuration.CookiesPath;
+        set
+        {
+            Configuration.Set(nameof(CookiesPath), value);
+            OnPropertyChanged();
+        }
+    }
+
+    public void UpdateYTDLP() => YouTube.Update.Process(Configuration.YTDLPPath).Start();
 }

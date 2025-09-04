@@ -8,6 +8,7 @@ public class IconTextBlock : TemplatedControl
 {
     public static readonly StyledProperty<Symbol> IconProperty =
         AvaloniaProperty.Register<IconTextBlock, Symbol>(nameof(Icon));
+
     public static readonly StyledProperty<string> TextProperty =
         AvaloniaProperty.Register<IconTextBlock, string>(nameof(Text));
 

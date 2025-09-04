@@ -9,15 +9,30 @@ public partial class DownloaderTab : Tab<DownloaderViewModel>
 {
     public DownloaderTab() : base(new DownloaderViewModel()) => InitializeComponent();
 
-    private async void DownloadAsync(object sender, RoutedEventArgs args)
+    private async void DownloadOrCancelAsync(object sender, RoutedEventArgs args)
     {
-        var error = await ViewModel.DownloadAsync();
-        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
+        var error = await ViewModel.DownloadOrCancelAsync();
+        if (error != null)
+        {
+            ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message);
+        }
+    }
+
+    private async void RefreshAsync(object sender, RoutedEventArgs args)
+    {
+        var error = await ViewModel.ChangeMetadataAsync();
+        if (error != null)
+        {
+            ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message);
+        }
     }
 
     private async void OnURLChanged(object sender, TextChangedEventArgs e)
     {
         var error = await ViewModel.ChangeMetadataAsync();
-        if (error != null) { ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message); }
+        if (error != null)
+        {
+            ViewUtilities.ShowAttachedFlyoutWithText((Control)sender, error.Message);
+        }
     }
 }

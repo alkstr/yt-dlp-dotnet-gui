@@ -1,12 +1,11 @@
 ﻿using Avalonia.Controls;
 using YTDLP.Dotnet.GUI.ViewModels;
 
-namespace YTDLP.Dotnet.GUI.Tabs
-{
-    public abstract class Tab<ViewModelT> : UserControl where ViewModelT : ViewModelBase
-    {
-        public ViewModelT ViewModel => (ViewModelT)DataContext!;
+namespace YTDLP.Dotnet.GUI.Tabs;
 
-        protected Tab(ViewModelT viewModel) => DataContext = viewModel;
-    }
+public abstract class Tab<T> : UserControl where T : ViewModelBase
+{
+    public T ViewModel => (T)DataContext!;
+
+    protected Tab(T viewModel) => DataContext = viewModel;
 }

@@ -13,7 +13,7 @@ public partial class SettingsTab : Tab<SettingsViewModel>
 {
     public SettingsTab() : base(new SettingsViewModel()) => InitializeComponent();
 
-    public async void ChangeDownloadFolderAsync(object sender, RoutedEventArgs args) => 
+    public async void ChangeDownloadFolderAsync(object sender, RoutedEventArgs args) =>
         await ChangePathAsync(nameof(ViewModel.DownloadPath), StorageItem.Folder);
 
     public async void ChangeEditsFolderAsync(object sender, RoutedEventArgs args) =>
@@ -49,30 +49,29 @@ public partial class SettingsTab : Tab<SettingsViewModel>
     private enum StorageItem
     {
         File,
-        Folder,
+        Folder
     }
 
     private async Task ChangePathAsync(string pathPropertyName, StorageItem storageItemType)
     {
         var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) { return; }
-
-        IReadOnlyList<IStorageItem> storageItems = [];
-        switch (storageItemType)
+        if (topLevel == null)
         {
-            case StorageItem.File:
-                storageItems = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-                {
-                    AllowMultiple = false,
-                }); 
-                break;
-            case StorageItem.Folder:
-                storageItems = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
-                {
-                    AllowMultiple = false,
-                });
-                break;
+            return;
         }
+
+        IReadOnlyList<IStorageItem> storageItems = storageItemType switch
+        {
+            StorageItem.File => await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                AllowMultiple = false
+            }),
+            StorageItem.Folder => await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                AllowMultiple = false
+            }),
+            _ => []
+        };
 
         if (storageItems.Count > 0 && !string.IsNullOrWhiteSpace(storageItems[0].Path.ToString()))
         {
@@ -85,7 +84,7 @@ public partial class SettingsTab : Tab<SettingsViewModel>
 
     private static void OpenPath(string path)
     {
-        Process.Start(new ProcessStartInfo()
+        Process.Start(new ProcessStartInfo
         {
             FileName = path,
             UseShellExecute = true

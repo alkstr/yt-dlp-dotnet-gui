@@ -6,7 +6,7 @@ using YTDLP.Dotnet.GUI.Utilities;
 
 namespace YTDLP.Dotnet.GUI.Controls;
 
-public partial class LogsControl : TemplatedControl
+public class LogsControl : TemplatedControl
 {
     public static readonly StyledProperty<Logger> LoggerProperty =
         AvaloniaProperty.Register<LogsControl, Logger>(nameof(Logger));
