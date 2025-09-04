@@ -1,0 +1,282 @@
+<UserControl
+    x:Class="YTDLP.GUI.Tabs.EditorTab"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:assets="using:YTDLP.GUI.Assets"
+    xmlns:controls="using:YTDLP.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia"
+    xmlns:vm="using:YTDLP.GUI.ViewModels"
+    d:DesignHeight="{DynamicResource WindowHeight}"
+    d:DesignWidth="{DynamicResource WindowWidth}"
+    x:DataType="vm:EditorViewModel"
+    mc:Ignorable="d">
+
+    <Design.DataContext>
+        <vm:DesignEditorViewModel />
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Assets/WindowResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer Margin="0,12,0,12" Padding="28,0">
+        <StackPanel Spacing="16">
+
+            <Grid
+                Width="{Binding $parent.Bounds.Width}"
+                ColumnDefinitions="*,16,auto"
+                RowDefinitions="auto,16,auto">
+
+                <TextBox
+                    Name="MediaPathTextBox"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="{Binding Media.Path}"
+                    Watermark="{x:Static assets:Resources.MediaPath_TextBox_Watermark}" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Width="48"
+                    Click="ChooseFileAsync">
+                    <icons:SymbolIcon Symbol="DocumentSearch" />
+                </Button>
+
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="{Binding Media.NewFileName}"
+                    Watermark="{x:Static assets:Resources.OutputFileName_TextBox_Watermark}" />
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Width="48"
+                    Click="EditAsync">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1}" />
+                        </Style>
+                        <Style Selector="Button:focus /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+                        </Style>
+                    </Button.Styles>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" />
+                    </FlyoutBase.AttachedFlyout>
+                    <icons:SymbolIcon Foreground="White" Symbol="VideoClipWand" />
+                </Button>
+
+            </Grid>
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock Icon="Info" Text="{x:Static assets:Resources.Metadata_Expander_Header}" />
+                </Expander.Header>
+
+                <StackPanel Spacing="8">
+
+                    <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,48">
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static assets:Resources.Duration_TextBlock}" />
+                        <SelectableTextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="{Binding Media.Duration}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static assets:Resources.Width_TextBlock}" />
+                        <SelectableTextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="{Binding Media.Width}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static assets:Resources.Height_TextBlock}" />
+                        <SelectableTextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="{Binding Media.Height}" />
+
+                    </Grid>
+
+                    <Separator />
+
+                    <Button
+                        Click="MetadataAsync"
+                        Content="{x:Static assets:Resources.LoadMetadata_Button_Content}">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout ShowMode="Transient" />
+                        </FlyoutBase.AttachedFlyout>
+                    </Button>
+
+                </StackPanel>
+            </Expander>
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock
+                        Icon="ResizeVideo"
+                        Text="{x:Static assets:Resources.Format_Expander_Header}" />
+                </Expander.Header>
+
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,48">
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Extension_TextBlock}" />
+                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="96"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Media.Formats}"
+                        SelectedItem="{Binding Media.NewFormat}" />
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Width_TextBlock}" />
+                    <controls:OptionalNumericTextBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Height="32"
+                        IsTextBoxEnabled="{Binding Media.ChangeWidth, Mode=TwoWay}"
+                        Value="{Binding Media.NewWidth, Mode=TwoWay}" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Height_TextBlock}" />
+                    <controls:OptionalNumericTextBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Height="32"
+                        IsTextBoxEnabled="{Binding Media.ChangeHeight, Mode=TwoWay}"
+                        Value="{Binding Media.NewHeight, Mode=TwoWay}" />
+
+                </Grid>
+            </Expander>
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock Icon="Cut" Text="{x:Static assets:Resources.Cut_Expander_Header}" />
+                </Expander.Header>
+
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,48">
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Cut_TextBlock}" />
+                    <CheckBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsChecked="{Binding Media.Cut}" />
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Start_TextBlock}" />
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Height="32"
+                        Orientation="Horizontal"
+                        Spacing="16">
+                        <NumericUpDown
+                            Width="108"
+                            FormatString="00"
+                            IsEnabled="{Binding Media.Cut}"
+                            Maximum="99"
+                            Minimum="0"
+                            Value="{Binding Media.CutStart.Hours, Mode=TwoWay}" />
+                        <NumericUpDown
+                            Width="108"
+                            FormatString="00"
+                            IsEnabled="{Binding Media.Cut}"
+                            Maximum="59"
+                            Minimum="0"
+                            Value="{Binding Media.CutStart.Minutes, Mode=TwoWay}" />
+                        <NumericUpDown
+                            Width="108"
+                            FormatString="00"
+                            IsEnabled="{Binding Media.Cut}"
+                            Maximum="59"
+                            Minimum="0"
+                            Value="{Binding Media.CutStart.Seconds, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.End_TextBlock}" />
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Height="32"
+                        Orientation="Horizontal"
+                        Spacing="16">
+                        <NumericUpDown
+                            Width="108"
+                            FormatString="00"
+                            IsEnabled="{Binding Media.Cut}"
+                            Maximum="99"
+                            Minimum="0"
+                            Value="{Binding Media.CutEnd.Hours, Mode=TwoWay}" />
+                        <NumericUpDown
+                            Width="108"
+                            FormatString="00"
+                            IsEnabled="{Binding Media.Cut}"
+                            Maximum="59"
+                            Minimum="0"
+                            Value="{Binding Media.CutEnd.Minutes, Mode=TwoWay}" />
+                        <NumericUpDown
+                            Width="108"
+                            FormatString="00"
+                            IsEnabled="{Binding Media.Cut}"
+                            Maximum="59"
+                            Minimum="0"
+                            Value="{Binding Media.CutEnd.Seconds, Mode=TwoWay}" />
+                    </StackPanel>
+
+                </Grid>
+
+            </Expander>
+
+            <controls:LogsControl Width="{Binding $parent.Bounds.Width}" Logger="{Binding Logger}" />
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

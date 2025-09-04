@@ -1,0 +1,164 @@
+<UserControl
+    x:Class="YTDLP.GUI.Tabs.SettingsTab"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:assets="using:YTDLP.GUI.Assets"
+    xmlns:controls="using:YTDLP.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia"
+    xmlns:vm="using:YTDLP.GUI.ViewModels"
+    d:DesignHeight="{DynamicResource WindowHeight}"
+    d:DesignWidth="{DynamicResource WindowWidth}"
+    x:DataType="vm:SettingsViewModel"
+    mc:Ignorable="d">
+
+    <Design.DataContext>
+        <vm:DesignSettingsViewModel />
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Assets/WindowResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer Margin="0,12" Padding="28,0">
+        <StackPanel Spacing="16">
+
+            <TextBlock Text="{x:Static assets:Resources.General_TextBlock}" />
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock
+                        Icon="PersonDesktop"
+                        Text="{x:Static assets:Resources.UserInterface_Expander_Header}" />
+                </Expander.Header>
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48">
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Language_TextBlock}" />
+                    <ComboBox
+                        Grid.Column="1"
+                        Width="256"
+                        VerticalAlignment="Center"
+                        ItemsSource="{x:Static vm:SettingsViewModel.AvailableCultureNames}"
+                        SelectedItem="{Binding CultureName}" />
+                </Grid>
+            </Expander>
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock
+                        Icon="ArrowDownload"
+                        Text="{x:Static assets:Resources.Downloader_Expander_Header}" />
+                </Expander.Header>
+                <StackPanel Spacing="8">
+                    <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48,24,48">
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static assets:Resources.DownloadPath_TextBlock}" />
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <TextBox
+                                Width="256"
+                                Height="32"
+                                Text="{Binding DownloadPath, Mode=TwoWay}" />
+                            <Button
+                                Width="48"
+                                Height="32"
+                                Click="ChangeDownloadFolderAsync">
+                                <icons:SymbolIcon Symbol="FolderOpen" />
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static assets:Resources.Proxy_TextBlock}" />
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Orientation="Horizontal">
+                            <CheckBox
+                                IsChecked="{Binding IsProxyEnabled, Mode=TwoWay}" />
+                            <TextBox
+                                Width="288"
+                                Height="32"
+                                HorizontalAlignment="Right"
+                                Text="{Binding Proxy, Mode=TwoWay}"
+                                IsEnabled="{Binding IsProxyEnabled, Mode=TwoWay}"
+                                Watermark="socks5://user:pass@127.0.0.1:1080/" />
+                        </StackPanel>
+                        
+                        <Separator  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        
+                        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                            <Button Command="{Binding UpdateYTDLP}" Content="{x:Static assets:Resources.UpdateYTDLP_Button_Content}" />
+                        </StackPanel>
+                        
+                    </Grid>
+                </StackPanel>
+            </Expander>
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock
+                        Icon="VideoClipWand"
+                        Text="{x:Static assets:Resources.Editor_Expander_Header}" />
+                </Expander.Header>
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48">
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.SavePath_TextBlock}" />
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <TextBox
+                            Width="256"
+                            Height="32"
+                            Text="{Binding EditsPath, Mode=TwoWay}" />
+                        <Button
+                            Width="48"
+                            Height="32"
+                            Click="ChangeEditsFolderAsync">
+                            <icons:SymbolIcon Symbol="FolderOpen" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Expander>
+
+            <TextBlock FontWeight="Bold" Text="{x:Static assets:Resources.AboutThisApp_TextBlock}" />
+
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.AppFolder_TextBlock}" />
+                    <HyperlinkButton Click="OpenAppFolder">
+                        <icons:SymbolIcon Symbol="OpenFolder" />
+                    </HyperlinkButton>
+                </StackPanel>
+                <HyperlinkButton
+                    Click="OpenAppRepositoryURL"
+                    Content="{x:Static assets:Resources.Repository_Button_Content}" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

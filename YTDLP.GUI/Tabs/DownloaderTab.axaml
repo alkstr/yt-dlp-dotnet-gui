@@ -1,0 +1,166 @@
+<UserControl
+    x:Class="YTDLP.GUI.Tabs.DownloaderTab"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:assets="using:YTDLP.GUI.Assets"
+    xmlns:controls="using:YTDLP.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia"
+    xmlns:vm="using:YTDLP.GUI.ViewModels"
+    xmlns:utils="using:YTDLP.GUI.Utilities"
+    d:DesignHeight="{DynamicResource WindowHeight}"
+    d:DesignWidth="{DynamicResource WindowWidth}"
+    x:DataType="vm:DownloaderViewModel"
+    mc:Ignorable="d">
+
+    <Design.DataContext>
+        <vm:DesignDownloaderViewModel />
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Assets/WindowResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer Margin="0,14,0,14" Padding="28,0">
+        <StackPanel Spacing="16">
+
+            <Panel
+                HorizontalAlignment="Center"
+                Width="520"
+                Height="294">
+                <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="3" Padding="1">
+                    <Image
+                        Name="ThumbnailImage"
+                        HorizontalAlignment="Center"
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        Source="{Binding Media.Thumbnail}">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout ShowMode="Transient" />
+                        </FlyoutBase.AttachedFlyout>
+                    </Image>
+                </Border>
+                <controls:CircleThrobber IsVisible="{Binding MetadataLoadersCount}" />
+            </Panel>
+
+            <Border
+                Width="{Binding $parent.Bounds.Width}"
+                Background="{DynamicResource BackgroundColor}"
+                CornerRadius="3"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderColor}">
+                <SelectableTextBlock TextWrapping="Wrap" Padding="8">
+                    <Run
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="{Binding Media.Title}" />
+                    <LineBreak />
+                    <Run Text="{Binding Media.Channel}" />
+                </SelectableTextBlock>
+            </Border>
+
+            <Grid Width="{Binding $parent.Bounds.Width}" ColumnDefinitions="*,16,auto,16,auto">
+                <TextBox
+                    Grid.Column="0"
+                    Text="{Binding Media.URL, Mode=TwoWay}"
+                    TextChanged="OnURLChanged"
+                    TextWrapping="NoWrap"
+                    Watermark="{x:Static assets:Resources.MediaURL_TextBox_Watermark}">
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout />
+                    </FlyoutBase.AttachedFlyout>
+                </TextBox>
+
+                <Button
+                    Name="RefreshButton"
+                    Grid.Column="2"
+                    Width="48"
+                    Click="RefreshAsync">
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout />
+                    </FlyoutBase.AttachedFlyout>
+                    <icons:SymbolIcon Symbol="ArrowClockwise" />
+                </Button>
+
+                <Button
+                    Name="DownloadButton"
+                    Grid.Column="4"
+                    Width="48"
+                    Click="DownloadOrCancelAsync">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1}" />
+                        </Style>
+                        <Style Selector="Button:focus /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+                        </Style>
+                    </Button.Styles>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout />
+                    </FlyoutBase.AttachedFlyout>
+                    <icons:SymbolIcon
+                        Foreground="White"
+                        Symbol="{Binding DownloaderCount, Converter={x:Static utils:Converters.DownloadButtonIconConverter}}" />
+                </Button>
+            </Grid>
+
+            <Expander Width="{Binding $parent.Bounds.Width}">
+                <Expander.Header>
+                    <controls:IconTextBlock Icon="Options" Text="{x:Static assets:Resources.Options_Expander_Header}" />
+                </Expander.Header>
+                <Grid ColumnDefinitions="*,auto" RowDefinitions="48,48">
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Format_TextBlock}" />
+                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="256"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Media.FormatSet}"
+                        SelectedItem="{Binding Media.Format}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static assets:Resources.Subtitles_TextBlock}" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="256"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Media.SubtitlesSet}"
+                        SelectedItem="{Binding Media.Subtitles}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                </Grid>
+            </Expander>
+
+            <controls:LogsControl Width="{Binding $parent.Bounds.Width}" Logger="{Binding Logger}" />
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

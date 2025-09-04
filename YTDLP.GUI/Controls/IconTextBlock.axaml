@@ -1,0 +1,27 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:YTDLP.GUI.Controls"
+    xmlns:icons="using:FluentIcons.Avalonia">
+
+    <Design.PreviewWith>
+        <Panel Width="96" Height="48">
+            <controls:IconTextBlock Icon="AddCircle" Text="Add" />
+        </Panel>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:IconTextBlock}" TargetType="controls:IconTextBlock">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <icons:SymbolIcon Symbol="{TemplateBinding Icon}" />
+                    <TextBlock VerticalAlignment="Center" Text="{TemplateBinding Text}" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>
