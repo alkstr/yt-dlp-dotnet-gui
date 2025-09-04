@@ -126,20 +126,11 @@
   <data name="Downloader_Tab_Header" xml:space="preserve">
     <value>Загрузчик</value>
   </data>
-  <data name="DownloadFFmpeg_Button_Content" xml:space="preserve">
-    <value>Скачать FFmpeg и FFprobe</value>
-  </data>
-  <data name="DownloadYTDLP_Button_Content" xml:space="preserve">
-    <value>Скачать yt-dlp</value>
-  </data>
   <data name="Editor_Tab_Header" xml:space="preserve">
     <value>Редактор</value>
   </data>
   <data name="End_TextBlock" xml:space="preserve">
     <value>Конец</value>
-  </data>
-  <data name="ExternalTools_TextBlock" xml:space="preserve">
-    <value>Внешние инструменты</value>
   </data>
   <data name="Logs_Expander_Header" xml:space="preserve">
     <value>Логи</value>
@@ -148,7 +139,7 @@
     <value>Файл не выбран</value>
   </data>
   <data name="MediaURL_TextBox_Watermark" xml:space="preserve">
-    <value>Введите URL медиафайла</value>
+    <value>Введите URL видео</value>
   </data>
   <data name="OutputFileName_TextBox_Watermark" xml:space="preserve">
     <value>Введите название выходного файла</value>
@@ -166,25 +157,13 @@
     <value>О приложении</value>
   </data>
   <data name="AppFolder_TextBlock" xml:space="preserve">
-    <value>Местоположение приложения</value>
+    <value>Открыть папку</value>
   </data>
   <data name="Downloader_Expander_Header" xml:space="preserve">
     <value>Загрузчик</value>
   </data>
   <data name="DownloadPath_TextBlock" xml:space="preserve">
-    <value>Путь скачивания</value>
-  </data>
-  <data name="YTDLPPath_TextBlock" xml:space="preserve">
-    <value>Путь к yt-dlp</value>
-  </data>
-  <data name="FFmpegAndFFprobe_Expander_Header" xml:space="preserve">
-    <value>FFmpeg &amp; FFprobe</value>
-  </data>
-  <data name="FFmpegExecutablePath_TextBlock" xml:space="preserve">
-    <value>Путь к FFmpeg</value>
-  </data>
-  <data name="FFprobeExecutablePath_TextBlock" xml:space="preserve">
-    <value>Путь к FFprobe</value>
+    <value>Сохранять в</value>
   </data>
   <data name="Language_TextBlock" xml:space="preserve">
     <value>Язык</value>
@@ -197,9 +176,6 @@
   </data>
   <data name="UserInterface_Expander_Header" xml:space="preserve">
     <value>Пользовательский интерфейс</value>
-  </data>
-  <data name="YTDLP_Expander_Header" xml:space="preserve">
-    <value>yt-dlp</value>
   </data>
   <data name="General_TextBlock" xml:space="preserve">
     <value>Общие настройки</value>
@@ -223,10 +199,10 @@
     <value>Субтитры в файл</value>
   </data>
   <data name="BestQuality_ComboBox_Item" xml:space="preserve">
-    <value>Лучшее качество</value>
+    <value>Видео (лучшее качество)</value>
   </data>
   <data name="BestQualityAudioOnly_ComboBox_Item" xml:space="preserve">
-    <value>Лучшее качество (только аудио)</value>
+    <value>Аудио (лучшее качество)</value>
   </data>
   <data name="Extension_TextBlock" xml:space="preserve">
     <value>Расширение</value>
@@ -249,17 +225,11 @@
   <data name="Proxy_TextBlock" xml:space="preserve">
     <value>Прокси</value>
   </data>
-  <data name="POToken_TextBlock" xml:space="preserve">
-    <value>PO Токен</value>
-  </data>
-  <data name="CookiesFile_TextBlock" xml:space="preserve">
-    <value>Файл cookie</value>
-  </data>
   <data name="Editor_Expander_Header" xml:space="preserve">
     <value>Редактор</value>
   </data>
   <data name="SavePath_TextBlock" xml:space="preserve">
-    <value>Путь сохранения</value>
+    <value>Сохранять в</value>
   </data>
   <data name="AnotherInProgress_Download_Error" xml:space="preserve">
     <value>Другая загрузка в процессе</value>

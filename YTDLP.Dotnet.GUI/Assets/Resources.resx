@@ -126,20 +126,11 @@
   <data name="Downloader_Tab_Header" xml:space="preserve">
     <value>Downloader</value>
   </data>
-  <data name="DownloadFFmpeg_Button_Content" xml:space="preserve">
-    <value>Download FFmpeg and FFprobe</value>
-  </data>
-  <data name="DownloadYTDLP_Button_Content" xml:space="preserve">
-    <value>Download yt-dlp</value>
-  </data>
   <data name="Editor_Tab_Header" xml:space="preserve">
     <value>Editor</value>
   </data>
   <data name="End_TextBlock" xml:space="preserve">
     <value>End</value>
-  </data>
-  <data name="ExternalTools_TextBlock" xml:space="preserve">
-    <value>External tools</value>
   </data>
   <data name="Logs_Expander_Header" xml:space="preserve">
     <value>Logs</value>
@@ -148,7 +139,7 @@
     <value>No file chosen</value>
   </data>
   <data name="MediaURL_TextBox_Watermark" xml:space="preserve">
-    <value>Enter the URL of a media file</value>
+    <value>Enter the URL of a video</value>
   </data>
   <data name="OutputFileName_TextBox_Watermark" xml:space="preserve">
     <value>Enter output file name</value>
@@ -166,25 +157,13 @@
     <value>About this app</value>
   </data>
   <data name="AppFolder_TextBlock" xml:space="preserve">
-    <value>App folder</value>
+    <value>Open folder</value>
   </data>
   <data name="Downloader_Expander_Header" xml:space="preserve">
     <value>Downloader</value>
   </data>
   <data name="DownloadPath_TextBlock" xml:space="preserve">
-    <value>Download path</value>
-  </data>
-  <data name="YTDLPPath_TextBlock" xml:space="preserve">
-    <value>Path to yt-dlp</value>
-  </data>
-  <data name="FFmpegAndFFprobe_Expander_Header" xml:space="preserve">
-    <value>FFmpeg &amp; FFprobe</value>
-  </data>
-  <data name="FFmpegExecutablePath_TextBlock" xml:space="preserve">
-    <value>FFmpeg executable path</value>
-  </data>
-  <data name="FFprobeExecutablePath_TextBlock" xml:space="preserve">
-    <value>FFprobe executable path</value>
+    <value>Save to</value>
   </data>
   <data name="Language_TextBlock" xml:space="preserve">
     <value>Language</value>
@@ -197,9 +176,6 @@
   </data>
   <data name="UserInterface_Expander_Header" xml:space="preserve">
     <value>User interface</value>
-  </data>
-  <data name="YTDLP_Expander_Header" xml:space="preserve">
-    <value>yt-dlp</value>
   </data>
   <data name="General_TextBlock" xml:space="preserve">
     <value>General</value>
@@ -223,10 +199,10 @@
     <value>File subtitles</value>
   </data>
   <data name="BestQuality_ComboBox_Item" xml:space="preserve">
-    <value>Best quality</value>
+    <value>Video (best quality)</value>
   </data>
   <data name="BestQualityAudioOnly_ComboBox_Item" xml:space="preserve">
-    <value>Best quality (audio only)</value>
+    <value>Audio (best quality)</value>
   </data>
   <data name="Extension_TextBlock" xml:space="preserve">
     <value>Extension</value>
@@ -249,17 +225,11 @@
   <data name="Proxy_TextBlock" xml:space="preserve">
     <value>Proxy</value>
   </data>
-  <data name="POToken_TextBlock" xml:space="preserve">
-    <value>PO Token</value>
-  </data>
-  <data name="CookiesFile_TextBlock" xml:space="preserve">
-    <value>Cookies file</value>
-  </data>
   <data name="Editor_Expander_Header" xml:space="preserve">
     <value>Editor</value>
   </data>
   <data name="SavePath_TextBlock" xml:space="preserve">
-    <value>Save path</value>
+    <value>Save to</value>
   </data>
   <data name="AnotherInProgress_Download_Error" xml:space="preserve">
     <value>Another download in progress</value>
