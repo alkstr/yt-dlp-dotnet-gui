@@ -86,15 +86,20 @@
                             Grid.Column="0"
                             VerticalAlignment="Center"
                             Text="{x:Static assets:Resources.Proxy_TextBlock}" />
-                        <TextBox
+                        <StackPanel
                             Grid.Row="1"
                             Grid.Column="1"
-                            Width="256"
-                            Height="32"
-                            HorizontalAlignment="Right"
-                            Text="{Binding Proxy, Mode=TwoWay}"
-                            Watermark="socks5://user:pass@127.0.0.1:1080/" />
-
+                            Orientation="Horizontal">
+                            <CheckBox
+                                IsChecked="{Binding IsProxyEnabled, Mode=TwoWay}" />
+                            <TextBox
+                                Width="288"
+                                Height="32"
+                                HorizontalAlignment="Right"
+                                Text="{Binding Proxy, Mode=TwoWay}"
+                                IsEnabled="{Binding IsProxyEnabled, Mode=TwoWay}"
+                                Watermark="socks5://user:pass@127.0.0.1:1080/" />
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
             </Expander>

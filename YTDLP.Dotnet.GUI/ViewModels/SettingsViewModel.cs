@@ -66,6 +66,16 @@ namespace YTDLP.Dotnet.GUI.ViewModels
             }
         }
 
+    public bool IsProxyEnabled
+    {
+        get => Configuration.IsProxyEnabledAsBool;
+        set
+        {
+            Configuration.Set(nameof(IsProxyEnabled), value ? "true" : "false");
+            OnPropertyChanged();
+        }
+    }
+
         public string Proxy
         {
             get => Configuration.Proxy;

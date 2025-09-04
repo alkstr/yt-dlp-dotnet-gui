@@ -42,6 +42,7 @@ namespace YTDLP.Dotnet.GUI.Utilities
         public static string POToken      { get; private set; }
         [Setting("")]
         public static string CookiesPath  { get; private set; }
+    [Setting("false")]       public static string IsProxyEnabled { get; private set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         public static void LoadFromFileOrDefault()
@@ -52,6 +53,12 @@ namespace YTDLP.Dotnet.GUI.Utilities
                     .Select(line => line.Split('='))
                     .Select(split => (split[0], split[1]))
                     .ToDictionary();
+    public static bool IsProxyEnabledAsBool
+    {
+        get => IsProxyEnabled.IsTrue();
+        private set => IsProxyEnabled = value ? "true" : "false"; 
+    }
+    
 
                 var namesIntersect = config
                     .Select(kvp => kvp.Key)
