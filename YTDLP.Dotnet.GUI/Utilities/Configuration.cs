@@ -31,8 +31,6 @@ public static class Configuration
     [Setting("false")]       public static string IsProxyEnabled { get; private set; }
     [Setting("")]            public static string Proxy          { get; private set; }
     // Hidden
-    [Setting("")]            public static string POToken        { get; private set; }
-    [Setting("")]            public static string CookiesPath    { get; private set; }
     [Setting("yt-dlp.exe")]  public static string YTDLPPath      { get; private set; }
     [Setting("ffmpeg.exe")]  public static string FFmpegPath     { get; private set; }
     [Setting("ffprobe.exe")] public static string FFprobePath    { get; private set; }

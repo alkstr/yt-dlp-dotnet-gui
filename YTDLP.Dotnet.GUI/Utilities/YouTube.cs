@@ -20,8 +20,6 @@ public static class YouTube
             string ytdlpPath,
             string url,
             string? proxy,
-            string? poToken,
-            string? cookiesPath,
             IEnumerable<Field> fields)
         {
             var fieldsArg = string.Join(',', fields.Select(field => field switch
@@ -31,18 +29,6 @@ public static class YouTube
                 Field.ThumbnailURL => "thumbnail",
                 _ => null
             }).Where(f => f != null));
-
-            var extractorArg = poToken switch
-            {
-                null => null,
-                _ => $"--extractor-args \"youtube:player-client=mediaconnect;po_token=web+{poToken}\""
-            };
-
-            var cookiesArg = cookiesPath switch
-            {
-                null => null,
-                _ => $"--cookies \"{cookiesPath}\""
-            };
 
             return new Process
             {
@@ -54,8 +40,6 @@ public static class YouTube
                         "-O",
                         fieldsArg,
                         $"--proxy \"{proxy ?? ""}\"",
-                        extractorArg,
-                        cookiesArg,
                         "--encoding utf-8"
                     ),
                     RedirectStandardOutput = true,
@@ -90,8 +74,6 @@ public static class YouTube
             Format format,
             Subtitles subtitles,
             string? proxy,
-            string? poToken,
-            string? cookiesPath,
             string downloadPath)
         {
             var formatArg = format switch
@@ -109,18 +91,6 @@ public static class YouTube
                 _ => null
             };
 
-            var extractorArg = poToken switch
-            {
-                null => null,
-                _ => $"--extractor-args \"youtube:player-client=mediaconnect;po_token=web+{poToken}\""
-            };
-
-            var cookiesArg = cookiesPath switch
-            {
-                null => null,
-                _ => $"--cookies \"{cookiesPath}\""
-            };
-
             return new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -133,8 +103,6 @@ public static class YouTube
                         subtitlesArg,
                         "-o \"%(title)s [%(id)s].%(ext)s\"",
                         $"--ffmpeg-location \"{ffmpegPath}\"",
-                        extractorArg,
-                        cookiesArg,
                         "--encoding utf-8",
                         $"\"{url}\""),
                     RedirectStandardOutput = true,

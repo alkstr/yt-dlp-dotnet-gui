@@ -86,25 +86,5 @@ public class SettingsViewModel : ViewModelBase
         }
     }
 
-    public string POToken
-    {
-        get => Configuration.POToken;
-        set
-        {
-            Configuration.Set(nameof(POToken), value);
-            OnPropertyChanged();
-        }
-    }
-
-    public string CookiesPath
-    {
-        get => Configuration.CookiesPath;
-        set
-        {
-            Configuration.Set(nameof(CookiesPath), value);
-            OnPropertyChanged();
-        }
-    }
-
     public void UpdateYTDLP() => YouTube.Update.Process(Configuration.YTDLPPath).Start();
 }

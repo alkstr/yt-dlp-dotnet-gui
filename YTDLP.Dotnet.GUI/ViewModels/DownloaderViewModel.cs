@@ -75,8 +75,6 @@ public class DownloaderViewModel : ViewModelBase
                 Media.Format.Type,
                 Media.Subtitles.Type,
                 Configuration.IsProxyEnabled.IsFalse() ? null : Configuration.Proxy,
-                string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
-                string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
                 Configuration.DownloadPath);
 
             downloader.Start();
@@ -137,8 +135,6 @@ public class DownloaderViewModel : ViewModelBase
                 Configuration.YTDLPPath,
                 Media.URL,
                 Configuration.IsProxyEnabled.IsFalse() ? null : Configuration.Proxy,
-                string.IsNullOrWhiteSpace(Configuration.POToken) ? null : Configuration.POToken,
-                string.IsNullOrWhiteSpace(Configuration.CookiesPath) ? null : Configuration.CookiesPath,
                 metadataFields);
 
             // Starting a new process for each key press would be too resource-intensive.
