@@ -238,7 +238,7 @@
     <value>Не удалось найти yt-dlp</value>
   </data>
   <data name="FailedToFetch_ChangeMetadata_Error" xml:space="preserve">
-    <value>Не удалось загрузить иконку медиафайла</value>
+    <value>Не удалось загрузить превью</value>
   </data>
   <data name="InvalidOutput_ChangeMetadata_Error" xml:space="preserve">
     <value>yt-dlp передал неверные метаданные</value>
