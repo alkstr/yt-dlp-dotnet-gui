@@ -14,7 +14,7 @@
     MinHeight="{StaticResource WindowHeight}"
     d:DesignHeight="{DynamicResource WindowHeight}"
     d:DesignWidth="{DynamicResource WindowWidth}"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="/Assets/app.ico"
     mc:Ignorable="d">
 
     <Window.Resources>
